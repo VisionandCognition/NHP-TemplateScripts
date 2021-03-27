@@ -69,18 +69,21 @@ do
     mkdir -p ${charm_meshfld}
     labels="${CHARM_LFLD}/CHARM_key_${LEVEL}.txt"
 
-    while read -r line
-    do
-        set ${line}
-        LABLENUM=${1}
-        LABLENAME=${3}
-        LABLENAME=${LABLENAME////-}
-        # extract label as binary-mask
-        fslmaths ${SS_AFF_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
-        	-thr ${LABLENUM} -uthr ${LABLENUM} -bin ${charmfld}/${LABLENAME}.nii.gz
-        # convert binary mask to mesh
-        python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply    
-    done < "${labels}"
+    {
+        read;
+        while read -r line
+        do
+            set ${line}
+            LABLENUM=${1}
+            LABLENAME=${3}
+            LABLENAME=${LABLENAME////-}
+            # extract label as binary-mask
+            fslmaths ${SS_AFF_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
+                -thr ${LABLENUM} -uthr ${LABLENUM} -bin ${charmfld}/${LABLENAME}.nii.gz
+            # convert binary mask to mesh
+            python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply    
+        done
+    } < "${labels}"
 
     sarmfld=${SS_AFF_OUT}/SARM/ROI/Level_${LEVEL}
     sarm_meshfld=${SS_AFF_OUT}/SARM/ROIMESH/Level_${LEVEL}
@@ -88,20 +91,19 @@ do
     mkdir -p ${sarm_meshfld}
     labels="${SARM_LFLD}/SARM_key_${LEVEL}.txt"
 
-    while read -r line
-    do
-        set ${line}
-        LABLENUM=${1}
-        LABLENAME=${3}
-        LABLENAME=${LABLENAME////-}
-        # extract label as binary-mask
-        fslmaths ${SS_AFF_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
-        	-thr ${LABLENUM} -uthr ${LABLENUM} -bin ${sarmfld}/${LABLENAME}.nii.gz
-        # convert binary mask to mesh
-        python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply    
-    done < "${labels}"
-
-    # remove empty volumes resulting from header line of label files
-    rm ${charmfld}/Full_Name*
-    rm ${sarmfld}/Full_Name*
+    {
+        read;
+        while read -r line
+        do
+            set ${line}
+            LABLENUM=${1}
+            LABLENAME=${3}
+            LABLENAME=${LABLENAME////-}
+            # extract label as binary-mask
+            fslmaths ${SS_AFF_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
+            	-thr ${LABLENUM} -uthr ${LABLENUM} -bin ${sarmfld}/${LABLENAME}.nii.gz
+            # convert binary mask to mesh
+            python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply    
+        done
+    } < "${labels}"
 done
