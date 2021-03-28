@@ -75,7 +75,7 @@ do
         do
             set ${line}
             LABLENUM=${1}
-            LABLENAME=${3}
+            LABLENAME=${2}
             LABLENAME=${LABLENAME////-}
             # extract label as binary-mask
             fslmaths ${SS_AFF_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
@@ -97,7 +97,7 @@ do
         do
             set ${line}
             LABLENUM=${1}
-            LABLENAME=${3}
+            LABLENAME=${2}
             LABLENAME=${LABLENAME////-}
             # extract label as binary-mask
             fslmaths ${SS_AFF_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
