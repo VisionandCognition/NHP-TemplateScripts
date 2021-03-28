@@ -8,12 +8,13 @@ declare -a SUBS=(
 	Dasheng
 	Eddy
 	Eddy2019
+	Kwibus
 	Lick
 	Martin
 	MrNilson
 	Ozzy
 	Spike
-	Tsitsian
+	Tsitian
 	)
 
 for S in "${SUBS[@]}"
@@ -21,8 +22,9 @@ do
 	echo '========================================='
 	echo Creating ROIs and ROI meshes ${S}
 	echo '========================================='
-	${fld}/SingleSubject_affine_ROIs.sh ${S}
-	${fld}/SingleSubject_nonlinear_ROIs.sh ${S}
+	${fld}/SingleSubject_affine_ROIs.sh ${S} 
+	wait
+	${fld}/SingleSubject_nonlinear_ROIs.sh ${S} 
 	wait
 	echo 'DONE'
 	echo '========================================='

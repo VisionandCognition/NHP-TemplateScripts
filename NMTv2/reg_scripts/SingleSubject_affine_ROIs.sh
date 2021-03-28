@@ -29,18 +29,18 @@ mkdir -p ${SS_AFF_OUT}
 mkdir -p ${SS_AFF_OUT}/CHARM
 mkdir -p ${SS_AFF_OUT}/SARM
 
-# 3dAllineate \
-# 	-source ${SS} \
-# 	-prefix ${SS_AFF_OUT}/${SUB}_aff2NMT.nii.gz \
-# 	-master ${TT} \
-# 	-1Dmatrix_apply ${AFF_S2T} \
-# 	-interp linear -final cubic -overwrite
-# 3dAllineate \
-# 	-source ${TT} \
-# 	-prefix ${SS_AFF_OUT}/NMT_aff2${SUB}.nii.gz \
-# 	-master ${SS} \
-# 	-1Dmatrix_apply ${AFF_T2S} \
-# 	-interp linear -final cubic -overwrite
+3dAllineate \
+	-source ${SS} \
+	-prefix ${SS_AFF_OUT}/${SUB}_aff2NMT.nii.gz \
+	-master ${TT} \
+	-1Dmatrix_apply ${AFF_S2T} \
+	-interp linear -final cubic -overwrite
+3dAllineate \
+	-source ${TT} \
+	-prefix ${SS_AFF_OUT}/NMT_aff2${SUB}.nii.gz \
+	-master ${SS} \
+	-1Dmatrix_apply ${AFF_T2S} \
+	-interp linear -final cubic -overwrite
 
 for LEVEL in 1 2 3 4 5 6
 do
@@ -62,7 +62,6 @@ done
 for LEVEL in 1 2 3 4 5 6
 do
     echo Processing level ${LEVEL}
-
     charmfld=${SS_AFF_OUT}/CHARM/ROI/Level_${LEVEL}
     charm_meshfld=${SS_AFF_OUT}/CHARM/ROIMESH/Level_${LEVEL}
     mkdir -p ${charmfld}
@@ -81,7 +80,7 @@ do
             fslmaths ${SS_AFF_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
                 -thr ${LABLENUM} -uthr ${LABLENUM} -bin ${charmfld}/${LABLENAME}.nii.gz
             # convert binary mask to mesh
-            python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply    
+            python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply &   
         done
     } < "${labels}"
 
@@ -103,7 +102,7 @@ do
             fslmaths ${SS_AFF_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
             	-thr ${LABLENUM} -uthr ${LABLENUM} -bin ${sarmfld}/${LABLENAME}.nii.gz
             # convert binary mask to mesh
-            python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply    
+            python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply &    
         done
     } < "${labels}"
 done
