@@ -18,8 +18,8 @@ SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 SS_AFF_OUT=${SSFLD}/aligned_${SUB}/affine
 TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
 
-CHARM_SUPP=${BASEFLD}/NMT_v2.0_sym_fh/supplemental_CHARM 
-SARM_SUPP=${BASEFLD}/NMT_v2.0_sym_fh/supplemental_SARM
+CHARM_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_CHARM 
+SARM_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_SARM
 
 CHARM_LFLD=${BASEFLD}/tables_CHARM
 SARM_LFLD=${BASEFLD}/tables_SARM

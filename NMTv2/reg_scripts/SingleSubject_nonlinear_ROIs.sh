@@ -21,8 +21,8 @@ SS_AFF_OUT=${SSFLD}/aligned_${SUB}/affine
 SS_NL_OUT=${SSFLD}/aligned_${SUB}/nonlinear
 TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
 
-CHARM_SUPP=${BASEFLD}/NMT_v2.0_sym_fh/supplemental_CHARM 
-SARM_SUPP=${BASEFLD}/NMT_v2.0_sym_fh/supplemental_SARM
+CHARM_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_CHARM 
+SARM_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_SARM
 
 CHARM_LFLD=${BASEFLD}/tables_CHARM
 SARM_LFLD=${BASEFLD}/tables_SARM
@@ -110,7 +110,7 @@ do
             fslmaths ${SS_NL_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
         	   -thr ${LABLENUM} -uthr ${LABLENUM} -bin ${charmfld}/${LABLENAME}.nii.gz
             # convert binary mask to mesh
-            python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply     
+            python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply &    
     done 
     } < "${labels}"
 
@@ -132,7 +132,7 @@ do
             fslmaths ${SS_NL_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
                 -thr ${LABLENUM} -uthr ${LABLENUM} -bin ${sarmfld}/${LABLENAME}.nii.gz
             # convert binary mask to mesh
-            python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply     
+            python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply &    
         done
      } < "${labels}"
 done
