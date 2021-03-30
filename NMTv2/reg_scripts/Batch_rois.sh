@@ -23,9 +23,7 @@ do
 	echo Creating ROIs and ROI meshes ${S}
 	echo '========================================='
 	${fld}/SingleSubject_affine_ROIs.sh ${S} 
-	wait
 	${fld}/SingleSubject_nonlinear_ROIs.sh ${S} 
-	wait
 	echo 'DONE'
 	echo '========================================='
 done
