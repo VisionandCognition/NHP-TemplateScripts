@@ -5,7 +5,7 @@ SUB=$1
 # 02 gm 
 # 03 subcortex 04 wm 
 
-BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
+BASEFLD=/Users/chris/Dropbox/Transfer
 SSFLD=${BASEFLD}/aligned_${SUB}
 cp ${SSFLD}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz ${SSFLD}/NMT_v2.0_sym_segmentation_in_${SUB}2.nii.gz
 
