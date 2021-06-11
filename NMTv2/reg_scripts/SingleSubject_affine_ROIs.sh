@@ -45,13 +45,13 @@ mkdir -p ${SS_AFF_OUT}/SARM
 for LEVEL in 1 2 3 4 5 6
 do
 	3dAllineate \
-		-source ${CHARM_SUPP}/CHARM_${LEVEL}_in_NMT_v2.0_sym_fh.nii.gz \
+		-source ${CHARM_SUPP}/CHARM_${LEVEL}_in_NMT_v2.0_sym.nii.gz \
 		-prefix ${SS_AFF_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
 		-master ${SS} \
 		-1Dmatrix_apply ${AFF_T2S} \
 		-interp NN -final NN -overwrite
 	3dAllineate \
-		-source ${SARM_SUPP}/SARM_${LEVEL}_in_NMT_v2.0_sym_fh.nii.gz \
+		-source ${SARM_SUPP}/SARM_${LEVEL}_in_NMT_v2.0_sym.nii.gz \
 		-prefix ${SS_AFF_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
 		-master ${SS} \
 		-1Dmatrix_apply ${AFF_T2S} \

@@ -23,12 +23,12 @@ VENTRICLES=${BASEFLD}/supplemental_masks/NMT_v2.0_sym_ventricles.nii.gz
 
 OUTBASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
 
-@animal_warper                                            					\
-      -input  ${SUBT1}                              						\
-      -base   ${TEMPLATE}                             						\
-      -skullstrip ${BMASK}													\
-      -atlas_followers ${D99} ${CHARM} ${SARM}								\
-      -seg_followers ${SEG} ${GM} ${CEREBELLUM} ${LR} ${VENTRICLES} 		\
-      -ok_to_exist															\
-      -outdir ${OUTBASE}/aligned_${SUB}										\
+@animal_warper \
+      -input  ${SUBT1} \
+      -base   ${TEMPLATE} \
+      -skullstrip ${BMASK} \
+      -atlas_followers ${D99} ${CHARM} ${SARM} \
+      -seg_followers ${SEG} ${GM} ${CEREBELLUM} ${LR} ${VENTRICLES} \
+      -ok_to_exist \
+      -outdir ${OUTBASE}/aligned_${SUB} \
       |& tee ${OUTBASE}/o.aw_${SUB}.txt
