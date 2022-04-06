@@ -1,5 +1,6 @@
-
 #!/bin/bash
+
+# NB! make sure the input volume is approximately centered on 0,0,0
 
 # =========================
 SUB=$1
@@ -27,7 +28,7 @@ OUTBASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
       -input  ${SUBT1} \
       -base   ${TEMPLATE} \
       -skullstrip ${BMASK} \
-      -atlas_followers ${D99} ${CHARM} ${SARM} \
+      -atlas ${D99} ${CHARM} ${SARM} \
       -seg_followers ${SEG} ${GM} ${CEREBELLUM} ${LR} ${VENTRICLES} \
       -ok_to_exist \
       -outdir ${OUTBASE}/aligned_${SUB} \
