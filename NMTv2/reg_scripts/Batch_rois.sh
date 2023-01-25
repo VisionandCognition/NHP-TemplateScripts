@@ -4,9 +4,7 @@
 fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
 
 declare -a SUBS=(
-	Toucan
-	Brutus
-	Watson
+	MircenCrop
 	)
 
 for S in "${SUBS[@]}"
