@@ -42,6 +42,16 @@ antsApplyTransforms -i ${IN} \
                     -e 2
 ReorientTensorImage 3 ${OUT} ${OUT2} ${TRANSFORM}
 
+# >> CHeck if this works?
+# 3dAllineate \
+#     -source ${IN} \
+#     -prefix ${OUT} \
+#     -master ${REF} \
+#     -1Dmatrix_apply ${TRANSFORM} \
+#     -interp linear -final cubic -overwrite
+
+
+
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_b0_in_NMT_v2.0_sym.nii.gz
 OUT=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_b0_in_${SUB}.nii.gz
