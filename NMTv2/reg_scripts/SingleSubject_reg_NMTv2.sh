@@ -33,3 +33,7 @@ OUTBASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
       -ok_to_exist \
       -outdir ${OUTBASE}/aligned_${SUB} \
       |& tee ${OUTBASE}/o.aw_${SUB}.txt
+
+
+# use RheMAP transforms to also put the ONPRC18 template in native space
+# >> first solve this at NMT level <<

@@ -15,9 +15,8 @@ do
 	echo '========================================='
 	echo Registering template and atlases to ${S}
 	echo '========================================='
-	${fld}/SingleSubject_reg_NMTv2.sh ${S}
-	wait
 	${fld}/SingleSubject_warp_ONPRC18.sh ${S}
+	wait
 	echo 'DONE'
 	echo '========================================='
 done
