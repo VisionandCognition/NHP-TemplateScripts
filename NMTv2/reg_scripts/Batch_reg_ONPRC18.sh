@@ -9,10 +9,10 @@ declare -a SUBS=(
 for S in "${SUBS[@]}"
 do
 	echo '========================================='
-	echo Creating ROIs and ROI meshes ${S}
+	echo Warping ONPRC18 DTI template ${S}
 	echo '========================================='
-	${fld}/SingleSubject_affine_ONPRC18.sh ${S} 
-	#${fld}/SingleSubject_nonlinear_ONPRC18.sh ${S} 
+	${fld}/SingleSubject_reg_ONPRC18.sh ${S} 
+	wait
 	echo 'DONE'
 	echo '========================================='
 done

@@ -4,8 +4,8 @@
 # Requires ANTs
 
 # SET UP FOLDER PATHS ==========================
-#ONPRC_FLD=/NHP_MRI/Template/ONPRC18
-#RHEMAP_FLD=/NHP_MRI/RheMAP
+#ONPRC_FLD=/NHP_MRI/Template/ONPRC18_atlas_v1
+#RHEMAP_FLD=/NHP_MRI/RheMAP/warps/final
 ONPRC_FLD=/Users/chris/Dropbox/CURRENT_PROJECTS/NHP_MRI/Template/ONPRC18_atlas_v1
 NMT_FLD=/Users/chris/Dropbox/CURRENT_PROJECTS/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/NMT_v2.0_sym
 RHEMAP_FLD=/Users/chris/Dropbox/GIT_Support/RheMAP/warps/final
@@ -20,7 +20,7 @@ INTERP=Linear
 
 # warp anatomy ======================================================
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_T2W.nii.gz
-OUT=${OUT_FLD}/ONPRC18_T2W_in_NMT_v2.0_sym.gz
+OUT=${OUT_FLD}/ONPRC18_T2W_in_NMT_v2.0_sym.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -30,7 +30,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_T2W_brain.nii.gz
-OUT=${OUT_FLD}/ONPRC18_T2W_brain_in_NMT_v2.0_sym.gz
+OUT=${OUT_FLD}/ONPRC18_T2W_brain_in_NMT_v2.0_sym.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
