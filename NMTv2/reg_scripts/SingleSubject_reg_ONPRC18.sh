@@ -29,27 +29,27 @@ NMTi_nl=${SSFLD}/aligned_${SUB}/nonlinear/NMT_nl2${SUB}.nii.gz
 NMT=${BASEFLD}/NMT_v2.0_sym/NMT_v2.0_sym_SS.nii.gz
 
 # echo 'Performing ANTs registration. Will take a while...'
-# antsRegistration --dimensionality 3 --float 0 \
-#     --output [${ONPRC_SS}/NMT2NMTi_,${ONPRC_SS}/NMT2NMTi_warped.nii.gz] \
-#     --interpolation Linear \
-#     --winsorize-image-intensities [0.05,0.95] \
-#     --use-histogram-matching 1 \
-#     --initial-moving-transform [$NMT,$NMTi_aff,1] \
-#     --transform Rigid[0.1] \
-#     --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
-#     --convergence [1000x500x250x100,1e-6,10] \
-#     --shrink-factors 8x4x2x1 \
-#     --smoothing-sigmas 3x2x1x0vox \
-#     --transform Affine[0.1] \
-#     --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
-#     --convergence [1000x500x250x100,1e-6,10] \
-#     --shrink-factors 8x4x2x1 \
-#     --smoothing-sigmas 3x2x1x0vox \
-#     --transform SyN[0.1,3,0] \
-#     --metric CC[$NMT,$NMTi_nl,1,4] \
-#     --convergence [100x70x50x20,1e-6,10] \
-#     --shrink-factors 8x4x2x1 \
-#     --smoothing-sigmas 3x2x1x0vox 
+antsRegistration --dimensionality 3 --float 0 \
+    --output [${ONPRC_SS}/NMT2NMTi_,${ONPRC_SS}/NMT2NMTi_warped.nii.gz] \
+    --interpolation Linear \
+    --winsorize-image-intensities [0.05,0.95] \
+    --use-histogram-matching 1 \
+    --initial-moving-transform [$NMT,$NMTi_aff,1] \
+    --transform Rigid[0.1] \
+    --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
+    --convergence [1000x500x250x100,1e-6,10] \
+    --shrink-factors 8x4x2x1 \
+    --smoothing-sigmas 3x2x1x0vox \
+    --transform Affine[0.1] \
+    --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
+    --convergence [1000x500x250x100,1e-6,10] \
+    --shrink-factors 8x4x2x1 \
+    --smoothing-sigmas 3x2x1x0vox \
+    --transform SyN[0.1,3,0] \
+    --metric CC[$NMT,$NMTi_nl,1,4] \
+    --convergence [100x70x50x20,1e-6,10] \
+    --shrink-factors 8x4x2x1 \
+    --smoothing-sigmas 3x2x1x0vox 
 
 echo 'Done. Now we will apply these transforms.'
 
