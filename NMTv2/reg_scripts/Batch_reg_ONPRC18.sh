@@ -11,7 +11,9 @@ do
 	echo '========================================='
 	echo Warping ONPRC18 DTI template ${S}
 	echo '========================================='
-	${fld}/SingleSubject_reg_ONPRC18.sh ${S} 
+	${fld}/SingleSubject_reg_affine_ONPRC18.sh ${S} 
+	wait
+	${fld}/SingleSubject_reg_nonlinear_ONPRC18.sh ${S} 
 	wait
 	echo 'DONE'
 	echo '========================================='

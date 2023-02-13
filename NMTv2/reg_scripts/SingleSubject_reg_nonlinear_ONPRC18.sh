@@ -34,14 +34,14 @@ antsRegistration --dimensionality 3 --float 0 \
     --interpolation Linear \
     --winsorize-image-intensities [0.05,0.95] \
     --use-histogram-matching 1 \
-    --initial-moving-transform [$NMT,$NMTi_aff,1] \
+    --initial-moving-transform [$NMT,$NMTi_nl,1] \
     --transform Rigid[0.1] \
-    --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
+    --metric MI[$NMT,$NMTi_nl,1,32,Regular,0.25] \
     --convergence [1000x500x250x100,1e-6,10] \
     --shrink-factors 8x4x2x1 \
     --smoothing-sigmas 3x2x1x0vox \
     --transform Affine[0.1] \
-    --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
+    --metric MI[$NMT,$NMTi_nl,1,32,Regular,0.25] \
     --convergence [1000x500x250x100,1e-6,10] \
     --shrink-factors 8x4x2x1 \
     --smoothing-sigmas 3x2x1x0vox \
@@ -55,8 +55,8 @@ echo 'Done. Now we will apply these transforms.'
 
 # Apply transforms
 IN=${ONPRC_SUPP}/ONPRC18_DTI_tensors_in_NMT_v2.0_sym_ro.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff.nii.gz
-OUT2=${SS_AFF_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff_ro.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff.nii.gz
+OUT2=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff_ro.nii.gz
 REF=${SS}
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 INTERP=Linear
@@ -71,7 +71,7 @@ antsApplyTransforms -i ${IN} \
     -e 2
 ReorientTensorImage 3 ${OUT} ${OUT2} ${TRANSFORM}
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff_ro.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff_ro.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_nl.nii.gz
 OUT2=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_nl_ro.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
@@ -89,7 +89,7 @@ ReorientTensorImage 3 ${OUT} ${OUT2} ${TRANSFORM}
 
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_b0_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_b0_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_b0_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -99,7 +99,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_b0_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_b0_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_b0_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -111,7 +111,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_rgb_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_rgb_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_rgb_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -121,7 +121,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_rgb_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_rgb_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_rgb_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -133,7 +133,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_fa_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_fa_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_fa_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -143,7 +143,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_fa_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_fa_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_fa_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -155,7 +155,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_rd_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_rd_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_rd_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -165,7 +165,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_rd_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_rd_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_rd_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -177,7 +177,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_ad_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_ad_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_ad_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -187,7 +187,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_ad_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_ad_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_ad_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -199,7 +199,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_DTI_tr_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_tr_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_DTI_tr_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -209,7 +209,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_DTI_tr_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_DTI_tr_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_tr_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -223,7 +223,7 @@ antsApplyTransforms -i ${IN} \
 
 # warp anatomy ======================================================
 IN=${ONPRC_SUPP}/ONPRC18_T1W_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T1W_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_T1W_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -233,7 +233,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_T1W_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_T1W_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_T1w_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -245,7 +245,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_T2W_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T2W_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_T2W_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -255,7 +255,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_T2W_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_T2W_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_T2w_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -267,7 +267,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_T1W_brain_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T1W_brain_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_T1W_brain_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -277,7 +277,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_T1W_brain_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_T1W_brain_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_T1w_brain_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -289,7 +289,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_T2W_brain_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T2W_brain_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_T2W_brain_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -299,7 +299,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_T2W_brain_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_T2W_brain_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_T2w_brain_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -313,7 +313,7 @@ antsApplyTransforms -i ${IN} \
 
 # warp labelmaps ======================================================
 IN=${ONPRC_SUPP}/ONPRC18_GrayMatterLabelmap_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_GrayMatterLabelmap_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_GrayMatterLabelmap_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 INTERP=NearestNeighbor
 echo Transforming AFF ${IN}
@@ -324,7 +324,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_GrayMatterLabelmap_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_GrayMatterLabelmap_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_GrayMatterLabelmap_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -336,7 +336,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_GrayMatterLabelmapCondensed_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -346,7 +346,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
@@ -358,7 +358,7 @@ antsApplyTransforms -i ${IN} \
                     -d 3 
 
 IN=${ONPRC_SUPP}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}_aff.nii.gz
+OUT=${SS_NL_OUT}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}_aff.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
 echo Transforming AFF ${IN}
 antsApplyTransforms -i ${IN} \
@@ -368,7 +368,7 @@ antsApplyTransforms -i ${IN} \
                     -n ${INTERP} \
                     -d 3 
 
-IN=${SS_AFF_OUT}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}_aff.nii.gz
+IN=${SS_NL_OUT}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}_aff.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}_nl.nii.gz
 TRANSFORM=${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz
 echo Transforming NLIN ${IN}
