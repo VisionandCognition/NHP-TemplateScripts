@@ -31,112 +31,123 @@ mkdir -p ${SS_NL_OUT}/ONPRC18
 # warp tensors ======================================================
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_tensors_in_${SUB}_ro.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_tensors_in_${SUB}.nii.gz
-OUT2=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_tensors_in_${SUB}_ro.nii.gz
+OUT_unz=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_tensors_in_${SUB}.nii
+
+OUT2=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_tensors_in_${SUB}_rb.nii.gz
+OUT3=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_tensors_in_${SUB}_ro.nii.gz
+
 TRANSFORM=${NL_T2S}
 REF=${SS}
-INTERP=Linear
+INTERP=linear
 
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
-                    -e 2
-ReorientTensorImage 3 ${OUT} ${OUT2} ${TRANSFORM}
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
+
+# unpack nii.gz
+gunzip -c ${OUT} > ${OUT_unz}
+# change header intent code to make it seen as tensor again
+nifti_tool -mod_hdr -mod_field intent_code 1005 -infile ${OUT_unz} -overwrite
+nifti_tool -copy_image -convert2dtype NIFTI_TYPE_FLOAT64 -infile ${OUT_unz} -overwrite
+# zip up to nii.gz
+gzip -fc ${OUT_unz} > ${OUT}
+
+RebaseTensorImage ${OUT} ${OUT2}
+ReorientTensorImage 3 ${OUT2} ${OUT3} ${TRANSFORM}
 
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_b0_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_b0_in_${SUB}.nii.gz
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_rgb_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_rgb_in_${SUB}.nii.gz
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_fa_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_fa_in_${SUB}.nii.gz
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_rd_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_rd_in_${SUB}.nii.gz
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_ad_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_ad_in_${SUB}.nii.gz
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_DTI_tr_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_DTI_tr_in_${SUB}.nii.gz
 echo Transforming ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 \
-
-
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 # warp labelmaps ======================================================
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_GrayMatterLabelmap_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_GrayMatterLabelmap_in_${SUB}.nii.gz
-INTERP=NearestNeighbor
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3
+INTERP=nearestneighbor
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}.nii.gz
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 IN=${SS_AFF_OUT}/ONPRC18/ONPRC18_ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18/ONPRC18_ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}.nii.gz
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3
+3dNwarpApply \
+    -source ${IN} \
+    -prefix ${OUT} \
+    -master ${REF} \
+    -nwarp  ${TRANSFORM} \
+    -interp ${INTERP} -overwrite  
 
 # copy the LUTs too
 echo Copying labelmaps
