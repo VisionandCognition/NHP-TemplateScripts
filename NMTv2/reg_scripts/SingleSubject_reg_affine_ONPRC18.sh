@@ -28,7 +28,9 @@ NMTi_aff=${SSFLD}/aligned_${SUB}/affine/NMT_aff2${SUB}.nii.gz
 NMTi_nl=${SSFLD}/aligned_${SUB}/nonlinear/NMT_nl2${SUB}.nii.gz
 NMT=${BASEFLD}/NMT_v2.0_sym/NMT_v2.0_sym_SS.nii.gz
 
-# echo 'Performing ANTs registration. Will take a while...'
+if [ -f ${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat ]
+then
+echo 'Performing ANTs registration. Will take a while...'
 antsRegistration --dimensionality 3 --float 0 \
     --output [${ONPRC_SS}/NMT2NMTi_,${ONPRC_SS}/NMT2NMTi_warped.nii.gz] \
     --interpolation Linear \
@@ -45,8 +47,10 @@ antsRegistration --dimensionality 3 --float 0 \
     --convergence [1000x500x250x100,1e-6,10] \
     --shrink-factors 8x4x2x1 \
     --smoothing-sigmas 3x2x1x0vox 
-
-echo 'Done. Now we will apply these transforms.'
+else
+    echo Registration transforms already present. Skip registration.
+fi
+echo Done. Now we will apply these transforms.
 
 # Apply transforms
 IN=${ONPRC_SUPP}/ONPRC18_DTI_tensors_in_NMT_v2.0_sym_ro.nii.gz
