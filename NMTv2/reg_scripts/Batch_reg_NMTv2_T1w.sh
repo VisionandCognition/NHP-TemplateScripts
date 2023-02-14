@@ -13,7 +13,7 @@ do
 	echo '========================================='
 	echo Registering template and atlases to ${S}
 	echo '========================================='
-	${fld}/SingleSubject_reg_NMTv2.sh ${S}
+	${fld}/SingleSubject_reg_NMTv2_T1w.sh ${S}
 	wait
 	${fld}/animalwarper_gii2ply.sh ${S}
 	wait
