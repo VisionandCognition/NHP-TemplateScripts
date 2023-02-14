@@ -30,7 +30,9 @@ NMT=${BASEFLD}/NMT_v2.0_sym/NMT_v2.0_sym_SS.nii.gz
 
 if [ -f ${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz ]
 then
-echo 'Performing ANTs registration. Will take a while...'
+echo Registration transforms already present. Skip registration.
+else
+echo Performing ANTs registration. Will take a while...
 antsRegistration --dimensionality 3 --float 0 \
     --output [${ONPRC_SS}/NMT2NMTi_,${ONPRC_SS}/NMT2NMTi_warped.nii.gz] \
     --interpolation Linear \
@@ -52,8 +54,6 @@ antsRegistration --dimensionality 3 --float 0 \
     --convergence [100x70x50x20,1e-6,10] \
     --shrink-factors 8x4x2x1 \
     --smoothing-sigmas 3x2x1x0vox 
-else
-    echo Registration transforms already present. Skip registration.
 fi
 echo Done. Now we will apply these transforms.
 
