@@ -5,7 +5,7 @@ fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
 #fld=/home/chris/Documents/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 declare -a SUBS=(
-	Martin2021
+	Figaro
 	)
 
 for S in "${SUBS[@]}"

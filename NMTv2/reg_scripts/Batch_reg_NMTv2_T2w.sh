@@ -2,19 +2,21 @@
 #!/bin/bash
 
 fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
+#fld=/home/chris/Documents/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 declare -a SUBS=(
-	Figaro
 	Figaro_T2w
 	)
 
 for S in "${SUBS[@]}"
 do
 	echo '========================================='
-	echo Creating ROIs and ROI meshes ${S}
+	echo Registering template and atlases to ${S}
 	echo '========================================='
-	${fld}/SingleSubject_affine_ROIs.sh ${S} 
-	${fld}/SingleSubject_nonlinear_ROIs.sh ${S} 
+	${fld}/SingleSubject_reg_NMTv2_T2w.sh ${S}
+	wait
+	${fld}/animalwarper_gii2ply.sh ${S}
+	wait
 	echo 'DONE'
 	echo '========================================='
 done
