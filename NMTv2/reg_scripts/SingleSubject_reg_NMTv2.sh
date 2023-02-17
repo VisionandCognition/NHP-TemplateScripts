@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # NB! make sure the input volume is approximately centered on 0,0,0
+# Run SingleSubject_reg_prep.sh to center align
 
 # =========================
 SUB=$1
+COST=$2
 SUBT1=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/input_files/${SUB}.nii.gz
 # =========================
 
@@ -23,6 +25,7 @@ LR=${BASEFLD}/supplemental_masks/NMT_v2.0_sym_LR_brainmask.nii.gz
 VENTRICLES=${BASEFLD}/supplemental_masks/NMT_v2.0_sym_ventricles.nii.gz
 
 OUTBASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
+mkdir -p ${OUTBASE}/aw_log
 
 @animal_warper \
       -input  ${SUBT1} \
@@ -32,7 +35,7 @@ OUTBASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
       -seg_followers ${SEG} ${GM} ${CEREBELLUM} ${LR} ${VENTRICLES} \
       -ok_to_exist \
       -outdir ${OUTBASE}/aligned_${SUB} \
-      -cost lpc \
+      -cost ${COST} \
       -align_centers_meth cm \
       -supersize \
-      |& tee ${OUTBASE}/o.aw_${SUB}.txt
+      |& tee ${OUTBASE}/aw_log/o.aw_${SUB}.txt

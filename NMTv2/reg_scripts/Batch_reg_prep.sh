@@ -1,36 +1,41 @@
+
 #!/bin/bash
+
 fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
 
 declare -a SUBS=(
 	Aston    
-    #Brutus    
+    Brutus    
     Danny    
     Danny2021    
-    #Dasheng    
+    Dasheng    
     Eddy    
     Eddy2019    
-    #Figaro   
+    Figaro   
+    Figaro_T2w 
     Kwibus    
     Kwibus2015    
     Lick    
     Martin    
     Martin2021    
     MircenCrop    
+    MircenTest    
     MrNilson    
     Ozzy    
     Spike    
     Toucan    
     Tsitian    
-    Watson 
+    Watson  
 	)
 
 for S in "${SUBS[@]}"
 do
-	echo '========================================='
-	echo Creating ROIs and ROI meshes ${S}
-	echo '========================================='
-	${fld}/SingleSubject_reg_affine_ROIs.sh ${S} 
-	${fld}/SingleSubject_reg_nonlinear_ROIs.sh ${S} 
+	echo '=============================================='
+	echo Alligning center of scan to NMT: ${S}
+	echo '=============================================='
+	${fld}/SingleSubject_reg_prep.sh ${S}
 	echo 'DONE'
-	echo '========================================='
+	echo '=============================================='
 done
+
+      
