@@ -8,16 +8,16 @@ declare -a SUBS=(
     #Danny2021    
     #Dasheng    
     #Eddy    
-    Eddy2019    
+    #Eddy2019    
     #Figaro   
-    Kwibus    
-    Kwibus2015    
-    Lick    
-    Martin    
-    Martin2021    
-    MircenCrop    
-    MrNilson    
-    Ozzy    
+    #Kwibus    
+    #Kwibus2015    
+    #Lick    
+    #Martin    
+    #Martin2021    
+    #MircenCrop    
+    #MrNilson    
+    #Ozzy    
     Spike    
     Toucan    
     Tsitian    

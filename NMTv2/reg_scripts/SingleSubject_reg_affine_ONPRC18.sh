@@ -33,19 +33,15 @@ then
 echo Registration transforms already present. Skip registration.
 else
 echo Performing ANTs registration. Will take a while...
-antsRegistration --dimensionality 3 --float 0 \
-    --output [${ONPRC_SS}/NMT2NMTi_,${ONPRC_SS}/NMT2NMTi_warped.nii.gz] \
+antsRegistration \
+    --dimensionality 3 \
+    --float 0 \
+    --output [${ONPRC_SS}/NMT2NMTi_,${ONPRC_SS}/NMT2NMTi_affine.nii.gz] \
     --interpolation Linear \
     --winsorize-image-intensities [0.05,0.95] \
     --use-histogram-matching 1 \
-    --initial-moving-transform [$NMT,$NMTi_aff,1] \
-    --transform Rigid[0.1] \
-    --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
-    --convergence [1000x500x250x100,1e-6,10] \
-    --shrink-factors 8x4x2x1 \
-    --smoothing-sigmas 3x2x1x0vox \
     --transform Affine[0.1] \
-    --metric MI[$NMT,$NMTi_aff,1,32,Regular,0.25] \
+    --metric MI[$NMTi_aff,$NMT,1,32,Regular,0.25] \
     --convergence [1000x500x250x100,1e-6,10] \
     --shrink-factors 8x4x2x1 \
     --smoothing-sigmas 3x2x1x0vox 
