@@ -6,28 +6,25 @@ This collection of bash scripts does several registration steps:
 
 There are also batch files that can run this on multiple individuals without user interference.   
 
+## Pre-align the center of the individual scan to the template       
+Use `SingleSubject_reg_prep.sh` for this. Not that if you want to do both a T2w and T1w registration of the same subject you should 
+probably take additional steps to make sure the two native space are aligned before you continue to template registration. The script 
+takes one input `${SUBJECT` which should be the base of the individual scan's filename, e.g. `Chris` for `Chris.nii.gz`.    
+
 ## Register Single Subject to NMT template and CHARM/SARM atlases (and vice versa)           
-There are several versions of these scripts that deal with different types of source scans or run on different systems.
-
-`SingleSubject_reg_NMTv2_T1w.sh` registers a T1w anatomical scan to the NMTv2 template using AFNI's `@animal_warper`. 
-It also gives you the CHARM (cortical) and SARM (subcortical) atlases in native space.     
-
-`SingleSubject_reg_NMTv2_T2w.sh` registers a T2w anatomical scan to the NMTv2 template. It also gives you the CHARM (cortical) 
-and SARM (subcortical) atlases in native space. It uses `@animal_warper` with a dfferent cost-function than 
-`SingleSubject_reg_NMTv2_T1w.sh` to account for the difference in contrast between T2w individual and T1w template.    
-
-`SingleSubject_reg_NMTv2_T1w_mircen.sh` and `SingleSubject_reg_NMTv2_T2w_mircen.sh` do the same as `SingleSubject_reg_NMTv2_T1w.sh` and 
-`SingleSubject_reg_NMTv2_T2w.sh` but with some paths that are specific for the infrastructure at the MIRCen facility.     
+The script `SingleSubject_reg_NMTv2.sh` takes two inputs `$1=$SUBJECT` again and `$2=COSTFUNCTION`. This allows you to apply the same 
+script to T1w and T2w images. Use `COST=lpc` for T1w and `COST=lpc` for T2w individual scans.     
 
 ## Generate separate ROIs and surfaces     
 The `SingleSubject_affine_ROIs.sh` and `SingleSubject_nonlinear_ROIs.sh` scripts generate separate ROI files and surfaces. Note that
 the atlases also have all ROIs but extra steps are required to visualize a selection. It's easier with separate ROIs. The affine and
-nonlinear denote that the generate the ROIs based on the affine and nonlinear registration with the template respectively.
+nonlinear denote that the generate the ROIs based on the affine and nonlinear registration with the template respectively. Again, `$1=SUBJECT`.    
 
 ## Register DTI template to the Single Subject for tractography       
 This is done with `SingleSubject_reg_affine_ONPRC18.sh` (affine) and `SingleSubject_reg_nonlinear_ONPRC18.sh` (nonlinear). The scripts
 warp both the tensor volume and some derivatives, as well as anatomy and labelmaps. It uses ANTs for registration and therefore
-takes a while to compute. To increase success rates the transforms are calculated for `NMT` to `NMT_in_SingleSubject` which have highest contrast.     
+takes a while to compute. Again, `$1=SUBJECT`. To increase success rates the transforms are calculated for `NMT` to `NMT_in_SingleSubject` 
+which have highest contrast.     
 
 ## Batch scripts and independent running       
 The abovementioned scripts can be run independently by specifying a subject name for which a nifti should be present as:    
@@ -37,7 +34,7 @@ The command to run it would then be:
 `SingleSubject_reg_NMTv2_T1w.sh <SUBJECT>`    
 
 Alternatively, you can run one or multiple individuals with one of the batch scripts (`Batch_....`) in which you can set up an array of
-subject names to loop over.
+subject names to loop over. Examples are present for whcih you only need to change the array of names.    
 
 
 
