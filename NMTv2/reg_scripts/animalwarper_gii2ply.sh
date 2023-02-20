@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # call with subject name as argument
-
 SUB=$1
 
+# set some locations
 BASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
 SS_FLD=$BASE/SingleSubjects/aligned_$SUB
 SURF_FLD=$SS_FLD/surfaces

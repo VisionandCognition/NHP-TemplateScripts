@@ -1,6 +1,9 @@
 #!/bin/bash
+
+# set the location of the scripts folder
 fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
 
+# create an array with subject names to loop over
 declare -a SUBS=(
 	# Aston
 	# Brutus
@@ -24,13 +27,16 @@ declare -a SUBS=(
 	# Watson
 	)
 
+# loop over subjects
 for S in "${SUBS[@]}"
 do
 	echo '========================================='
 	echo Warping ONPRC18 DTI template ${S}
 	echo '========================================='
+	# perform the affine tensor registration
 	${fld}/SingleSubject_reg_affine_ONPRC18.sh ${S} 
-	#wait
+	wait
+	# perform the nonlinear tensor registration
 	${fld}/SingleSubject_reg_nonlinear_ONPRC18.sh ${S} 
 	wait
 	echo 'DONE'

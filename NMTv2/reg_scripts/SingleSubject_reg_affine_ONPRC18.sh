@@ -3,9 +3,11 @@
 # Use the affine registration, e.g. to compensate for head-post drop-out
 
 # =========================
+# get subject name
 SUB=$1
 # =========================
 
+# set paths
 BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
 SSFLD=${BASEFLD}/SingleSubjects
 SCRIPTFLD=${SSFLD}/reg_scripts
@@ -20,9 +22,9 @@ ONPRC_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_ONPRC18
 mkdir -p ${SS_AFF_OUT}
 mkdir -p ${SS_NL_OUT}
 
-# warp tensors ======================================================
+# warp =========
 # We're going to pull a trick here and calculate the ANTs transforms between
-# NMT and NMT_in SingleSubject, then apply these to the ONPRC18_in_NMT
+# NMT and NMT_in_SingleSubject, then apply these to the ONPRC18_in_NMT
 
 NMTi_aff=${SSFLD}/aligned_${SUB}/affine/NMT_aff2${SUB}.nii.gz
 NMTi_nl=${SSFLD}/aligned_${SUB}/nonlinear/NMT_nl2${SUB}.nii.gz
@@ -48,6 +50,8 @@ antsRegistration \
 fi
 echo Done. Now we will apply these transforms.
 
+# warp tensor and anatomy =========
+
 # Apply transforms
 IN=${ONPRC_SUPP}/ONPRC18_DTI_tensors_in_NMT_v2.0_sym_ro.nii.gz
 OUT=${SS_AFF_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff.nii.gz
@@ -66,154 +70,55 @@ antsApplyTransforms -i ${IN} \
     -e 2
 ReorientTensorImage 3 ${OUT} ${OUT2} ${TRANSFORM}
 
+# now do the others efficiently in a loop
+declare -a PREFIXES=(
+    DTI_b0    
+    DTI_rgb    
+    DTI_fa    
+    DTI_rd 
+    DTI_ad
+    DTI_tr
+    T1W
+    T2W
+    T1W_brain
+    T2W_brain
+    )
 
-IN=${ONPRC_SUPP}/ONPRC18_DTI_b0_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_b0_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
+for PREFIX in "${PREFIXES[@]}"
+do
+    IN=${ONPRC_SUPP}/ONPRC18_${PREFIX}_in_NMT_v2.0_sym.nii.gz
+    OUT=${SS_AFF_OUT}/ONPRC18_${PREFIX}_in_${SUB}_aff.nii.gz
+    TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
+    echo Transforming AFF ${IN}
+    antsApplyTransforms -i ${IN} \
+                        -r ${REF} \
+                        -o ${OUT} \
+                        -t ${TRANSFORM} \
+                        -n ${INTERP} \
+                        -d 3 
+done
 
-IN=${ONPRC_SUPP}/ONPRC18_DTI_rgb_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_rgb_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
+# warp labelmaps =========
+declare -a PREFIXES=(
+    GrayMatterLabelmap    
+    GrayMatterLabelmapCondensed    
+    GrayMatterWhiteMatterLabelmap    
+    )
 
-IN=${ONPRC_SUPP}/ONPRC18_DTI_fa_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_fa_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_DTI_rd_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_rd_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_DTI_ad_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_ad_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_DTI_tr_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_DTI_tr_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-
-# warp anatomy ======================================================
-IN=${ONPRC_SUPP}/ONPRC18_T1W_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T1W_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_T2W_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T2W_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_T1W_brain_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T1W_brain_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_T2W_brain_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_T2W_brain_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-
-# warp labelmaps ======================================================
-IN=${ONPRC_SUPP}/ONPRC18_GrayMatterLabelmap_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_GrayMatterLabelmap_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-INTERP=NearestNeighbor
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_GrayMatterLabelmapCondensed_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_GrayMatterLabelmapCondensed_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
-
-IN=${ONPRC_SUPP}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_NMT_v2.0_sym.nii.gz
-OUT=${SS_AFF_OUT}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${SUB}_aff.nii.gz
-TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
-echo Transforming AFF ${IN}
-antsApplyTransforms -i ${IN} \
-                    -r ${REF} \
-                    -o ${OUT} \
-                    -t ${TRANSFORM} \
-                    -n ${INTERP} \
-                    -d 3 
+for PREFIX in "${PREFIXES[@]}"
+do
+    IN=${ONPRC_SUPP}/ONPRC18_${PREFIX}_in_NMT_v2.0_sym.nii.gz
+    OUT=${SS_AFF_OUT}/ONPRC18_${PREFIX}_in_${SUB}_aff.nii.gz
+    TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
+    INTERP=NearestNeighbor
+    echo Transforming AFF ${IN}
+    antsApplyTransforms -i ${IN} \
+                        -r ${REF} \
+                        -o ${OUT} \
+                        -t ${TRANSFORM} \
+                        -n ${INTERP} \
+                        -d 3 
+done
 
 # copy the LUTs too
 echo Copying labelmaps
