@@ -18,10 +18,10 @@ declare -a SUBS=(
     # MircenCrop    
     # MrNilson    
     # Ozzy    
-    Spike    
-    Toucan    
-    Tsitian    
-    sWatson 
+    # Spike    
+    # Toucan    
+    # Tsitian    
+    # Watson 
 	)
 
 for S in "${SUBS[@]}"

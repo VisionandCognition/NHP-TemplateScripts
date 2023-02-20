@@ -2,7 +2,7 @@
 fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
 
 declare -a SUBS=(
-	Figaro_T2w
+	# Figaro_T2w
 	)
 
 # cost function lpa for T1w, lpc for T2w
