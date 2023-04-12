@@ -13,7 +13,7 @@ takes one input `${SUBJECT` which should be the base of the individual scan's fi
 
 ## Register Single Subject to NMT template and CHARM/SARM atlases (and vice versa)           
 The script `SingleSubject_reg_NMTv2.sh` takes two inputs `$1=$SUBJECT` again and `$2=COSTFUNCTION`. This allows you to apply the same 
-script to T1w and T2w images. Use `COST=lpc` for T1w and `COST=lpc` for T2w individual scans.     
+script to T1w and T2w images. Use `COST=lpa` for T1w and `COST=lpc` for T2w individual scans.     
 
 ## Generate separate ROIs and surfaces     
 The `SingleSubject_affine_ROIs.sh` and `SingleSubject_nonlinear_ROIs.sh` scripts generate separate ROI files and surfaces. Note that
