@@ -22,7 +22,7 @@ fw_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_osh2base_WARP.nii.gz
 fwsh_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft.1D
 
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
-RETINOTOPY_NL_OUT=${SSFLD}/aligned_${SUB}/Retinoppy/nonlinear
+RETINOTOPY_NL_OUT=${SSFLD}/aligned_${SUB}/Retinotopy/nonlinear
 
 TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
 

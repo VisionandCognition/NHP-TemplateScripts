@@ -16,7 +16,7 @@ AFF_T2S=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template_inv.1D
 
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 
-RETINOTOPY_AFF_OUT=${SSFLD}/aligned_${SUB}/Retinoppy/affine
+RETINOTOPY_AFF_OUT=${SSFLD}/aligned_${SUB}/Retinotopy/affine
 TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
 
 # make folders
