@@ -16,8 +16,6 @@ AFF_T2S=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template_inv.1D
 NL_S2T=${SSFLD}/aligned_${SUB}/${SUB}_shft_WARP.nii.gz
 NL_T2S=${SSFLD}/aligned_${SUB}/${SUB}_shft_WARPINV.nii.gz
 
-NLW=
-
 fw_T2S=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_base2osh_WARP.nii.gz
 fwsh_T2S=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_inv.1D
 fw_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_osh2base_WARP.nii.gz
@@ -27,8 +25,6 @@ SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 RETINOTOPY_NL_OUT=${SSFLD}/aligned_${SUB}/Retinoppy/nonlinear
 
 TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
-
-
 
 # make folders
 mkdir -p ${RETINOTOPY_NL_OUT}/pe
