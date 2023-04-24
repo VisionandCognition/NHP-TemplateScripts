@@ -16,6 +16,8 @@ AFF_T2S=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template_inv.1D
 NL_S2T=${SSFLD}/aligned_${SUB}/${SUB}_shft_WARP.nii.gz
 NL_T2S=${SSFLD}/aligned_${SUB}/${SUB}_shft_WARPINV.nii.gz
 
+NLW=
+
 fw_T2S=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_base2osh_WARP.nii.gz
 fwsh_T2S=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_inv.1D
 fw_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_osh2base_WARP.nii.gz
@@ -36,21 +38,21 @@ declare -a pe=(
     pol_deg
     )
 
-# for p in "${pe[@]}"
-# do
-#     3dNwarpApply \
-#         -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/pe_ret_kul/${p}.nii.gz \
-#         -prefix ${RETINOTOPY_NL_OUT}/pe/${p}.nii.gz \
-#         -master ${SS} \
-#         -nwarp  ${fw_T2S} \
-#         -interp linear -overwrite  
+for p in "${pe[@]}"
+do
+    3dNwarpApply \
+        -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/pe_ret_kul/${p}.nii.gz \
+        -prefix ${RETINOTOPY_NL_OUT}/pe/${p}.nii.gz \
+        -master ${SS} \
+        -nwarp  ${fw_T2S} \
+        -interp NN -overwrite  
 
-#     @Align_Centers -overwrite \
-#               -no_cp \
-#               -base ${TT} \
-#               -dset ${RETINOTOPY_NL_OUT}/pe/NMT_nl2${SUB}.nii.gz \
-#               -shift_xform_inv ${fwsh_T2S} 
-# done
+    @Align_Centers -overwrite \
+              -no_cp \
+              -base ${TT} \
+              -dset ${RETINOTOPY_NL_OUT}/pe/${p}.nii.gz \
+              -shift_xform_inv ${fwsh_T2S} 
+done
 
 declare -a subs=(
     m029
@@ -68,25 +70,25 @@ declare -a maps=(
     y
     )
 
-# for s in "${subs[@]}"
-# do
-#     mkdir -p ${RETINOTOPY_NL_OUT}/prf/${s}
-#     for m in "${maps[@]}"
-#     do
-#         3dNwarpApply \
-#             -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/prf/${s}/${m}.nii.gz \
-#             -prefix ${RETINOTOPY_NL_OUT}/prf/${s}/${m}.nii.gz \
-#             -master ${SS} \
-#             -nwarp  ${fw_T2S} \
-#             -interp linear -overwrite  
+for s in "${subs[@]}"
+do
+    mkdir -p ${RETINOTOPY_NL_OUT}/prf/${s}
+    for m in "${maps[@]}"
+    do
+        3dNwarpApply \
+            -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/prf/${s}/${m}.nii.gz \
+            -prefix ${RETINOTOPY_NL_OUT}/prf/${s}/${m}.nii.gz \
+            -master ${SS} \
+            -nwarp  ${fw_T2S} \
+            -interp NN -overwrite  
 
-#         @Align_Centers -overwrite \
-#             -no_cp \
-#             -base ${TT} \
-#             -dset ${RETINOTOPY_NL_OUT}/prf/${s}/${m}.nii.gz \
-#             -shift_xform_inv ${fwsh_T2S}
-#     done
-# done
+        @Align_Centers -overwrite \
+            -no_cp \
+            -base ${TT} \
+            -dset ${RETINOTOPY_NL_OUT}/prf/${s}/${m}.nii.gz \
+            -shift_xform_inv ${fwsh_T2S}
+    done
+done
 
 # make one premasked folder at R2 > 5
 declare -a maps=(

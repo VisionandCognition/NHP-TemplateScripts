@@ -27,15 +27,15 @@ declare -a pe=(
     pol_deg
     )
 
-# for p in "${pe[@]}"
-# do
-#     3dAllineate \
-#         -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/pe_ret_kul/${p}.nii.gz \
-#         -prefix ${RETINOTOPY_AFF_OUT}/pe/${p}.nii.gz \
-#         -master ${SS} \
-#         -1Dmatrix_apply ${AFF_T2S} \
-#         -interp NN -final NN -overwrite
-# done
+for p in "${pe[@]}"
+do
+    3dAllineate \
+        -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/pe_ret_kul/${p}.nii.gz \
+        -prefix ${RETINOTOPY_AFF_OUT}/pe/${p}.nii.gz \
+        -master ${SS} \
+        -1Dmatrix_apply ${AFF_T2S} \
+        -interp NN -final NN -overwrite
+done
 
 declare -a subs=(
     m029
@@ -53,19 +53,19 @@ declare -a maps=(
     y
     )
 
-# for s in "${subs[@]}"
-# do
-#     mkdir -p ${RETINOTOPY_AFF_OUT}/prf/${s}
-#     for m in "${maps[@]}"
-#     do
-#         3dAllineate \
-#             -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/prf/${s}/${m}.nii.gz \
-#             -prefix ${RETINOTOPY_AFF_OUT}/prf/${s}/${m}.nii.gz \
-#             -master ${SS} \
-#             -1Dmatrix_apply ${AFF_T2S} \
-#             -interp NN -final NN -overwrite
-#     done
-# done
+for s in "${subs[@]}"
+do
+    mkdir -p ${RETINOTOPY_AFF_OUT}/prf/${s}
+    for m in "${maps[@]}"
+    do
+        3dAllineate \
+            -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/prf/${s}/${m}.nii.gz \
+            -prefix ${RETINOTOPY_AFF_OUT}/prf/${s}/${m}.nii.gz \
+            -master ${SS} \
+            -1Dmatrix_apply ${AFF_T2S} \
+            -interp NN -final NN -overwrite
+    done
+done
 
 # make one premasked folder at R2 > 5
 declare -a maps=(
