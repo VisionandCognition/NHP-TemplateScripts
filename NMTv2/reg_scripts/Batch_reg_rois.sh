@@ -17,8 +17,8 @@ declare -a SUBS=(
     # Kwibus2015    
     # Lick    
     # Martin    
-    # Martin2021    
-    # MircenCrop    
+    # Martin2021 
+    # Martin2023   
     # MrNilson    
     # Ozzy    
     # Spike    
