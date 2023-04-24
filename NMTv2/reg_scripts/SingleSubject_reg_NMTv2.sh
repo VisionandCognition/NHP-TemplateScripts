@@ -2,6 +2,8 @@
 
 # NB! make sure the input volume is approximately centered on 0,0,0
 # Run SingleSubject_reg_prep.sh to center align
+# use COST=lpa for T1w
+# use COST=lpc for T2w
 
 # =========================
 SUB=$1

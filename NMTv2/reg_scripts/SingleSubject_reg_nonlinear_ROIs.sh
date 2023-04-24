@@ -16,10 +16,10 @@ AFF_T2S=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template_inv.1D
 NL_S2T=${SSFLD}/aligned_${SUB}/${SUB}_shft_WARP.nii.gz
 NL_T2S=${SSFLD}/aligned_${SUB}/${SUB}_shft_WARPINV.nii.gz
 
-fw_T2S=${SSFLD}/aligned_${SUB}//intermediate/${SUB}_shft_base2osh_WARP.nii.gz
-fwsh_T2S=${SSFLD}/aligned_${SUB}//intermediate/${SUB}_shft_inv.1D
-fw_S2T=${SSFLD}/aligned_${SUB}//intermediate/${SUB}_shft_osh2base_WARP.nii.gz
-fwsh_S2T=${SSFLD}/aligned_${SUB}//intermediate/${SUB}_shft.1D
+fw_T2S=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_base2osh_WARP.nii.gz
+fwsh_T2S=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_inv.1D
+fw_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft_osh2base_WARP.nii.gz
+fwsh_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft.1D
 
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 SS_NL_OUT=${SSFLD}/aligned_${SUB}/nonlinear
