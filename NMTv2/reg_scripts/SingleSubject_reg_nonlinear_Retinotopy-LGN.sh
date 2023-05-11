@@ -50,7 +50,7 @@ do
     do
         for h in "${hf[@]}"
         do
-            for r in "${rs[@]}"
+            for r in "${res[@]}"
             do
                 mkdir -p ${RETINOTOPY_NL_OUT}/${w}
 

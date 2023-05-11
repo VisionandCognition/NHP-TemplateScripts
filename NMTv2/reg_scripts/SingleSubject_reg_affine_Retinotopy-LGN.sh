@@ -43,7 +43,7 @@ do
     do
         for h in "${hf[@]}"
         do
-            for r in "${rs[@]}"
+            for r in "${res[@]}"
             do
                 mkdir -p ${RETINOTOPY_AFF_OUT}/${w}
 
