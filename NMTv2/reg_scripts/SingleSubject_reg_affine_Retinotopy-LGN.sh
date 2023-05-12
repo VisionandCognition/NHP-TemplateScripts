@@ -43,16 +43,14 @@ do
     do
         for h in "${hf[@]}"
         do
-            for r in "${res[@]}"
-            do
-                mkdir -p ${RETINOTOPY_AFF_OUT}/${w}
+            mkdir -p ${RETINOTOPY_AFF_OUT}/${w}
 
-                3dAllineate \
-                    -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}${r} \
-                    -prefix ${RETINOTOPY_AFF_OUT}/${w}/${d}_${h}${r} \
-                    -master ${SS} \
-                    -1Dmatrix_apply ${AFF_T2S} \
-                    -interp NN -final NN -overwrite
+            3dAllineate \
+                -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}.nii.gz \
+                -prefix ${RETINOTOPY_AFF_OUT}/${w}/${d}_${h}.nii.gz \
+                -master ${SS} \
+                -1Dmatrix_apply ${AFF_T2S} \
+                -interp NN -final NN -overwrite
             done
         done
     done

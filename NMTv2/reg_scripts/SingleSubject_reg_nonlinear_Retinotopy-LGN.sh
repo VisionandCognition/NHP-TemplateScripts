@@ -42,7 +42,6 @@ declare -a dt=(
     ECC
     INCL
     )
-declare res=('.nii.gz' '_rsNMT.nii.gz')
 
 for w in "${wfld[@]}"
 do
@@ -50,23 +49,20 @@ do
     do
         for h in "${hf[@]}"
         do
-            for r in "${res[@]}"
-            do
-                mkdir -p ${RETINOTOPY_NL_OUT}/${w}
+            mkdir -p ${RETINOTOPY_NL_OUT}/${w}
 
-                3dNwarpApply \
-                    -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}${r} \
-                    -prefix ${RETINOTOPY_NL_OUT}/${w}/${d}_${h}${r} \
-                    -master ${SS} \
-                    -nwarp  ${fw_T2S} \
-                    -interp NN -overwrite  
+            3dNwarpApply \
+                -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}.nii.gz \
+                -prefix ${RETINOTOPY_NL_OUT}/${w}/${d}_${h}.nii.gz \
+                -master ${SS} \
+                -nwarp  ${fw_T2S} \
+                -interp NN -overwrite  
 
-                @Align_Centers -overwrite \
-                          -no_cp \
-                          -base ${TT} \
-                          -dset ${RETINOTOPY_NL_OUT}/${w}/${d}_${h}${r} \
-                          -shift_xform_inv ${fwsh_T2S} 
-            done
+            @Align_Centers -overwrite \
+                    -no_cp \
+                    -base ${TT} \
+                    -dset ${RETINOTOPY_NL_OUT}/${w}/${d}_${h}.nii.gz \
+                    -shift_xform_inv ${fwsh_T2S} 
         done
     done
 done
