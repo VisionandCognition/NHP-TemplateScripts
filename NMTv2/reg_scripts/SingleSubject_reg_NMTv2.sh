@@ -41,3 +41,29 @@ mkdir -p ${OUTBASE}/aw_log
       -align_centers_meth cm \
       -supersize \
       |& tee ${OUTBASE}/aw_log/o.aw_${SUB}.txt
+
+# copy the SARM/CHARM tables
+cp -R /NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/tables_* ${OUTBASE}/aligned_${SUB}/
+
+# split the segmentation
+3dcalc \
+   -a ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz \
+   -expr 'within(a,0.9, 1.1)' \
+   -prefix ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_CSF_in_${SUB}.nii.gz
+3dcalc \
+   -a ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz \
+   -expr 'within(a,1.9, 2.1)' \
+   -prefix ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_GM-subcort_in_${SUB}.nii.gz
+3dcalc \
+   -a ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz \
+   -expr 'within(a,2.9, 3.1)' \
+   -prefix ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_GM-cort_in_${SUB}.nii.gz
+3dcalc \
+   -a ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz \
+   -expr 'within(a,3.9, 4.1)' \
+   -prefix ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_WM_in_${SUB}.nii.gz
+3dcalc \
+   -a ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz \
+   -expr 'within(a,4.9, 5.1)' \
+   -prefix ${OUTBASE}/aligned_${SUB}/NMT_v2.0_sym_Vasculature_in_${SUB}.nii.gz
+
