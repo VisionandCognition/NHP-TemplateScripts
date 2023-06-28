@@ -26,6 +26,10 @@ declare -a SUBS=(
     # Toucan    
     # Tsitian    
     # Watson  
+    # Scholes
+    # Keane
+    Butch
+    Kid
 	)
 
 # loop over subjects

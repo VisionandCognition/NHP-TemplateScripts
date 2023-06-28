@@ -13,23 +13,27 @@ declare -a SUBS=(
     # Eddy    
     # Eddy2019    
     # Figaro  
-    Figaro_T2w 
+    # Figaro_T2w 
     # Kwibus    
     # Kwibus2015    
     # Lick    
     # Martin    
     # Martin2021 
-    Martin2023
-    Martin2023_T2w
-    Mircen20221025
-    Mircen20230105
-    Mircen20230314   
+    # Martin2023
+    # Martin2023_T2w
+    # Mircen20221025
+    # Mircen20230105
+    # Mircen20230314   
     # MrNilson    
     # Ozzy    
     # Spike    
     # Toucan    
     # Tsitian    
     # Watson 
+    # Scholes
+    Keane
+    Butch
+    # Kid
 	)
 
 # loop over subjects

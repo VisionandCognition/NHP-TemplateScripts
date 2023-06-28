@@ -3,7 +3,7 @@ import nibabel as nib
 import numpy as np
 import igl, sys
 from skimage import measure
-from scipy.ndimage.morphology import distance_transform_edt
+from scipy.ndimage import distance_transform_edt
 
 # set paths
 in_file = sys.argv[1]

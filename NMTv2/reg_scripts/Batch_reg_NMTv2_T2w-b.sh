@@ -8,8 +8,8 @@ declare -a SUBS=(
 	# Figaro_T2w
 	# Scholes
     # Keane
-    Butch
-    # Kid
+    # Butch
+    Kid
 	)
 
 # cost function: lpa for T1w, lpc for T2w
