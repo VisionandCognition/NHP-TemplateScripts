@@ -29,6 +29,7 @@ declare -a SUBS=(
 
 # cost function: lpa for T1w, lpc for T2w
 COST=lpa
+ALLIGN=all
 
 # loop over subjects
 for S in "${SUBS[@]}"
@@ -37,7 +38,7 @@ do
 	echo Registering template and atlases to ${S}
 	echo '========================================='
 	# perform the registration
-    ${fld}/SingleSubject_reg_NMTv2.sh ${S} ${COST}
+    ${fld}/SingleSubject_reg_NMTv2.sh ${S} ${COST} ${ALLIGN}
 	wait
     # convert gifti surface files to meshes
 	${fld}/animalwarper_gii2ply.sh ${S}

@@ -8,6 +8,8 @@
 # =========================
 SUB=$1
 COST=$2
+ALLIGN=$3
+
 SUBT1=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/input_files/${SUB}.nii.gz
 # =========================
 
@@ -35,6 +37,7 @@ mkdir -p ${OUTBASE}/aw_log
       -skullstrip ${BMASK} \
       -atlas ${D99} ${CHARM} ${SARM} \
       -seg_followers ${SEG} ${GM} ${CEREBELLUM} ${LR} ${VENTRICLES} \
+      -align_type ${ALLIGN} \
       -ok_to_exist \
       -outdir ${OUTBASE}/aligned_${SUB} \
       -cost ${COST} \
