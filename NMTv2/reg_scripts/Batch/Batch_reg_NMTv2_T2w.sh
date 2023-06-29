@@ -35,6 +35,18 @@ done
 
 
 # 2) make the affine T2w look like T1w and get 3dQwarp result
+# loop over subjects
+for S in "${SUBS[@]}"
+do
+	echo '========================================='
+	echo Fixing T2w to look like T1w for ${S}
+	echo '========================================='
+	# run the procedure
+	${fld}/SingleSubject_T2w_imitates_T1w.sh ${S}
+	wait
+	echo 'DONE'
+	echo '========================================='
+done
 
 
 
