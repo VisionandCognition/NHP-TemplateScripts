@@ -23,7 +23,7 @@ maffd=${fixfld}/aff_mask_dil.nii.gz
 	-source ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_brainmask.nii.gz \
 	-prefix ${maff} \
 	-master ${org} \
-	-1Dmatrix_apply ${aff1d}
+	-1Dmatrix_apply ${aff1d} \
 	-interp linear -final cubic -overwrite
 
 # dilate brain mask
@@ -51,10 +51,11 @@ maffd=${fixfld}/aff_mask_dil.nii.gz
 3dUnifize \
 	-T2 -T2 \
 	-input ${fixfld}/${SUB}_ns.nii.gz \
-	-prefix ${fixfld}/${SUB}_ns_T2T1unif.nii.gz
+	-prefix ${fixfld}/${SUB}_ns_T2T1unif.nii.gz \
+	-overwrite
 
 3dQwarp \
 	-source ${fixfld}/NMT_aff2${SUB}_ns.nii.gz   \
     -base   ${fixfld}/${SUB}_ns_T2T1unif.nii.gz       \
     -prefix ${fixfld}/NMT_nl2${SUB}_fix.nii.gz \
-    -lpa -overwrite
+    -lpa -iwarp -overwrite
