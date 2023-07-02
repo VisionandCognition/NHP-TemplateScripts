@@ -25,8 +25,8 @@ declare -a SUBS=(
 	# Toucan
 	# Tsitian
 	# Watson
-	# Scholes
-	# Keane
+	Scholes
+	Keane
     Butch
     Kid
 	)

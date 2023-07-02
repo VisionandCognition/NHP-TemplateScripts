@@ -8,14 +8,12 @@ declare -a SUBS=(
 	# Figaro_T2w
 	# Scholes
     # Keane
-    Butch
-    # Kid
+    # Butch
+    Kid
 	)
 
-
-# 1) do the affine part (we need a workaround for good nonlinear with T2w)
-COST=lpc # cost function: lpa for T1w, lpc for T2w
-ALLIGN=affine
+# cost function: lpa for T1w, lpc for T2w
+COST=lpc
 
 # loop over subjects
 for S in "${SUBS[@]}"
@@ -24,48 +22,7 @@ do
 	echo Registering template and atlases to ${S}
 	echo '========================================='
 	# perform the registration
-	${fld}/SingleSubject_reg_NMTv2.sh ${S} ${COST} ${ALLIGN}
-	wait
-	# convert gifti surface files to meshes
-	${fld}/animalwarper_gii2ply_aff.sh ${S}
-	wait
-	echo 'DONE'
-	echo '========================================='
-done
-
-
-# 2) make the affine T2w look like T1w and get 3dQwarp result
-# loop over subjects
-for S in "${SUBS[@]}"
-do
-	echo '========================================='
-	echo Fixing T2w to look like T1w for ${S}
-	echo '========================================='
-	# run the procedure
-	${fld}/SingleSubject_T2w_imitates_T1w.sh ${S}
-	wait
-	echo 'DONE'
-	echo '========================================='
-done
-
-
-
-
-
-
-
-# 3) do the non-linear part (we need a workaround for good nonlinear with T2w)
-COST=lpa # cost function: lpa for T1w, lpc for T2w
-ALLIGN=all
-
-# loop over subjects
-for S in "${SUBS[@]}"
-do
-	echo '========================================='
-	echo Registering template and atlases to ${S}
-	echo '========================================='
-	# perform the registration
-	${fld}/SingleSubject_reg_NMTv2.sh ${S} ${COST} ${ALLIGN}
+	${fld}/SingleSubject_reg_NMTv2.sh ${S} ${COST}
 	wait
 	# convert gifti surface files to meshes
 	${fld}/animalwarper_gii2ply.sh ${S}
@@ -73,4 +30,3 @@ do
 	echo 'DONE'
 	echo '========================================='
 done
-

@@ -69,3 +69,10 @@ mv ${fixfld}/NMT_nl2${SUB}_fix.nii.gz ${fixfld}/NMT_nl2${SUB}_fix_ns.nii.gz
     -master ${org} \
     -nwarp  ${fixfld}/NMT_nl2${SUB}_fix_WARP.nii.gz \
     -interp linear -overwrite  
+
+# rename/copy the warps so we can use them in @aw
+cp ${fixfld}/NMT_nl2${SUB}_fix_WARPINV.nii.gz \
+	${fixfld}/${SUB}_shft_WARP.nii.gz
+
+cp ${fixfld}/NMT_nl2${SUB}_fix_WARP.nii.gz \
+	${fixfld}/${SUB}_shft_WARPINV.nii.gz
