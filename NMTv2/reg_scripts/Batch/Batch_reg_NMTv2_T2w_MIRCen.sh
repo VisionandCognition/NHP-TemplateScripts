@@ -8,10 +8,9 @@ declare -a SUBS=(
 	# Figaro_T2w
 	Scholes
     Keane
-    # Butch
-    Kid
+    Butch
+    # Kid
 	)
-
 
 # loop over subjects
 for S in "${SUBS[@]}"

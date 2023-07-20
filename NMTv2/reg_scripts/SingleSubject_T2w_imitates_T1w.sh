@@ -57,14 +57,12 @@ maffd=${fixfld}/aff_mask_dil.nii.gz
 	-prefix ${fixfld}/${SUB}_ns_T2T1unif.nii.gz \
 	-overwrite
 
-cp ${aff} ${affbak}
-
 # do the nonlinear registration between the two skullstripped brains
 3dQwarp \
 	-source ${fixfld}/NMT_aff2${SUB}_ns.nii.gz   \
-    -base   ${fixfld}/${SUB}_ns_T2T1unif.nii.gz       \
+    -base   ${fixfld}/${SUB}_ns_T2T1unif.nii.gz  \
     -prefix ${fixfld}/NMT_nl2${SUB}_fix.nii.gz \
-    -maxlev 9 -workhard 0 2 \
+    -maxlev 9 -workhard:0:2 \
     -lpa -iwarp -overwrite
 
 # apply the warp to the full NMT
@@ -92,6 +90,7 @@ mv ${SSFLD}/aligned_${SUB}/${SUB}_warp2std_ns.nii.gz \
 	${SSFLD}/aligned_${SUB}/${SUB}_warp2std_ns_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/${SUB}_warp2std_nsu.nii.gz \
 	${SSFLD}/aligned_${SUB}/${SUB}_warp2std_nsu_AFF.nii.gz
+
 mv ${SSFLD}/aligned_${SUB}/NMT2_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/NMT2_in_${SUB}_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/${SUB}_mask.nii.gz \
@@ -100,6 +99,7 @@ mv ${SSFLD}/aligned_${SUB}/${SUB}_ns.nii.gz \
 	${SSFLD}/aligned_${SUB}/${SUB}_ns_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/${SUB}_nsu.nii.gz \
 	${SSFLD}/aligned_${SUB}/${SUB}_nsu_AFF.nii.gz
+# masks and segmentations
 mv ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_ventricles_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_ventricles_in_${SUB}_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_cerebellum_mask_in_${SUB}.nii.gz \
@@ -118,11 +118,15 @@ mv ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_segmentation_in_${SUB}_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_Vasculature_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_Vasculature_in_${SUB}_AFF.nii.gz
+mv ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_WM_in_${SUB}.nii.gz \
+	${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_WM_in_${SUB}_AFF.nii.gz
+# atlases
 mv ${SSFLD}/aligned_${SUB}/CHARM_in_NMT_v2.0_sym_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/CHARM_in_NMT_v2.0_sym_in_${SUB}_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/SARM_in_NMT_v2.0_sym_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/SARM_in_NMT_v2.0_sym_in_${SUB}_AFF.nii.gz
-mv ${SSFLD}/aligned_${SUB}/D99_in_NMT_v2.0_sym_in_${SUB}.nii.gz \
-	${SSFLD}/aligned_${SUB}/D99_in_NMT_v2.0_sym_in_${SUB}_AFF.nii.gz
+mv ${SSFLD}/aligned_${SUB}/D99_atlas_in_NMT_v2.0_sym_in_${SUB}.nii.gz \
+	${SSFLD}/aligned_${SUB}/D99_atlas_in_NMT_v2.0_sym_in_${SUB}_AFF.nii.gz
+# surfaces
 mv ${SSFLD}/aligned_${SUB}/surfaces \
 	${SSFLD}/aligned_${SUB}/surfaces_AFF.nii.gz
