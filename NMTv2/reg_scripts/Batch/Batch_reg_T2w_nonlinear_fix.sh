@@ -18,7 +18,7 @@ do
 	echo Alligning center of scan to NMT: ${S}
 	echo '=============================================='
 	# run the preparation script
-    ${fld}/SingleSubject_reg_T2w_nonlinear_fix.sh ${S}
+    ${fld}/ssreg_T2w_nonlinear_fix.sh ${S}
 	echo 'DONE'
 	echo '=============================================='
 done

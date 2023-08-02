@@ -39,7 +39,7 @@ do
 	echo Alligning center of scan to NMT: ${S}
 	echo '=============================================='
 	# run the preparation script
-    ${fld}/SingleSubject_reg_prep.sh ${S}
+    ${fld}/ssreg_prep.sh ${S}
 	echo 'DONE'
 	echo '=============================================='
 done

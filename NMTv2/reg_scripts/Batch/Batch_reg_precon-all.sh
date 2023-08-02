@@ -2,7 +2,6 @@
 
 # set the location of the scripts folder
 fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
-SSFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
 
 # create an array with subject names to loop over
 declare -a SUBS=(
@@ -38,14 +37,7 @@ do
 	echo '========================================='
 	echo Performing precon_all for ${S}
 	echo '========================================='
-	# perform the precon_all to create freesurfer surfaces
-	mkdir ${SSFLD}/aligned_${S}/freesurfer
-	cp ${SSFLD}/aligned_${S}/NMT2_in_${S}.nii.gz \
-		${SSFLD}/aligned_${S}/freesurfer/NMT2_in_${S}.nii.gz 
-
-	${fld}/precon_all/bin/surfing_safari.sh \
-		-i ${SSFLD}/aligned_${S}/freesurfer/NMT2_in_${S}.nii.gz \
-		-r precon_all -a NIMH_mac
+	${fld}/ssreg_precon_all.sh ${S} 
 	wait
 	echo 'DONE'
 	echo '========================================='

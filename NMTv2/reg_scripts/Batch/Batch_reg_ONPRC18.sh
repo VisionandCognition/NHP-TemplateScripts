@@ -38,10 +38,10 @@ do
 	echo Warping ONPRC18 DTI template ${S}
 	echo '========================================='
 	# perform the affine tensor registration
-	${fld}/SingleSubject_reg_affine_ONPRC18.sh ${S} 
+	${fld}/ssreg_aff_ONPRC18.sh ${S} 
 	wait
 	# perform the nonlinear tensor registration
-	${fld}/SingleSubject_reg_nonlinear_ONPRC18.sh ${S} 
+	${fld}/ssreg_nlin_ONPRC18.sh ${S} 
 	wait
 	echo 'DONE'
 	echo '========================================='

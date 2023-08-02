@@ -43,9 +43,9 @@ do
 	echo Warping Retinotopy ${S}
 	echo '========================================='
 	# perform the affine registration
-    ${fld}/SingleSubject_reg_affine_Retinotopy-LGN.sh ${S} 
+    ${fld}/ssreg_aff_Retinotopy-LGN.sh ${S} 
     # perform the nonlinear registration
-    ${fld}/SingleSubject_reg_nonlinear_Retinotopy-LGN.sh ${S} 
+    ${fld}/ssreg_nlin_Retinotopy-LGN.sh ${S} 
 	echo 'DONE'
 	echo '========================================='
 done

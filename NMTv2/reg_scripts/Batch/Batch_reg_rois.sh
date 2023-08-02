@@ -38,9 +38,9 @@ do
 	echo Creating ROIs and ROI meshes ${S}
 	echo '========================================='
 	# perform the affine ROI registration
-    ${fld}/SingleSubject_reg_affine_ROIs.sh ${S} 
+    ${fld}/ssreg_aff_ROIs.sh ${S} 
     # perform the nonlinear ROI registration
-    ${fld}/SingleSubject_reg_nonlinear_ROIs.sh ${S} 
+    ${fld}/ssreg_nlin_ROIs.sh ${S} 
 	echo 'DONE'
 	echo '========================================='
 done

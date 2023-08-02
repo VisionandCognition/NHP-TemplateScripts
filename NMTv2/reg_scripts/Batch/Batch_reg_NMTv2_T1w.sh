@@ -38,10 +38,10 @@ do
 	echo Registering template and atlases to ${S}
 	echo '========================================='
 	# perform the registration
-    ${fld}/SingleSubject_reg_NMTv2.sh ${S} ${COST} ${ALLIGN}
+    ${fld}/ssreg_NMTv2.sh ${S} ${COST} ${ALLIGN}
 	wait
     # convert gifti surface files to meshes
-	${fld}/animalwarper_gii2ply.sh ${S}
+	${fld}/aw_gii2ply.sh ${S}
 	wait
 	echo 'DONE'
 	echo '========================================='
