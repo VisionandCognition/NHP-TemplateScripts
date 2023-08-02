@@ -1,34 +1,36 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
+fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 # create an array with subject names to loop over
 declare -a SUBS=(
-	# Aston
-	# Brutus
-	# Danny
-	# Dasheng
-	# Eddy
-	# Eddy2019
-	# Figaro
-	# Figaro_T2w
-	# Kwibus
-	# Kwibus2015
-	# Lick
-	# Martin
-	# Martin2021
-	# Martin2023
-	# MrNilson
-	# Ozzy
-	# Spike
-	# Toucan
-	# Tsitian
-	# Watson
+	Brutus
+	Watson
 	Scholes
 	Keane
     Butch
-    Kid
+    Kid	
+	Toucan
+	Ozzy
+	Danny
+	Danny2021
+	Aston
+	Dasheng
+	Eddy
+	Eddy2019
+	Figaro
+	Figaro_T2w
+	Kwibus
+	Kwibus2015
+	Lick
+	Martin
+	Martin2021
+	Martin2023
+	Martin2023_T2w
+	MrNilson
+	Spike
+	Tsitian
 	)
 
 # loop over subjects

@@ -18,7 +18,7 @@ fslmaths ${SS_FLD}/NMT2_in_${SUB}.nii.gz -mas ${SS_FLD}/${SUB}_mask.nii.gz ${SS_
 echo
 echo '=== UNet brain extraction (needs some python) ==='
 # use UNET
-UNET_FLD=${BASE}/SingleSubjects/reg_scripts
+UNET_FLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 UNET_code=${UNET_FLD}/UNet_Model
 mkdir -p ${SS_FLD}/UNet_brainextract
 

@@ -8,7 +8,8 @@ SUB=$1
 
 BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
 SSFLD=${BASEFLD}/SingleSubjects
-SCRIPTFLD=${SSFLD}/reg_scripts
+SCRIPTFLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
+
 
 # Identify files
 AFF_S2T=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template.1D

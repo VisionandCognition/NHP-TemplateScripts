@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-fld=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/reg_scripts
+fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 # create an array with subject names to loop over
 declare -a SUBS=(

@@ -8,7 +8,7 @@ SUB=$1
 # set paths
 BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
 SSFLD=${BASEFLD}/SingleSubjects
-SCRIPTFLD=${SSFLD}/reg_scripts
+SCRIPTFLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 SS_mask=${SSFLD}/aligned_${SUB}/${SUB}_mask.nii.gz
