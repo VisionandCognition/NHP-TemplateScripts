@@ -25,6 +25,7 @@ declare -a SUBS=(
     # Toucan    
     # Tsitian    
     # Watson 
+    Diego2018
 	)
 
 # cost function: lpa for T1w, lpc for T2w

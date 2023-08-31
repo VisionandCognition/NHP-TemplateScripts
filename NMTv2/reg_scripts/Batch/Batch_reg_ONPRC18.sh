@@ -25,10 +25,11 @@ declare -a SUBS=(
 	# Toucan
 	# Tsitian
 	# Watson
-	Scholes
-	Keane
-    Butch
-    Kid
+	# Scholes
+	# Keane
+    # Butch
+    # Kid
+    Diego2018
 	)
 
 # loop over subjects
