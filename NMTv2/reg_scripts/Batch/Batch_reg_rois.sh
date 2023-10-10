@@ -29,7 +29,9 @@ declare -a SUBS=(
     # Keane
     # Butch
     # Kid  
-    Diego2018  
+    # Diego2018
+    # Puck
+    Martin2023_T2wus  
 	)
 
 # loop over subjects

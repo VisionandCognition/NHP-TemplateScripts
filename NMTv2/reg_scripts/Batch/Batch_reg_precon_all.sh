@@ -31,7 +31,8 @@ declare -a SUBS=(
 	# MrNilson
 	# Spike
 	# Tsitian
-	Diego2018
+	# Diego2018
+	Puck
 	)
 
 # by default this is done on the nonlinear registration
