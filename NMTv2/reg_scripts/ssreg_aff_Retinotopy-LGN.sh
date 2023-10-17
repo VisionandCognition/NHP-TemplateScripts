@@ -34,6 +34,7 @@ declare -a dt=(
     CELLS
     ECC
     INCL
+    LAYERS
     )
 declare res=('.nii.gz' '_rsNMT.nii.gz')
 
