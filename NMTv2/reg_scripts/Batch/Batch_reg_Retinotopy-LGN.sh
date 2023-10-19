@@ -9,6 +9,7 @@ declare -a SUBS=(
     # Brutus    
     # Danny    
     # Danny2021    
+    Danny2022
     # Dasheng    
     # Eddy    
     # Eddy2019    
@@ -36,7 +37,8 @@ declare -a SUBS=(
     # Kid
     # Diego2018
     # Puck
-    Martin2023_T2wus
+    # Martin2023us
+    # Martin2023_T2wus
 	)
 
 # loop over subjects

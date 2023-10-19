@@ -37,10 +37,11 @@ declare -a wfld=(
 
 declare -a hf=(L R)
 declare -a dt=(
-    mask
-    CELLS
-    ECC
-    INCL
+    # mask
+    # CELLS
+    # ECC
+    # INCL
+    LAYERS
     )
 
 for w in "${wfld[@]}"

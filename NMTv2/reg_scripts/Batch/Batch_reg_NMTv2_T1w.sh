@@ -8,7 +8,8 @@ declare -a SUBS=(
 	# Aston    
     # Brutus    
     # Danny    
-    # Danny2021    
+    # Danny2021   
+    Danny2022 
     # Dasheng    
     # Eddy    
     # Eddy2019    
@@ -27,7 +28,7 @@ declare -a SUBS=(
     # Watson 
     # Diego2018
     # Puck
-    Martin2023us
+    # Martin2023us
 	)
 
 # cost function: lpa for T1w, lpc for T2w

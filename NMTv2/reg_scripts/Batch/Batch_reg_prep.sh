@@ -8,7 +8,8 @@ declare -a SUBS=(
 	# Aston    
     # Brutus    
     # Danny    
-    # Danny2021    
+    # Danny2021   
+    Danny2022  
     # Dasheng    
     # Eddy    
     # Eddy2019    

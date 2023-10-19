@@ -36,7 +36,6 @@ declare -a dt=(
     INCL
     LAYERS
     )
-declare res=('.nii.gz' '_rsNMT.nii.gz')
 
 for w in "${wfld[@]}"
 do
