@@ -10,7 +10,7 @@ declare -a SUBS=(
     # Keane
     # Butch
     # Kid
-    Martin2023_T2wus
+    # Martin2023_T2wus
 	)
 
 # cost function: lpa for T1w, lpc for T2w

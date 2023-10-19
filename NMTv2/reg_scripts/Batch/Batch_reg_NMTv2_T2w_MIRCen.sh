@@ -6,9 +6,9 @@ fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 # create an array with subject names to loop over
 declare -a SUBS=(
 	# Figaro_T2w
-	Scholes
-    Keane
-    Butch
+	# Scholes
+    # Keane
+    # Butch
     # Kid
 	)
 

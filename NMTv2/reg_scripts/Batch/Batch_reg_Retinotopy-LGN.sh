@@ -9,7 +9,7 @@ declare -a SUBS=(
     # Brutus    
     # Danny    
     # Danny2021    
-    Danny2022
+    # Danny2022
     # Dasheng    
     # Eddy    
     # Eddy2019    
@@ -20,8 +20,8 @@ declare -a SUBS=(
     # Lick    
     # Martin    
     # Martin2021 
-    Martin2023
-    Martin2023_T2w
+    # Martin2023
+    # Martin2023_T2w
     # Mircen20221025
     # Mircen20230105
     # Mircen20230314   

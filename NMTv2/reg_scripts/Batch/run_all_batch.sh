@@ -1,18 +1,19 @@
 #!/bin/bash
 fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
-#${fld}/Batch/Batch_reg_prep.sh
-#wait
+${fld}/Batch/Batch_reg_prep.sh
+wait
 ${fld}/Batch/Batch_reg_NMTv2_T1w.sh
 #${fld}/Batch/Batch_reg_NMTv2_T2w.sh
+#${fld}/Batch/Batch_reg_NMTv2_T2w_MIRCen.sh
 wait
 ${fld}/Batch/Batch_reg_rois.sh
-#wait
+wait
 ${fld}/Batch/Batch_reg_Retinotopy.sh
-#wait
+wait
 ${fld}/Batch/Batch_reg_Retinotopy-LGN.sh
-#wait
+wait
 ${fld}/Batch/Batch_reg_ONPRC18.sh
-#wait
+wait
 ${fld}/Batch/Batch_reg_precon_all.sh
 
