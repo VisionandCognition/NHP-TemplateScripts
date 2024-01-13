@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
+script_path="$0"
+script_dir="$(dirname "$script_path")"
+ssreg_dir="$(dirname "$script_dir")"
 
 # create an array with subject names to loop over
 declare -a SUBS=(
@@ -37,6 +39,7 @@ declare -a SUBS=(
     # Kid
     # Diego2018
     # Puck
+    # Pitt_20230912
 	)
 
 # loop over subjects
@@ -46,9 +49,9 @@ do
 	echo Warping Retinotopy ${S}
 	echo '========================================='
 	# perform the affine ROI registration
-    ${fld}/ssreg_aff_Retinotopy.sh ${S} 
+    ${ssreg_dir}/ssreg_aff_Retinotopy.sh ${S}
     # perform the nonlinear ROI registration
-    ${fld}/ssreg_nlin_Retinotopy.sh ${S} 
+    ${ssreg_dir}/ssreg_nlin_Retinotopy.sh ${S}
 	echo 'DONE'
 	echo '========================================='
 done

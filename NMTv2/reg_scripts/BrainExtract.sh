@@ -1,10 +1,17 @@
 #!/bin/bash
 
 # call with subject name as argument
-SUB=${1}
+SUB=$1
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_sym'}
+NMTTYPE2=${5:-'NMT_v2.0_sym'}
 
-BASE=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
-SS_FLD=${BASE}/SingleSubjects/aligned_${SUB}
+script_path="$0"
+SCRIPTFLD="$(dirname "$script_path")"
+# =========================
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
+SS_FLD=${BASEFLD}/SingleSubjects/aligned_${SUB}
 
 echo -----------------------------
 echo Subject ${SUB} - Brain Extract
@@ -18,8 +25,7 @@ fslmaths ${SS_FLD}/NMT2_in_${SUB}.nii.gz -mas ${SS_FLD}/${SUB}_mask.nii.gz ${SS_
 echo
 echo '=== UNet brain extraction (needs some python) ==='
 # use UNET
-UNET_FLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
-UNET_code=${UNET_FLD}/UNet_Model
+UNET_code=${SCRIPTFLD}/UNet_Model
 mkdir -p ${SS_FLD}/UNet_brainextract
 
 python3 ${UNET_code}/muSkullStrip.py -in ${SS_FLD}/${SUB}.nii.gz \

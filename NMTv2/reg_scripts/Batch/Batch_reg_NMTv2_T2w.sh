@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
+script_path="$0"
+script_dir="$(dirname "$script_path")"
+ssreg_dir="$(dirname "$script_dir")"
 
 # create an array with subject names to loop over
 declare -a SUBS=(
@@ -25,10 +27,10 @@ do
 	echo Registering template and atlases to ${S}
 	echo '========================================='
 	# perform the registration
-	${fld}/ssreg_NMTv2.sh ${S} ${COST} ${ALLIGN}
+	${ssreg_dir}/ssreg_NMTv2.sh ${S} ${COST} ${ALLIGN}
 	wait
 	# convert gifti surface files to meshes
-	${fld}/aw_gii2ply.sh ${S}
+	${ssreg_dir}/aw_gii2ply.sh ${S}
 	wait
 	echo 'DONE'
 	echo '========================================='

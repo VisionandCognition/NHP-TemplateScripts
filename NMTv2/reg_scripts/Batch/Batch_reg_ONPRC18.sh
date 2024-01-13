@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
+script_path="$0"
+script_dir="$(dirname "$script_path")"
+ssreg_dir="$(dirname "$script_dir")"
 
 # create an array with subject names to loop over
 declare -a SUBS=(
@@ -32,6 +34,7 @@ declare -a SUBS=(
     # Kid
     # Diego2018
     # Puck
+    # Pitt_20230912
 	)
 
 # loop over subjects
@@ -41,10 +44,10 @@ do
 	echo Warping ONPRC18 DTI template ${S}
 	echo '========================================='
 	# perform the affine tensor registration
-	${fld}/ssreg_aff_ONPRC18.sh ${S} 
+	${ssreg_dir}/ssreg_aff_ONPRC18.sh ${S}
 	wait
 	# perform the nonlinear tensor registration
-	${fld}/ssreg_nlin_ONPRC18.sh ${S} 
+	${ssreg_dir}/ssreg_nlin_ONPRC18.sh ${S}
 	wait
 	echo 'DONE'
 	echo '========================================='

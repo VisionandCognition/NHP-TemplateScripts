@@ -5,8 +5,11 @@
 
 # =========================
 SUB=$1
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_sym'}
 # =========================
-BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
 org=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 aff=${SSFLD}/aligned_${SUB}/affine/NMT_aff2${SUB}.nii.gz
@@ -20,7 +23,7 @@ maffd=${fixfld}/aff_mask_dil.nii.gz
 
 # affine transform the NMT brainmask
 3dAllineate \
-	-source ${SSFLD}/aligned_${SUB}/NMT_v2.0_sym_brainmask.nii.gz \
+	-source ${SSFLD}/aligned_${SUB}/${NMTTYPE1}_brainmask.nii.gz \
 	-prefix ${maff} \
 	-master ${org} \
 	-1Dmatrix_apply ${aff1d} \
@@ -28,24 +31,24 @@ maffd=${fixfld}/aff_mask_dil.nii.gz
 
 # dilate brain mask
 3dmask_tool \
-         -dilate_inputs -2 3 \
-         -inputs ${maff}  \
-         -prefix ${maffd} \
-         -overwrite
+   -dilate_inputs -2 3 \
+   -inputs ${maff}  \
+   -prefix ${maffd} \
+   -overwrite
 
 # apply the mask
 3dcalc \
-    	-a       ${aff} \
-      	-b       ${maffd} \
-      	-expr    'a*step(b)' \
-      	-prefix  ${fixfld}/NMT_aff2${SUB}_ns.nii.gz \
-      	-overwrite
+   -a ${aff} \
+   -b ${maffd} \
+   -expr 'a*step(b)' \
+   -prefix ${fixfld}/NMT_aff2${SUB}_ns.nii.gz \
+   -overwrite
 3dcalc \
-    	-a       ${org} \
-      	-b       ${maffd} \
-      	-expr    'a*step(b)' \
-      	-prefix  ${fixfld}/${SUB}_ns.nii.gz \
-      	-overwrite
+   -a ${org} \
+   -b ${maffd} \
+   -expr 'a*step(b)' \
+   -prefix ${fixfld}/${SUB}_ns.nii.gz \
+   -overwrite
 
 # invert T2w contrast to make it look like T1w
 3dUnifize \
@@ -57,18 +60,18 @@ maffd=${fixfld}/aff_mask_dil.nii.gz
 # do the nonlinear registration between the two skullstripped brains
 3dQwarp \
 	-source ${fixfld}/NMT_aff2${SUB}_ns.nii.gz   \
-    -base   ${fixfld}/${SUB}_ns_T2T1unif.nii.gz       \
-    -prefix ${fixfld}/NMT_nl2${SUB}_fix.nii.gz \
-    -lpa -iwarp -overwrite
+  -base   ${fixfld}/${SUB}_ns_T2T1unif.nii.gz       \
+  -prefix ${fixfld}/NMT_nl2${SUB}_fix.nii.gz \
+  -lpa -iwarp -overwrite
 
 # apply the warp to the full NMT
 mv ${fixfld}/NMT_nl2${SUB}_fix.nii.gz ${fixfld}/NMT_nl2${SUB}_fix_ns.nii.gz 
 3dNwarpApply \
-    -source ${aff} \
-    -prefix ${fixfld}/NMT_nl2${SUB}_fix.nii.gz \
-    -master ${org} \
-    -nwarp  ${fixfld}/NMT_nl2${SUB}_fix_WARP.nii.gz \
-    -interp linear -overwrite  
+  -source ${aff} \
+  -prefix ${fixfld}/NMT_nl2${SUB}_fix.nii.gz \
+  -master ${org} \
+  -nwarp  ${fixfld}/NMT_nl2${SUB}_fix_WARP.nii.gz \
+  -interp linear -overwrite
 
 # rename/copy the warps so we can use them in @aw
 cp ${fixfld}/NMT_nl2${SUB}_fix_WARPINV.nii.gz \

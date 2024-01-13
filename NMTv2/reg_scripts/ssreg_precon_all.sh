@@ -15,7 +15,12 @@ REGTYPE=$2
 
 # set paths ----
 fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
-SSFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/SingleSubjects
+
+
+NMTVERSION=NMT_v2.0
+NMTTYPE1=NMT_v2.0_sym
+BASENMT=/NHP_MRI/Template/${NMTVERSION}/${NMTTYPE1}
+SSFLD=${BASENMT}/SingleSubjects
 PWD=$(pwd)
 
 # process regtype

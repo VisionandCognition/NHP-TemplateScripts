@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
+script_path="$0"
+script_dir="$(dirname "$script_path")"
+ssreg_dir="$(dirname "$script_dir")"
 
 # create an array with subject names to loop over
 declare -a SUBS=(
@@ -34,6 +36,7 @@ declare -a SUBS=(
 	# Tsitian
 	# Diego2018
 	# Puck
+	# Pitt_20230912
 	)
 
 # by default this is done on the nonlinear registration
@@ -41,7 +44,7 @@ declare -a SUBS=(
 # or on both the affine and non-linear
 # If you want to include the affine, make sure that you run
 # the ssreg_aff_ROIs.sh script first.
-REGTYPE=aff # [nlin]/aff/both
+REGTYPE=nlin # [nlin]/aff/both
 
 
 # loop over subjects
@@ -50,7 +53,7 @@ do
 	echo '========================================='
 	echo Performing precon_all for ${S}
 	echo '========================================='
-	${fld}/ssreg_precon_all.sh ${S} ${REGTYPE} 
+	${ssreg_dir}/ssreg_precon_all.sh ${S} ${REGTYPE}
 	wait
 	echo 'DONE'
 	echo '========================================='

@@ -1,14 +1,30 @@
 #!/bin/bash
+CREATEMESH=1
+required_modules=("nibabel" "numpy" "igl" "skimage" "scipy")
+for module in "${required_modules[@]}"; do
+    if python -c "import $module" &> /dev/null; then
+        echo "Module $module is available."
+    else
+        echo "Module $module is not available. Not creating meshes."
+        CREATEMESH=0
+    fi
+done
 
-# Use the nonlinear registration
+# Continue with the rest of your script if all required modules are available
+echo "All required modules are available. Continuing with the script."
 
 # =========================
 SUB=$1
-# =========================
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_sym'}
+NMTTYPE2=${5:-'NMT_v2.0_sym'}
 
-BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
+script_path="$0"
+SCRIPTFLD="$(dirname "$script_path")"
+# =========================
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
-SCRIPTFLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 # Identify files
 AFF_S2T=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template.1D
@@ -23,10 +39,10 @@ fwsh_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft.1D
 
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 SS_NL_OUT=${SSFLD}/aligned_${SUB}/nonlinear
-TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
+TT=${SSFLD}/aligned_${SUB}/${NMTTYPE2}.nii.gz
 
-CHARM_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_CHARM 
-SARM_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_SARM
+CHARM_SUPP=${BASEFLD}/${NMTTYPE2}/supplemental_CHARM
+SARM_SUPP=${BASEFLD}/${NMTTYPE2}/supplemental_SARM
 
 CHARM_LFLD=${BASEFLD}/tables_CHARM
 SARM_LFLD=${BASEFLD}/tables_SARM
@@ -94,9 +110,6 @@ do
 done
 
 
-
-
-
 # Extract ROI & create meshes
 for LEVEL in 1 2 3 4 5 6
 do
@@ -118,8 +131,10 @@ do
             # extract label as binary-mask
             fslmaths ${SS_NL_OUT}/CHARM/CHARM_${LEVEL}_in_${SUB}.nii.gz \
                -thr ${LABLENUM} -uthr ${LABLENUM} -bin ${charmfld}/${LABLENAME}.nii.gz
-            # convert binary mask to mesh
-            python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply &    
+            if ((CREATEMESH == 1)); then
+              # convert binary mask to mesh
+              python ${SCRIPTFLD}/binarymask_to_mesh.py ${charmfld}/${LABLENAME}.nii.gz ${charm_meshfld}/${LABLENAME}.ply &
+            fi
         done 
     } < "${labels}"
 
@@ -140,8 +155,10 @@ do
             # extract label as binary-mask
             fslmaths ${SS_NL_OUT}/SARM/SARM_${LEVEL}_in_${SUB}.nii.gz \
                 -thr ${LABLENUM} -uthr ${LABLENUM} -bin ${sarmfld}/${LABLENAME}.nii.gz
-            # convert binary mask to mesh
-            python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply &    
+            if ((CREATEMESH == 1)); then
+              # convert binary mask to mesh
+              python ${SCRIPTFLD}/binarymask_to_mesh.py ${sarmfld}/${LABLENAME}.nii.gz ${sarm_meshfld}/${LABLENAME}.ply &
+            fi
         done
   } < "${labels}"
 done

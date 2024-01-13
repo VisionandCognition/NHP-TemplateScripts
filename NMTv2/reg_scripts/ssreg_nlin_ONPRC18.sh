@@ -1,21 +1,24 @@
 #!/bin/bash
 
 # =========================
-# get subject name
 SUB=$1
-# =========================
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_sym'}
+NMTTYPE2=${5:-'NMT_v2.0_sym'}
 
-# set paths
-BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
+script_path="$0"
+SCRIPTFLD="$(dirname "$script_path")"
+# =========================
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
-SCRIPTFLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 SS_mask=${SSFLD}/aligned_${SUB}/${SUB}_mask.nii.gz
 SS_AFF_OUT=${SSFLD}/aligned_${SUB}/ONPRC18/affine
 SS_NL_OUT=${SSFLD}/aligned_${SUB}/ONPRC18/nonlinear
 ONPRC_SS=${SSFLD}/aligned_${SUB}/ONPRC18
-ONPRC_SUPP=${BASEFLD}/NMT_v2.0_sym/supplemental_ONPRC18 
+ONPRC_SUPP=${BASEFLD}/${NMTTYPE1}/supplemental_ONPRC18
 
 # make folders
 mkdir -p ${SS_AFF_OUT}
@@ -27,7 +30,7 @@ mkdir -p ${SS_NL_OUT}
 
 NMTi_aff=${SSFLD}/aligned_${SUB}/affine/NMT_aff2${SUB}.nii.gz
 NMTi_nl=${SSFLD}/aligned_${SUB}/nonlinear/NMT_nl2${SUB}.nii.gz
-NMT=${BASEFLD}/NMT_v2.0_sym/NMT_v2.0_sym_SS.nii.gz
+NMT=${BASEFLD}/${NMTTYPE1}/${NMTTYPE2}_SS.nii.gz
 
 if [ -f ${ONPRC_SS}/NMT2NMTi_1Warp.nii.gz ]
 then
@@ -56,7 +59,7 @@ echo Done. Now we will apply these transforms.
 # warp tensor and anatomy =========
 
 # Apply transforms
-IN=${ONPRC_SUPP}/ONPRC18_DTI_tensors_in_NMT_v2.0_sym_ro.nii.gz
+IN=${ONPRC_SUPP}/ONPRC18_DTI_tensors_in_${NMTTYPE2}_ro.nii.gz
 OUT=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff.nii.gz
 OUT2=${SS_NL_OUT}/ONPRC18_DTI_tensors_in_${SUB}_aff_ro.nii.gz
 REF=${SS}
@@ -105,7 +108,7 @@ declare -a PREFIXES=(
 
 for PREFIX in "${PREFIXES[@]}"
 do
-    IN=${ONPRC_SUPP}/ONPRC18_${PREFIX}_in_NMT_v2.0_sym.nii.gz
+    IN=${ONPRC_SUPP}/ONPRC18_${PREFIX}_in_${NMTTYPE2}.nii.gz
     OUT=${SS_NL_OUT}/ONPRC18_${PREFIX}_in_${SUB}_aff.nii.gz
     TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
     echo Transforming AFF ${IN}
@@ -138,7 +141,7 @@ declare -a PREFIXES=(
 
 for PREFIX in "${PREFIXES[@]}"
 do
-    IN=${ONPRC_SUPP}/ONPRC18_${PREFIX}_in_NMT_v2.0_sym.nii.gz
+    IN=${ONPRC_SUPP}/ONPRC18_${PREFIX}_in_${NMTTYPE2}.nii.gz
     OUT=${SS_NL_OUT}/ONPRC18_${PREFIX}_in_${SUB}_aff.nii.gz
     TRANSFORM=${ONPRC_SS}/NMT2NMTi_0GenericAffine.mat
     INTERP=NearestNeighbor

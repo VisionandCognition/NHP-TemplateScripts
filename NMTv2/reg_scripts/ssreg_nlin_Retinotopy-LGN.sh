@@ -4,11 +4,16 @@
 
 # =========================
 SUB=$1
-# =========================
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_sym'}
+NMTTYPE2=${5:-'NMT_v2.0_sym'}
 
-BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
+script_path="$0"
+SCRIPTFLD="$(dirname "$script_path")"
+# =========================
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
-SCRIPTFLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 # Identify files
 AFF_S2T=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template.1D
@@ -24,7 +29,7 @@ fwsh_S2T=${SSFLD}/aligned_${SUB}/intermediate/${SUB}_shft.1D
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 RETINOTOPY_NL_OUT=${SSFLD}/aligned_${SUB}/Retinotopy-LGN/nonlinear
 
-TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
+TT=${SSFLD}/aligned_${SUB}/${NMTTYPE2}.nii.gz
 
 # make folders
 mkdir -p ${RETINOTOPY_NL_OUT}
@@ -37,10 +42,10 @@ declare -a wfld=(
 
 declare -a hf=(L R)
 declare -a dt=(
-    # mask
-    # CELLS
-    # ECC
-    # INCL
+    mask
+    CELLS
+    ECC
+    INCL
     LAYERS
     )
 

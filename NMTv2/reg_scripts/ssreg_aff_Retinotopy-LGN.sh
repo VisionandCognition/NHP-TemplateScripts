@@ -4,11 +4,16 @@
 
 # =========================
 SUB=$1
-# =========================
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_sym'}
+NMTTYPE2=${5:-'NMT_v2.0_sym'}
 
-BASEFLD=/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym
+script_path="$0"
+SCRIPTFLD="$(dirname "$script_path")"
+# =========================
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
-SCRIPTFLD=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
 
 # Identify files
 AFF_S2T=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template.1D
@@ -17,7 +22,7 @@ AFF_T2S=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template_inv.1D
 SS=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 
 RETINOTOPY_AFF_OUT=${SSFLD}/aligned_${SUB}/Retinotopy-LGN/affine
-TT=${SSFLD}/aligned_${SUB}/NMT_v2.0_sym.nii.gz
+TT=${SSFLD}/aligned_${SUB}/${NMTTYPE2}.nii.gz
 
 # make folders
 mkdir -p ${RETINOTOPY_AFF_OUT}
@@ -46,7 +51,7 @@ do
             mkdir -p ${RETINOTOPY_AFF_OUT}/${w}
 
             3dAllineate \
-                -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}.nii.gz \
+                -source ${BASEFLD}/${NMTTYPE1}/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}.nii.gz \
                 -prefix ${RETINOTOPY_AFF_OUT}/${w}/${d}_${h}.nii.gz \
                 -master ${SS} \
                 -1Dmatrix_apply ${AFF_T2S} \
