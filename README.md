@@ -1,5 +1,4 @@
-# NHP-TemplateScripts     
-
+# NHP-TemplateScripts
 This package performs a registration of the NIH Macaque Template brain to an individual MR scan. 
 It will automatically also registers detailed cortical and subcortical atlases and optionally a 
 broad range of additional information such as probablistic DTI and retinotopy (cortex and LGN).
@@ -37,7 +36,7 @@ that the entire filename (without the `.nii.gz` extension) is the subject name a
 Once this is all set up you can run the scripts. 
 
 ## Step 2: Put the individual in the same spatial location as the template     
-The first processing step is `ssreg_prep.sh`. It takes one obligatory argument `subject-name`, and a number
+The first processing step is `ssreg_prep.sh`. It takes one obligatory argument `subject`, and a number
 of optional positional arguments.
 
 `ssreg_prep.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`
@@ -53,14 +52,95 @@ This script centers the individual scan on the center of the template and saves 
 the applied transform. Further scripts will work with the recentered individual.    
 
 ## Step 3: Co-register the individual and template    
+`ssreg_NMTv2` is the main registration to the template and following segmentations and atlases. 
+It uses `AFNI`'s `@animal_warper` function and it does both an affine and a nonlinear registration.
+It works with both T1w and T2w scans, but there are differences. While the whole thing pretty 
+much works out of the box for T1w the nonlinear registration results vary a bit for for T2w (the template is T1w). 
+Often, it just works with the correct cost function (`lpc`) but sometimes you need a workaround and this
+seems to work well: After affine registration, T2w images get altered so that there contrast is T1w-like. 
+These images are then nonlinearly registered to the template and the resulting warp can be applied to 
+unaltered images as well. To make this work there are three obligatory arguments:
 
+- `subject` is again the subject name    
+- `cost` defines the cost function used fro the registration. For T1w images use `lpa`, for T2w
+images use `lpc`. See `AFNI` documentation for more info.   
+- `regtype` defines whether we will only do rigid (`rigid`) or affine registration (`affine`), or 
+affine and nonlinear (`all`). We typically use `all` but when there are large dropouts in the 
+individual scan it is pointless to try nonlinear and you save a lot of time by just doing `affine`.
 
+The call to this script thus becomes (postional arguments as in Step 2):    
 `ssreg_NMTv2.sh subject cost regtype [template folder path] [NMT version] [NMT type] [NMT subtype]`
-SUB=${1}
-COST=${2}
-ALIGN=${3}
 
-TEMPLATEFLD=${4:-'/NHP_MRI/Template'}
-NMTVERSION=${5:-'NMT_v2.0'}
-NMTTYPE1=${6:-'NMT_v2.0_sym'}
-NMTTYPE2=${7:-'NMT_v2.0_sym'}
+The workaround registration of T2w images with the fix is slightly more complex. 
+- First do an affine registration with `ssreg_NMTv2`      
+- Then run the `ss_T2w_imitates_T1w.sh` script to mimic the T1w contrast   
+- Finally, run `ssreg_NMTv2` with the `all` flag for alignment. It will pick up the previous 
+affine registration and add a nonlinear one.
+
+The pipeline generates surfaces as gifti files. We have added an extra step to also convert these to
+ply mesh files so they can be easily loaded in many software packages. It uses `aw_gii2ply.sh `. 
+
+## Step 4: Generate additional ROI files and surfaces   
+The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and 
+[SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of
+cortical and subcortical parcellations respectively are hierarchically organized, meaning they
+provide parcellations at different spatial resolutions.
+Here, for each level, we split the parcellations in individual volumetric ROI files and generate
+surface mesh files of each ROI as well. There are versions for the both the affine and nonlinear
+registered atlases.
+
+`ssreg_aff_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
+and    
+`ssreg_nlin_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
+
+## Step 5: Warp previously recorded retinotopic maps
+For visual neuroscience, it is often useful to know what regions of space a voxel is likely to
+respond to. To that end we can warp previously recorded retinotopic maps to each individual.
+There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and
+population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304).
+Again both an affine and a nonlinear version exist.
+
+`ssreg_aff_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
+or    
+`ssreg_nlin_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
+
+## Step 6: Warp an LGN retinotopic model
+We have warped a detailed mathematical retinotopic map of the LGN [(Erwin et al. 1999)](http://malpeli.psychology.illinois.edu/atlas/)
+to the NMT space so that we can now also easily warp it to the individual through the SARM
+delineation of the LGN. There are three sources of the NMT-based LGN-maps, 1) a rigid placement in 
+NMT space (don't use this), 2) an affine registration to NMT, 3) a nonlinear registration to NMT.
+Because the atlas is only defined in LGN, the registration can only use the shape of LGN for this
+original step. Again, there is an affine and affine+nonlinear version of this.
+
+`ssreg_aff_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
+or    
+`ssreg_nlin_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
+
+## Step 7: Warp the ONPRC18 DTI template
+The [ONPRC18 template](https://www.nitrc.org/projects/onprc18_atlas) includes DTI information that
+can be warped to an individual. This is a little more involved than anatomical warps as tensor
+information is directional and needs to be corrected for spatial warps. 
+This is done with the scripts (again using either the affine or affine+nlin):
+
+`ssreg_aff_ONPRC18.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
+or    
+`ssreg_nlin_ONPRC18.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
+
+## Step 8: Create Freesurfer compatible surfaces
+For later processing and/or visualisation, for instance with packages like [NHP-Pycortex](https://github.com/VisionandCognition/NHP-pycortex)
+it can be useful to generate [Freesurfer](https://surfer.nmr.mgh.harvard.edu/) compatible surfaces
+and segmentations. This is not trivial for non-human brains. With a package like 
+[NHP=Freesurfer](https://github.com/VisionandCognition/NHP-Freesurfer) you can do this but it requires
+a fair bit of manual editing. 
+A fast alternative we have implemented here is to use the [precon_all](https://github.com/neurabenn/precon_all) package.
+It is is fully automated and Freesurfer compatible, but results may vary. To use it:
+
+
+`ssreg_preconall.sh subject regtype [template folder path] [NMT version] [NMT type]`
+
+Here`regtype` defines whether we will only do affine registration (`affine`), affine+nonlinear (`nlin`),
+or both (`both`).
+
+
+
+

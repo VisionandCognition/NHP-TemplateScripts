@@ -13,15 +13,18 @@ REGTYPE=$2
 # the ssreg_aff_ROIs.sh script first.
 # =========================
 
+TEMPLATEFLD=${3:-'/NHP_MRI/Template'}
+NMTVERSION=${4:-'NMT_v2.0'}
+NMTTYPE1=${5:-'NMT_v2.0_sym'}
+
+script_path="$0"
+SCRIPTFLD="$(dirname "$script_path")"
+
 # set paths ----
-fld=/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/reg_scripts
-
-
-NMTVERSION=NMT_v2.0
-NMTTYPE1=NMT_v2.0_sym
-BASENMT=/NHP_MRI/Template/${NMTVERSION}/${NMTTYPE1}
-SSFLD=${BASENMT}/SingleSubjects
+BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
+SSFLD=${BASEFLD}/SingleSubjects
 PWD=$(pwd)
+cd ${SCRIPTFLD}
 
 # process regtype
 if [ "$REGTYPE" == "nlin" ]; then
@@ -51,8 +54,8 @@ fi
 
 # run precon_all ----
 # move to precon folder
-echo Going to precon folder: ${fld}/precon_all 
-cd ${fld}/precon_all
+echo Going to precon folder: ${SCRIPTFLD}/precon_all 
+cd ${SCRIPTFLD}/precon_all
 
 # run precon_all
 if [ "$do_nlin" = true ]; then
