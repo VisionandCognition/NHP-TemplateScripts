@@ -54,7 +54,7 @@ The workaround registration of T2w images with the fix is slightly more complex.
 
 The pipeline generates surfaces as gifti files. We have added an extra step to also convert these to ply mesh files so they can be easily loaded in many software packages. It uses `aw_gii2ply.sh `. 
 
-![nmt_aligned](images/nmt_aligned.png)
+![nmt_aligned](images/nmt.png)
 
 ## Step 4: Generate additional ROI files and surfaces   
 The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and [SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of cortical and subcortical parcellations respectively are hierarchically organized, meaning they provide parcellations at different spatial resolutions. Here, for each level, we split the parcellations in individual volumetric ROI files and generate surface mesh files of each ROI as well. There are versions for the both the affine and nonlinearly registered atlases.
@@ -63,7 +63,7 @@ The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_temp
 and    
 `ssreg_nlin_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
-![Atlases](images/atlases.png)
+![ROIsurfaces](images/roisurfaces.png)
 
 ## Step 5: Warp previously recorded retinotopic maps
 For visual neuroscience, it is often useful to know what regions of space a voxel is likely to respond to. To that end we can warp previously recorded retinotopic maps to each individual. There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304). Again both an affine and a nonlinear version exist.
@@ -81,7 +81,7 @@ We have warped a detailed mathematical retinotopic map of the LGN [(Erwin et al.
 or    
 `ssreg_nlin_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
-![retinotopy-lgn](images/retinotopy_lgn.png)
+![retinotopy-lgn](images/retinotopylgn.png)
 
 ## Step 7: Warp the ONPRC18 DTI template
 The [ONPRC18 template](https://www.nitrc.org/projects/onprc18_atlas) includes DTI information that
