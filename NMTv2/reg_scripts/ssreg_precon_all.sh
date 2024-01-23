@@ -17,14 +17,18 @@ TEMPLATEFLD=${3:-'/NHP_MRI/Template'}
 NMTVERSION=${4:-'NMT_v2.0'}
 NMTTYPE1=${5:-'NMT_v2.0_sym'}
 
-script_path="$0"
-SCRIPTFLD="$(dirname "$script_path")"
+SCRIPTFLD="$(dirname "$(realpath "$0")")"
+
 
 # set paths ----
 BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
 PWD=$(pwd)
 cd ${SCRIPTFLD}
+
+export PCP_PATH=${SCRIPTFLD}/precon_all
+export PATH=${PATH}:${PCP_PATH}
+
 
 # process regtype
 if [ "$REGTYPE" == "nlin" ]; then
