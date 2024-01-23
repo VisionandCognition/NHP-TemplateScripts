@@ -7,36 +7,9 @@ ssreg_dir="$(dirname "$script_dir")"
 
 # create an array with subject names to loop over
 declare -a SUBS=(
-	# Brutus
-	# Watson
-	# Scholes
-	# Keane
-    # Butch
-    # Kid	
-	# Toucan
-	# Ozzy
-	# Danny
-	# Danny2021
-	# Danny2022 
-	# Aston
-	# Dasheng
-	# Eddy
-	# Eddy2019
-	# Figaro
-	# Figaro_T2w
-	# Kwibus
-	# Kwibus2015
-	# Lick
-	# Martin
-	# Martin2021
-	# Martin2023
-	# Martin2023_T2w
-	# MrNilson
-	# Spike
-	# Tsitian
-	# Diego2018
-	# Puck
 	# Pitt_20230912
+	1MM015
+    CIA073
 	)
 
 # by default this is done on the nonlinear registration

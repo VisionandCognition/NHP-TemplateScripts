@@ -7,39 +7,9 @@ ssreg_dir="$(dirname "$script_dir")"
 
 # create an array with subject names to loop over
 declare -a SUBS=(
-	# Aston    
-    # Brutus    
-    # Danny    
-    # Danny2021  
-    # Danny2022  
-    # Dasheng    
-    # Eddy    
-    # Eddy2019    
-    # Figaro  
-    # Figaro_T2w 
-    # Kwibus    
-    # Kwibus2015    
-    # Lick    
-    # Martin    
-    # Martin2021 
-    # Martin2023
-    # Martin2023_T2w
-    # Mircen20221025
-    # Mircen20230105
-    # Mircen20230314   
-    # MrNilson    
-    # Ozzy    
-    # Spike    
-    # Toucan    
-    # Tsitian    
-    # Watson 
-    # Scholes
-    # Keane
-    # Butch
-    # Kid
-    # Diego2018
-    # Puck
-    # Pitt_20230912
+	# Pitt_20230912
+    1MM015
+    CIA073
 	)
 
 # loop over subjects

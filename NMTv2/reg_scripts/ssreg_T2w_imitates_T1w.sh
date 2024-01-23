@@ -13,9 +13,6 @@ BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SSFLD=${BASEFLD}/SingleSubjects
 org=${SSFLD}/aligned_${SUB}/${SUB}.nii.gz
 aff=${SSFLD}/aligned_${SUB}/NMT2_in_${SUB}.nii.gz
-affbak=${SSFLD}/aligned_${SUB}/NMT2_in_${SUB}_AFF.nii.gz
-
-aff_1d=${SSFLD}/aligned_${SUB}/${SUB}_composite_linear_to_template_inv.1D
 fixfld=${SSFLD}/aligned_${SUB}/nonlinear_fix
 
 mkdir -p ${fixfld}
@@ -23,13 +20,10 @@ mkdir -p ${fixfld}
 maff=${fixfld}/aff_mask.nii.gz
 maffd=${fixfld}/aff_mask_dil.nii.gz
 
-# affine transform the NMT brainmask
-3dAllineate \
-	-source ${SSFLD}/aligned_${SUB}/${NMTTYPE1}_brainmask.nii.gz \
-	-prefix ${maff} \
-	-master ${org} \
-	-1Dmatrix_apply ${aff_1d} \
-	-interp linear -final cubic -overwrite
+3dcalc \
+	-a ${SSFLD}/aligned_${SUB}/${NMTTYPE1}_LR_brainmask_in_${SUB}.nii.gz \
+	-expr 'ispositive(a)' \
+      -prefix ${maff} 
 
 # dilate brain mask
 3dmask_tool \
@@ -131,4 +125,4 @@ mv ${SSFLD}/aligned_${SUB}/D99_atlas_in_${NMTTYPE1}_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/D99_atlas_in_${NMTTYPE1}_in_${SUB}_AFF.nii.gz
 # surfaces
 mv ${SSFLD}/aligned_${SUB}/surfaces \
-	${SSFLD}/aligned_${SUB}/surfaces_AFF.nii.gz
+	${SSFLD}/aligned_${SUB}/surfaces_AFF

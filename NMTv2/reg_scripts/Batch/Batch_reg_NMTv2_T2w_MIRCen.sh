@@ -12,6 +12,8 @@ declare -a SUBS=(
     # Keane
     # Butch
     # Kid
+    1MM015
+    CIA073
 	)
 
 # loop over subjects
@@ -37,7 +39,7 @@ do
 	echo Fixing T2w to look like T1w for ${S}
 	echo '========================================='
 	# run the procedure
-	${ssreg_dir}/ss_T2w_imitates_T1w.sh ${S}
+	${ssreg_dir}/ssreg_T2w_imitates_T1w.sh ${S}
 	wait
 	echo 'DONE'
 	echo ''
