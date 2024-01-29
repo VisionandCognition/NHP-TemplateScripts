@@ -1,5 +1,5 @@
 # NHP-TemplateScripts
-This package performs a registration of the NIH Macaque Template brain to an individual MR scan. It will automatically also registers detailed cortical and subcortical atlases and optionally a broad range of additional information such as probablistic DTI and retinotopy (cortex and LGN).
+This package performs a registration of the NIH Macaque Template brain to an individual MR scan. It will automatically also registers detailed cortical and subcortical atlases and optionally a broad range of additional information such as probablistic DTI and retinotopy (cortex and LGN). TEST
 
 The basic registrations requires:
 - `AFNI` [https://afni.nimh.nih.gov/](https://afni.nimh.nih.gov/)    
