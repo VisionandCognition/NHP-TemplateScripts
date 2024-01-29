@@ -1,24 +1,48 @@
 # NHP-TemplateScripts
-This package performs a registration of the NIH Macaque Template brain to an individual MR scan. It will automatically also registers detailed cortical and subcortical atlases and optionally a broad range of additional information such as probablistic DTI and retinotopy (cortex and LGN).
+This package performs a registration of the NIH Macaque Template (NMT) brain to the structural MRI scan of an individual monkey (and the other way around). It will also automatically register detailed cortical and subcortical atlases (i.e. CHARM and SARM) and a broad range of additional information (optional), containing probablistic DTI and retinotopy (cortex and LGN).
 
-The basic registrations requires:
+<br>
+
+Basic registrations requires:
 - `AFNI` [https://afni.nimh.nih.gov/](https://afni.nimh.nih.gov/)    
 - The template package: [NMTv2.0](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/template_nmtv2.html)
 
-After downloading the NMT we suggest saving it in the following file structure:    
+After downloading the NMT we suggest saving it in the following file structure on your local PC or network:    
 `<where-you-want>/NMT_v2.0/NMT_v2.0_sym` and `<where-you-want>/NMT_v2.0/NMT_v2.0_asym` 
 
-Download this package of scripts and save it wherever you want. The scripts should be aware of their relative positions and function at any location as long as the package structure is intact. The bulk of the work is done by the `ssreg_*.sh` scripts (see below) but the `Batch` folder also contain scripts to configure multiple procedures for multiple individuals. These will be executed serially so if you want to do things in parallel, you will need to run multiple instances or come up with a script yourself. Do note that especially the non-linear registration takes quite some resources so be careful when initiating multiple of them on a computer with limited resources.
+<br>
+
+Download this package of scripts and save it wherever you want. The scripts should be aware of their relative positions and function at any location as long as the package structure is intact. The bulk of the work is done by the `ssreg_*.sh` scripts (see below) but the `Batch` folder also contain scripts to configure multiple procedures for multiple individuals. 
+
+
+**Note on Parallel Processing**: The default is to run these scripts serially (i.e. one by one). If you want to do things in parallel, you will need to run multiple instances or come up with a script yourself. Do note that non-linear registration in particular can take quite some computational resources, so be careful when initiating several at once on a computer with limited resources.
+
+<br>
 
 ## Step 1: Prepare the individual scan    
 If you have a T1 or T2 scan of reasonable quality (the procedure is pretty forgiving). You will first need to make sure the orientation is (roughly) correct and the image cropped around the head with not too much empty space. Use your favorite tools to do this, our methods tend to involve:    
-- `dcm2niix` to convert dicom files to nifti. Get it at [NITRC](https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage)
+
+<br>
+
+- `dcm2niix` to convert DICOM files to nifti. Get it at [NITRC](https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage)
+
+<br>
+
 - `Freesurfer`'s `mri_convert` takes a `--sphinx` flag to correct for animals in a sphinx orientation 
 in a human scanner. See the [documentation](https://surfer.nmr.mgh.harvard.edu/fswiki/mri_convert)
+
+<br>
+
+
 - [Reorient](https://neuroanatomy.github.io/reorient/) is a nice web tool to quickly rotate, translate, 
-and crop nifti files to approximate APCP orientation. This works best for subsequent steps.
+and crop nifti files to approximate APCP orientation. This works best for subsequent steps. (see screenshot below)
 
 ![Reorient](images/reorient.png)
+
+<br>
+
+- You can also open and check nifti files in your favourite viewer (Such as [FSLeyes](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLeyes) or [Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall))
+
 
 After doing this create a `SingleSubjects` folder in the NMT folder you intend to use, e.g. `<where-you-want>/NMT_v2.0/NMT_v2.0_sym/SingleSubjects`. Within this folder, make an input folder 
 `<where-you-want>/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/input_files` where you copy the roughly correctly oriented and cropped nifti file of your individual as `SubjectName.nii.gz`. The scripts will assume that the entire filename (without the `.nii.gz` extension) is the subject name and will treat it as such. Once this is all set up you can run the scripts. 
