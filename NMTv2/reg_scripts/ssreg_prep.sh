@@ -19,6 +19,15 @@ SS=${INFLD}/${SUB}.nii.gz
 SSORG=${INFLD}/${SUB}_org.nii.gz
 # =========================
 
+{
+if [ ! -f $SS ]; then
+    echo "The individual subject scan does not exist or isn't in the correct folder!"
+    echo "Check whether the path below is actually correct and try again: "
+    echo $SS
+    exit 0
+fi
+}
+
 mkdir -p ${MATFLD}
 mkdir -p ${ORGFLD}
 cp ${SS} ${SSORG}
