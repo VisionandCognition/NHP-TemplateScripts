@@ -17,6 +17,16 @@ NMTTYPE2=${7:-'NMT_v2.0_sym'}
 # =========================
 BASENMT=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
 SUBT1=${BASENMT}/SingleSubjects/input_files/${SUB}.nii.gz
+
+{
+if [ ! -f $SUBT1 ]; then
+    echo "The individual subject scan does not exist or isn't in the correct folder!"
+    echo "Check whether the path below is actually correct and try again: "
+    echo $SUBT1
+    exit 0
+fi
+}
+
 TEMPLATE=${BASENMT}/${NMTTYPE2}/${NMTTYPE2}.nii.gz
 BMASK=${BASENMT}/${NMTTYPE2}/${NMTTYPE2}.nii.gz
 
