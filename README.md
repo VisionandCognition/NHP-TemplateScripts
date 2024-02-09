@@ -180,7 +180,8 @@ fsleyes Aapie.nii.gz NMT2_in_Aapie.nii.gz SARM_in_NMT_v2.0_sym_in_Aapie.nii.gz
 
 
 ## Step 4: Generate additional ROI files and surfaces   
-The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and [SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of cortical and subcortical parcellations respectively are hierarchically organized, meaning they provide parcellations at different spatial resolutions. Here, for each level, we split the parcellations in individual volumetric ROI files and generate surface mesh files of each ROI as well. There are versions for both the affine and nonlinearly registered atlases.
+The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and [SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of cortical and subcortical parcellations respectively are hierarchically organized, 
+meaning they provide parcellations at different spatial resolutions. Here, for each level, we split the parcellations in individual volumetric ROI files and generate surface mesh files of each ROI as well. There are versions for both the affine and nonlinearly registered atlases.
 
 `ssreg_aff_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 and    
