@@ -190,7 +190,7 @@ and
 ![ROIsurfaces](images/roisurfaces.png)
 
 ## Step 5: Warp previously recorded retinotopic maps
-For visual neuroscience, it is often useful to know what regions of space a voxel is likely to respond to. To that end we can warp previously recorded retinotopic maps to each individual. There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304). These files are not included in this repository but you can download them [here]([https://www.dropbox.com/scl/fo/gedql1yoldgfbstjs9fxv/h?rlkey=3u21wzukc19pfdg17xl4vk76g&dl=0](https://www.dropbox.com/scl/fo/3iza7o488v64qrrhqe7na/h?rlkey=9novet60olui1kdylt9ogm7ew&dl=0)). Place the folder `supplemental_RETINOTOPY` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders. Again both an affine and a nonlinear version exist.
+For visual neuroscience, it is often useful to know what regions of space a voxel is likely to respond to. To that end we can warp previously recorded retinotopic maps to each individual. There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304). These files are not included in this repository but you can download them [here](https://www.dropbox.com/scl/fo/3iza7o488v64qrrhqe7na/h?rlkey=9novet60olui1kdylt9ogm7ew&dl=0). Place the folder `supplemental_RETINOTOPY` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders. Again both an affine and a nonlinear version exist.
 
 `ssreg_aff_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
 or    
@@ -199,7 +199,7 @@ or
 ![retinotopy](images/retinotopy.png)
 
 ## Step 6: Warp an LGN retinotopic model
-We have warped a detailed mathematical retinotopic map of the LGN [(Erwin et al. 1999)](http://malpeli.psychology.illinois.edu/atlas/) to the NMT space so that we can now also easily warp it to the individual through the SARM delineation of the LGN. These files are included in the dowbnload references in Step 5. There are three sources of the NMT-based LGN-maps, 1) a rigid placement in NMT space (don't use this), 2) an affine registration to NMT, 3) a nonlinear registration to NMT. Because the atlas is only defined in LGN, the registration can only use the shape of LGN for this original step. Again, there is an affine and affine+nonlinear version of this.
+We have warped a detailed mathematical retinotopic map of the LGN [(Erwin et al. 1999)](http://malpeli.psychology.illinois.edu/atlas/) to the NMT space so that we can now also easily warp it to the individual through the SARM delineation of the LGN. These files are included in the download references in Step 5. There are three sources of the NMT-based LGN-maps, 1) a rigid placement in NMT space (don't use this), 2) an affine registration to NMT, 3) a nonlinear registration to NMT. Because the atlas is only defined in LGN, the registration can only use the shape of LGN for this original step. Again, there is an affine and affine+nonlinear version of this.
 
 `ssreg_aff_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
 or    
