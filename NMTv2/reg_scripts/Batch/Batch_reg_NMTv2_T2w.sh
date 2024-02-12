@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-script_path="$0"
-script_dir="$(dirname "$script_path")"
-ssreg_dir="$(dirname "$script_dir")"
+script_dir=$(realpath $(dirname $0))
+ssreg_dir=$(dirname $script_dir)
 
 # create an array with subject names to loop over
 declare -a SUBS=(

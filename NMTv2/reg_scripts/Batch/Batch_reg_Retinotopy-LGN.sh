@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # set the location of the scripts folder
-script_path="$0"
-script_dir="$(dirname "$script_path")"
-ssreg_dir="$(dirname "$script_dir")"
+script_dir=$(realpath $(dirname $0))
+ssreg_dir=$(dirname $script_dir)
 
 # create an array with subject names to loop over
 declare -a SUBS=(
@@ -31,16 +30,16 @@ declare -a SUBS=(
   Tsitian
   Watson
   Diego2018
-  Figaro_T2w
-	Martin2023_T2w
-	Martin2023_T2wus
-	# Pitt_20230912
-	Scholes
-  Keane
-  Butch
-  Kid
-  1MM015
-  CIA073
+  #Figaro_T2w
+	#Martin2023_T2w
+	#Martin2023_T2wus
+	#Pitt_20230912
+	#Scholes
+  #Keane
+  #Butch
+  #Kid
+  #1MM015
+  #CIA073
 	)
 
 TEMPLATEFLD='/NHP_MRI/Template'
