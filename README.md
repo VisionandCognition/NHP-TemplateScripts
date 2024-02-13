@@ -1,9 +1,9 @@
 # NHP-TemplateScripts
-This package performs a registration of the NIH Macaque Template (NMT) brain to the structural MRI scan of an individual monkey (and the other way around). It will also automatically register detailed cortical and subcortical atlases (i.e. CHARM and SARM) and a broad range of additional information (optional), containing probablistic DTI and retinotopy (cortex and LGN).
+This package performs a registration of the NIH Macaque Template (NMT) brain to the structural MRI scan of an individual monkey (and the other way around). It will also automatically co-register detailed cortical and subcortical atlases (i.e. CHARM and SARM) and a broad range of additional information (optional), containing probablistic DTI and retinotopic information (visual cortex and LGN).
 
 <br>
 
-Basic registrations requires:
+Basic registrations require:
 - `AFNI` [https://afni.nimh.nih.gov/](https://afni.nimh.nih.gov/)    
 - The template package: [NMTv2.0](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/template_nmtv2.html)
 
@@ -25,9 +25,6 @@ If you have a T1 or T2 scan of reasonable quality (the procedure is pretty forgi
 <br>
 
 - `dcm2niix` to convert DICOM files to nifti. Get it at [NITRC](https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage)
-
-<br>
-
 - `Freesurfer`'s `mri_convert` takes a `--sphinx` flag to correct for animals in a sphinx orientation 
 in a human scanner. See the [documentation](https://surfer.nmr.mgh.harvard.edu/fswiki/mri_convert)
 
@@ -177,6 +174,35 @@ $ To visualize the template onto the individual subject space with SARM (sub-cor
 fsleyes Aapie.nii.gz NMT2_in_Aapie.nii.gz SARM_in_NMT_v2.0_sym_in_Aapie.nii.gz
 </pre>
 </details>
+
+<details>
+<summary>Short descriptions of the newly generated maps</summary>
+<pre>NB: Animal warper also documents input and output files in the 'animal_outs.txt' file generated! Which is quite informative
+<br>  
+But we'll provide an additional overview of the files in the folder below:
+> the template file itself
+  - NMT_v2.0_sym.nii.gz <br>
+> template files into subject space (i.e. NMT or another template into subject space)
+  - NMT_*_in_[subj].nii.gz <br>
+> atlas files (i.e. SARM/CHARM/D66 into subject space)
+  - D99_atlas_*_in_[subj].nii.gz <br>
+> original subject space files
+  - [subj].nii.gz
+  - [subj]_mask.nii.gz (mask used for brain extraction)
+  - [subj]_ns.nii.gz (ns: no skull, brain exctracted)
+  - [subj]_nsu.nii.gz (nsu: no skull & uniformization applied) <br>
+> subject warped into standard space (i.e. into NMT space for example)
+  - [subj]_warp2std.nii.gz
+  - [subj]_warp2std_ns.nii.gz (ns: no skull, brain exctracted)
+  - [subj]_warp2std_nsu.nii.gz (nsu: no skull & uniformization applied) <br>
+> transformations (concatonated warps, linear and/or non-linear)
+  - [subj]_*.1D (linear warp)
+  - [subj]_*_inv.1D (inverted linear warp: from template space to subject space)
+  - [subj]_shft_WARP.nii.gz (non-linear warp)
+  - [subj]_shft_WARPINV.nii.gz (inverted non-linear warp)
+</pre>
+</details>
+
 
 
 ## Step 4: Generate additional ROI files and surfaces   
