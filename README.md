@@ -288,7 +288,7 @@ The scripts then work as follows (again using either the affine or affine+nlin):
 `ssreg_nlin_ONPRC18.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
 <details>
-<summary>Example code running both scripts sequentially with our default positional arguments<ssreg_precon_all.sh/summary>
+<summary>Example code running both scripts sequentially with our default positional arguments</summary>
 <pre>$ Example of running the scripts for the T1w scan used earlier on the command line
 $ subject = 'Aapie'
 bash ssreg_aff_ONPRC18.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym

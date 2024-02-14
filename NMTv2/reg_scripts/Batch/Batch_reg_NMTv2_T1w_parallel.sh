@@ -48,7 +48,7 @@ NMTTYPE2='NMT_v2.0_asym'
 
 
 # Define the number of parallel processes
-PARPROC=8
+PARPROC=3
 echo '========================================='
 echo 'Registering in parallel nproc '${PARPROC}
 echo '========================================='
