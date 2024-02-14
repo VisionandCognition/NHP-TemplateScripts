@@ -203,7 +203,7 @@ But we'll provide an additional overview of the files in the folder below:
 </pre>
 </details>
 
-
+<br>
 
 ## Step 4: Generate additional ROI files and surfaces   
 The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and [SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of cortical and subcortical parcellations respectively are hierarchically organized, 
@@ -211,46 +211,101 @@ meaning they provide parcellations at different spatial resolutions. Here, for e
 The generation of mesh files requires Python and the modules `nibabel`, `numpy`, `igl`, `skimage`, & `scipy`. 
 The script will check whether these are present and quit without making meshes when this is not the case.
 
-`ssreg_aff_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
-and    
+`ssreg_aff_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`       
 `ssreg_nlin_ROIs.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
+<details>
+<summary>Example code running both scripts sequentially with our default positional arguments</summary>
+<pre>$ Example of running the scripts for the T1w scan used earlier on the command line
+$ subject = 'Aapie'
+bash ssreg_aff_ROIs.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+bash ssreg_nlin_ROIs.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+</pre>
+</details>
+
 ![ROIsurfaces](images/roisurfaces.png)
+Images of the 3D meshes generated in [3D Slicer](https://download.slicer.org/) visualization software
+
+<br>
+Additional note: it's possible that generation of some *.ply files at higher processing levels will generate an ERROR (mostly hippocampal ROIs), this warning can be ignored.
+
+<br> <br>
 
 ## Step 5: Warp previously recorded retinotopic maps
 For visual neuroscience, it is often useful to know what regions of space a voxel is likely to respond to. To that end we can warp previously recorded retinotopic maps to each individual. There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304). These files are not included in this repository but you can download them [here](https://www.dropbox.com/scl/fo/3iza7o488v64qrrhqe7na/h?rlkey=9novet60olui1kdylt9ogm7ew&dl=0). Place the folder `supplemental_RETINOTOPY` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders. Again both an affine and a nonlinear version exist.
 
 `ssreg_aff_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
-or    
 `ssreg_nlin_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
+<details>
+<summary>Example code running both scripts sequentially with our default positional arguments</summary>
+<pre>$ Example of running the scripts for the T1w scan used earlier on the command line
+$ subject = 'Aapie'
+bash ssreg_aff_Retinotopy.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+bash ssreg_nlin_Retinotopy.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+</pre>
+</details>
+
+<br>
+
 ![retinotopy](images/retinotopy.png)
+Visualization of the eccentricity map in visual cortex in FSLeyes
+
+<br>
 
 ## Step 6: Warp an LGN retinotopic model
-We have warped a detailed mathematical retinotopic map of the LGN [(Erwin et al. 1999)](http://malpeli.psychology.illinois.edu/atlas/) to the NMT space so that we can now also easily warp it to the individual through the SARM delineation of the LGN. These files are included in the download references in Step 5. There are three sources of the NMT-based LGN-maps, 1) a rigid placement in NMT space (don't use this), 2) an affine registration to NMT, 3) a nonlinear registration to NMT. Because the atlas is only defined in LGN, the registration can only use the shape of LGN for this original step. Again, there is an affine and affine+nonlinear version of this.
+We have warped a detailed mathematical retinotopic map of the LGN [(Erwin et al. 1999)](http://malpeli.psychology.illinois.edu/atlas/) to the NMT space so that we can now also easily warp it to the individual through the SARM delineation of the LGN. These files are included in the download references in Step 5. There are three sources of the NMT-based LGN-maps, 1) a rigid placement in NMT space (don't use this), 2) an affine registration to NMT, 3) a nonlinear registration to NMT. Because the atlas is only defined in the LGN, the registration can only use the shape of LGN for this original step. Again, there is an affine and affine+nonlinear version of this.
 
-`ssreg_aff_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
-or    
+`ssreg_aff_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`      
 `ssreg_nlin_Retinotopy-LGN.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
+<details>
+<summary>Example code running both scripts sequentially with our default positional arguments</summary>
+<pre>$ Example of running the scripts for the T1w scan used earlier on the command line
+$ subject = 'Aapie'
+bash ssreg_aff_Retinotopy-LGN.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+bash ssreg_nlin_Retinotopy-LGN.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+</pre>
+</details>
+
+<br>
+
 ![retinotopy-lgn](images/retinotopylgn.png)
+Visualization of the eccentricity map in the LGN in FSLeyes
+
+<br>
 
 ## Step 7: Warp the ONPRC18 DTI template
 The [ONPRC18 template](https://www.nitrc.org/projects/onprc18_atlas) includes DTI information that
 can be warped to an individual. This is a little more involved than anatomical warps as tensor information is directional and needs to be corrected for spatial warps. For this to work, you will need the ONPRC18 files in NMTv2 space. They are not included in this repository but you can download them [here](https://www.dropbox.com/scl/fo/gedql1yoldgfbstjs9fxv/h?rlkey=3u21wzukc19pfdg17xl4vk76g&dl=0). Place the folder `supplemental_ONPRC18` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders.
 
+<b>Please note</b>: these scripts require installation of [ANTs](https://andysbrainbook.readthedocs.io/en/latest/ANTs/ANTs_Overview.html) (Advanced Normalization Tools)
+<br> <br>
+
 The scripts then work as follows (again using either the affine or affine+nlin):
 
-`ssreg_aff_ONPRC18.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
-or    
+`ssreg_aff_ONPRC18.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`        
 `ssreg_nlin_ONPRC18.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
 
+<details>
+<summary>Example code running both scripts sequentially with our default positional arguments<ssreg_precon_all.sh/summary>
+<pre>$ Example of running the scripts for the T1w scan used earlier on the command line
+$ subject = 'Aapie'
+bash ssreg_aff_ONPRC18.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+bash ssreg_nlin_ONPRC18.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.0_sym
+</pre>
+</details>
+
+<br>
+
 ![onprc18](images/onprc18.png)
+
+<br>
 
 ## Step 8: Create Freesurfer compatible surfaces
 For later processing and/or visualisation, for instance with packages like [NHP-Pycortex](https://github.com/VisionandCognition/NHP-pycortex) it can be useful to generate [Freesurfer](https://surfer.nmr.mgh.harvard.edu/) compatible surfaces and segmentations. This is not trivial for non-human brains. With a package like [NHP-Freesurfer](https://github.com/VisionandCognition/NHP-Freesurfer) you can do this but it requires a fair bit of manual editing. A fast alternative we have implemented here is to use the [precon_all](https://github.com/neurabenn/precon_all) package. It is fully automated and Freesurfer compatible, but results may vary. To use it:
 
-`ssreg_preconall.sh subject regtype [template folder path] [NMT version] [NMT type]`
+`ssreg_precon_all.sh subject regtype [template folder path] [NMT version] [NMT type]`
 
 Here`regtype` defines whether we will only do affine registration (`affine`), affine+nonlinear (`nlin`), or both (`both`).
 
