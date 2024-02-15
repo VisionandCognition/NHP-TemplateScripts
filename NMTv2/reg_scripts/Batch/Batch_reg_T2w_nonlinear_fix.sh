@@ -12,14 +12,18 @@ declare -a SUBS=(
     #Kid
 	)
 
+TEMPLATEFLD='/NHP_MRI/Template'
+NMTVERSION='NMT_v2.0'
+NMTTYPE1='NMT_v2.0_asym'
+
 # loop over subjects
 for S in "${SUBS[@]}"
 do
 	echo '=============================================='
-	echo Alligning center of scan to NMT: ${S}
+	echo Alligning center of scan to NMT: ${S} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1}
 	echo '=============================================='
 	# run the preparation script
-    ${ssreg_dir}/ssreg_T2w_nonlinear_fix.sh ${S}
+    ${ssreg_dir}/ssreg_T2w_nonlinear_fix.sh ${S} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1}
 	echo 'DONE'
 	echo '=============================================='
 done

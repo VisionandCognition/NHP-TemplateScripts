@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # set the location of the scripts folder
 script_dir=$(realpath $(dirname $0))
 ssreg_dir=$(dirname $script_dir)
@@ -48,7 +47,6 @@ NMTTYPE1='NMT_v2.0_asym'
 NMTTYPE2='NMT_v2.0_asym'
 
 PARPROC=3
-
 
 # Function to run the registration for a subject
 run_rois() {

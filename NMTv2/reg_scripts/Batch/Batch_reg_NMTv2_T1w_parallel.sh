@@ -4,8 +4,6 @@
 script_dir=$(realpath $(dirname $0))
 ssreg_dir=$(dirname $script_dir)
 
-echo $script_path
-echo $script_dir
 echo $ssreg_dir
 
 # create an array with subject names to loop over

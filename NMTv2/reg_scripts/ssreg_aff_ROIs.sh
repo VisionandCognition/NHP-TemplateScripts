@@ -1,4 +1,14 @@
 #!/bin/bash
+# =========================
+SUB=$1
+TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+NMTVERSION=${3:-'NMT_v2.0'}
+NMTTYPE1=${4:-'NMT_v2.0_asym'}
+NMTTYPE2=${5:-'NMT_v2.0_asym'}
+
+SCRIPTFLD=$(realpath $(dirname $0))
+# =========================
+
 CREATEMESH=1
 required_modules=("nibabel" "numpy" "igl" "skimage" "scipy")
 for module in "${required_modules[@]}"; do
@@ -14,16 +24,6 @@ if [ "${CREATEMESH}" -eq "1" ]; then
     # Continue with the rest of your script if all required modules are available
   echo "All required modules are available. Continuing with the script."
 
-  # =========================
-  SUB=$1
-  TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
-  NMTVERSION=${3:-'NMT_v2.0'}
-  NMTTYPE1=${4:-'NMT_v2.0_sym'}
-  NMTTYPE2=${5:-'NMT_v2.0_sym'}
-
-  script_path="$0"
-  SCRIPTFLD="$(dirname "$script_path")"
-  # =========================
   BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
   SSFLD=${BASEFLD}/SingleSubjects
 

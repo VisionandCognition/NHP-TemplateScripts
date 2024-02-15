@@ -42,7 +42,6 @@ NMTVERSION='NMT_v2.0'
 NMTTYPE1='NMT_v2.0_asym'
 NMTTYPE2='NMT_v2.0_asym'
 
-
 # loop over subjects
 for S in "${SUBS[@]}"
 do
@@ -53,7 +52,7 @@ do
   ${ssreg_dir}/ssreg_NMTv2.sh ${S} ${COST} ${ALIGN} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1} ${NMTTYPE2}
 	wait
     # convert gifti surface files to meshes
-	${ssreg_dir}/aw_gii2ply.sh ${S}
+	${ssreg_dir}/aw_gii2ply.sh ${S} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1}
 	wait
 	echo 'DONE'
 	echo '========================================='

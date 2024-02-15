@@ -11,6 +11,11 @@ declare -a SUBS=(
     CIA073
 	)
 
+TEMPLATEFLD='/NHP_MRI/Template'
+NMTVERSION='NMT_v2.0'
+NMTTYPE1='NMT_v2.0_asym'
+NMTTYPE2='NMT_v2.0_asym'
+
 # loop over subjects
 for S in "${SUBS[@]}"
 do
@@ -18,9 +23,9 @@ do
 	echo Creating ROIs and ROI meshes ${S}
 	echo '========================================='
 	# perform the affine ROI registration
-    ${ssreg_dir}/ssreg_aff_ROIs.sh ${S}
+    ${ssreg_dir}/ssreg_aff_ROIs.sh ${S} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1} ${NMTTYPE2}
     # perform the nonlinear ROI registration
-    ${ssreg_dir}/ssreg_nlin_ROIs.sh ${S}
+    ${ssreg_dir}/ssreg_nlin_ROIs.sh ${S} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1} ${NMTTYPE2}
 	echo 'DONE'
 	echo '========================================='
 done

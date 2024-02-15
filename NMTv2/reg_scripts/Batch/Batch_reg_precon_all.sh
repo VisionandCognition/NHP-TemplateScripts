@@ -8,8 +8,12 @@ ssreg_dir=$(dirname $script_dir)
 declare -a SUBS=(
 	# Pitt_20230912
 	1MM015
-    CIA073
+  CIA073
 	)
+
+TEMPLATEFLD='/NHP_MRI/Template'
+NMTVERSION='NMT_v2.0'
+NMTTYPE1='NMT_v2.0_asym'
 
 # by default this is done on the nonlinear registration
 # but you can also choose to do it either just on the affine 
@@ -25,7 +29,7 @@ do
 	echo '========================================='
 	echo Performing precon_all for ${S}
 	echo '========================================='
-	${ssreg_dir}/ssreg_precon_all.sh ${S} ${REGTYPE}
+	${ssreg_dir}/ssreg_precon_all.sh ${S} ${REGTYPE} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1}
 	wait
 	echo 'DONE'
 	echo '========================================='

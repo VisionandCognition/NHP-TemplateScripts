@@ -11,6 +11,11 @@ declare -a SUBS=(
     CIA073
 	)
 
+TEMPLATEFLD='/NHP_MRI/Template'
+NMTVERSION='NMT_v2.0'
+NMTTYPE1='NMT_v2.0_asym'
+NMTTYPE2='NMT_v2.0_asym'
+
 # loop over subjects
 for S in "${SUBS[@]}"
 do
@@ -18,7 +23,7 @@ do
 	echo Alligning center of scan to NMT: ${S}
 	echo '=============================================='
 	# run the preparation script
-    ${ssreg_dir}/ssreg_prep.sh ${S}
+    ${ssreg_dir}/ssreg_prep.sh ${S} ${TEMPLATEFLD} ${NMTVERSION} ${NMTTYPE1} ${NMTTYPE2}
 	echo 'DONE'
 	echo '=============================================='
 done
