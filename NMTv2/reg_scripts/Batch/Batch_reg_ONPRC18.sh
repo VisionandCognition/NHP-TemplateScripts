@@ -4,42 +4,7 @@
 ssreg_dir=$(realpath $(dirname $0))
 
 # create an array with subject names to loop over
-declare -a SUBS=(
-  	Aston
-  	Brutus
-  	Danny
-  	Danny2021
-  	Danny2022
-  	Dasheng
-  	Eddy
-  	Eddy2019
-  	Figaro
-  	Kwibus
-  	Kwibus2015
-  	Lick
-  	Martin
-  	Martin2021
-  	Martin2023
-  	Martin2023us
-  	MrNilson
-  	Ozzy
-  	Puck
-  	Spike
-  	Toucan
-  	Tsitian
-  	Watson
-  	Diego2018
-  	#Figaro_T2w
-	#Martin2023_T2w
-	#Martin2023_T2wus
-	#Pitt_20230912
-	#Scholes
-  	#Keane
-  	#Butch
-  	#Kid
-  	#1MM015
-  	#CIA073
-	)
+source ${ssreg_dir}/define_subjects.sh
 
 TEMPLATEFLD='/NHP_MRI/Template'
 NMTVERSION='NMT_v2.0'

@@ -1,0 +1,37 @@
+#!/bin/bash
+declare -a SUBS=(
+    Aston
+    Brutus
+    Danny
+    Danny2021
+    Danny2022
+    Dasheng
+    Eddy
+    Eddy2019
+    Figaro
+    Kwibus
+    Kwibus2015
+    Lick
+    Martin
+    Martin2021
+    Martin2023
+    Martin2023us
+    MrNilson
+    Ozzy
+    Puck
+    Spike
+    Toucan
+    Tsitian
+    Watson
+    Diego2018
+    #Figaro_T2w
+    #Martin2023_T2w
+	  #Martin2023_T2wus
+	  #Pitt_20230912
+	  #Scholes
+    #Keane
+    #Butch
+    #Kid
+    #1MM015
+    #CIA073
+	)

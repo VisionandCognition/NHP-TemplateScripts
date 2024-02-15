@@ -5,33 +5,7 @@ script_dir=$(realpath $(dirname $0))
 ssreg_dir=$(dirname $script_dir)
 
 # create an array with subject names to loop over
-declare -a SUBS=(
-	  # Aston
-    # Brutus    
-    # Danny    
-    # Danny2021   
-    # Danny2022 
-    # Dasheng    
-    # Eddy    
-    # Eddy2019    
-    # Figaro   
-    # Kwibus    
-    # Kwibus2015    
-    # Lick    
-    # Martin    
-    # Martin2021  
-    # Martin2023  
-    # MrNilson    
-    # Ozzy    
-    # Spike    
-    # Toucan    
-    # Tsitian    
-    # Watson 
-    # Diego2018
-    # Puck
-    # Martin2023us
-    # Pitt_20230912
-	)
+source ${ssreg_dir}/define_subjects.sh
 
 # cost function: lpa for T1w, lpc for T2w
 COST=lpa
