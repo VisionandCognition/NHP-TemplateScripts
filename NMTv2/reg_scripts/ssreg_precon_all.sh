@@ -15,7 +15,7 @@ REGTYPE=$2
 
 TEMPLATEFLD=${3:-'/NHP_MRI/Template'}
 NMTVERSION=${4:-'NMT_v2.0'}
-NMTTYPE1=${5:-'NMT_v2.0_sym'}
+NMTTYPE1=${5:-'NMT_v2.0_asym'}
 
 SCRIPTFLD="$(dirname "$(realpath "$0")")"
 
