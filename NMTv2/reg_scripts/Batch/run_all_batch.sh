@@ -16,9 +16,7 @@ script_dir=$(realpath $(dirname $0))
 #${script_dir}/Batch_reg_rois.sh
 #wait
 
-${script_dir}/Batch_reg_Retinotopy.sh
-wait
-
+#${script_dir}/Batch_reg_Retinotopy.sh
 ${script_dir}/Batch_reg_Retinotopy-LGN.sh
 wait
 

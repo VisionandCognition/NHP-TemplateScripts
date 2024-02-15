@@ -6,8 +6,8 @@
 SUB=$1
 TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
 NMTVERSION=${3:-'NMT_v2.0'}
-NMTTYPE1=${4:-'NMT_v2.0_sym'}
-NMTTYPE2=${5:-'NMT_v2.0_sym'}
+NMTTYPE1=${4:-'NMT_v2.0_asym'}
+NMTTYPE2=${5:-'NMT_v2.0_asym'}
 
 script_path="$0"
 SCRIPTFLD="$(dirname "$script_path")"
@@ -58,7 +58,7 @@ do
             mkdir -p ${RETINOTOPY_NL_OUT}/${w}
 
             3dNwarpApply \
-                -source ${BASEFLD}/NMT_v2.0_sym/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}.nii.gz \
+                -source ${BASEFLD}/${NMTTYPE2}/supplemental_RETINOTOPY/LGN/${w}/${d}_${h}.nii.gz \
                 -prefix ${RETINOTOPY_NL_OUT}/${w}/${d}_${h}.nii.gz \
                 -master ${SS} \
                 -nwarp  ${fw_T2S} \
