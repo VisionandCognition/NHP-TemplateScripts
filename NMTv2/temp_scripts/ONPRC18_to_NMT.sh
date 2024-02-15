@@ -1,26 +1,27 @@
 #!/bin/bash
-
 # Apply transforms to ONPRC18
 # Requires ANTs
 
+TEMPLATEFLD=${1:-'/NHP_MRI/Template'}
+NMTVERSION=${2:-'NMT_v2.0'}
+NMTTYPE1=${3:-'NMT_v2.0_asym'}
+NMTTYPE2=${4:-'NMT_v2.0_asym'}
+NMTRheMap=${5:-'NMTv2.0-asym'}
+
 # SET UP FOLDER PATHS ==========================
-#ONPRC_FLD=/NHP_MRI/Template/ONPRC18_atlas_v1
-#RHEMAP_FLD=/NHP_MRI/RheMAP/warps/final
-ONPRC_FLD=/Users/chris/Dropbox/CURRENT_PROJECTS/NHP_MRI/Template/ONPRC18_atlas_v1
-NMT_FLD=/Users/chris/Dropbox/CURRENT_PROJECTS/NHP_MRI/Template/NMT_v2.0/NMT_v2.0_sym/NMT_v2.0_sym
-RHEMAP_FLD=/Users/chris/Dropbox/GIT_Support/RheMAP/warps/final
+ONPRC_FLD=${TEMPLATEFLD}/ONPRC18_atlas_v1
+NMT_FLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}/${NMTTYPE2}
+RHEMAP_FLD=${TEMPLATEFLD}/RheMAP/warps/final
 OUT_FLD=${NMT_FLD}/supplemental_ONPRC18
 
-
 # RUN SPECIFIC WARPS ==========================
-REF=${NMT_FLD}/NMT_v2.0_sym_SS.nii.gz
-TRANSFORM=${RHEMAP_FLD}/ONPRC18_to_NMTv2.0-sym_CompositeWarp.nii.gz
+REF=${NMT_FLD}/${NMTTYPE2}_SS.nii.gz
+TRANSFORM=${RHEMAP_FLD}/ONPRC18_to_${NMTRheMap}_CompositeWarp.nii.gz
 INTERP=Linear
-
 
 # warp anatomy ======================================================
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_T2W.nii.gz
-OUT=${OUT_FLD}/ONPRC18_T2W_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_T2W_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -30,7 +31,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_T2W_brain.nii.gz
-OUT=${OUT_FLD}/ONPRC18_T2W_brain_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_T2W_brain_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -40,7 +41,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_T1W.nii.gz
-OUT=${OUT_FLD}/ONPRC18_T1W_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_T1W_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -50,7 +51,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_T1W_brain.nii.gz
-OUT=${OUT_FLD}/ONPRC18_T1W_brain_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_T1W_brain_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -59,11 +60,10 @@ antsApplyTransforms -i ${IN} \
 					-n ${INTERP} \
 					-d 3
 
-
 # warp dti ======================================================
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_tensors.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_tensors_in_NMT_v2.0_sym.nii.gz
-OUT2=${OUT_FLD}/ONPRC18_DTI_tensors_in_NMT_v2.0_sym_ro.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_tensors_in_${NMTTYPE2}.nii.gz
+OUT2=${OUT_FLD}/ONPRC18_DTI_tensors_in_${NMTTYPE2}_ro.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -75,7 +75,7 @@ antsApplyTransforms -i ${IN} \
 ReorientTensorImage 3 ${OUT} ${OUT2} ${TRANSFORM}
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_b0.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_b0_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_b0_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -85,7 +85,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3 \
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_rgb.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_rgb_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_rgb_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -95,7 +95,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3 \
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_fa.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_fa_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_fa_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -105,7 +105,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3 \
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_rd.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_rd_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_rd_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -115,7 +115,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3 \
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_ad.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_ad_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_ad_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -125,7 +125,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3 \
 
 IN=${ONPRC_FLD}/ONPRC18_Templates/ONPRC18_DTI_tr.nii.gz
-OUT=${OUT_FLD}/ONPRC18_DTI_tr_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_DTI_tr_in_${NMTTYPE2}.nii.gz
 echo Transforming ${IN}
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -137,7 +137,7 @@ antsApplyTransforms -i ${IN} \
 
 # warp labelmaps ======================================================
 IN=${ONPRC_FLD}/ONPRC18_Labelmaps/ONPRC18_GrayMatterLabelmap.nii.gz
-OUT=${OUT_FLD}/ONPRC18_GrayMatterLabelmap_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_GrayMatterLabelmap_in_${NMTTYPE2}.nii.gz
 INTERP=NearestNeighbor
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
@@ -147,7 +147,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3
 
 IN=${ONPRC_FLD}/ONPRC18_Labelmaps/ONPRC18_GrayMatterLabelmapCondensed.nii.gz
-OUT=${OUT_FLD}/ONPRC18_GrayMatterLabelmapCondensed_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_GrayMatterLabelmapCondensed_in_${NMTTYPE2}.nii.gz
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
 					-o ${OUT} \
@@ -156,7 +156,7 @@ antsApplyTransforms -i ${IN} \
 					-d 3
 
 IN=${ONPRC_FLD}/ONPRC18_Labelmaps/ONPRC18_GrayMatterWhiteMatterLabelmap.nii.gz
-OUT=${OUT_FLD}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_NMT_v2.0_sym.nii.gz
+OUT=${OUT_FLD}/ONPRC18_GrayMatterWhiteMatterLabelmap_in_${NMTTYPE2}.nii.gz
 antsApplyTransforms -i ${IN} \
 					-r ${REF} \
 					-o ${OUT} \
