@@ -18,11 +18,11 @@ OUT_FLD=${NMT_FLD}/supplemental_ONPRC18
 REF=${NMT_DEST_FLD}/${NMTTYPE2}_SS.nii.gz
 TRANSFORM=${RHEMAP_FLD}/NMTv2.0-sym_to_${NMTRheMap}_CompositeWarp.nii.gz
 
-mkdir ${NMT_DEST_FLD}/supplemental_RETINOTOPY
+mkdir -p ${NMT_DEST_FLD}/supplemental_RETINOTOPY
 
 # KUL ---
 declare -a F=(ecc pol_deg pol_rad)
-mkdir ${NMT_DEST_FLD}/supplemental_RETINOTOPY/pe_ret_kul
+mkdir -p ${NMT_DEST_FLD}/supplemental_RETINOTOPY/pe_ret_kul
 for FF in "${F[@]}"
 do
 	INTERP=NearestNeighbor
@@ -39,7 +39,7 @@ done
 # PRF ---
 declare -a S=(m029 m030 m029m030)
 declare -a F=(ecc r2 sigma x y pol_deg mask_rth_5)
-mkdir ${NMT_DEST_FLD}/supplemental_RETINOTOPY/prf
+mkdir -p ${NMT_DEST_FLD}/supplemental_RETINOTOPY/prf
 for SS in "${S[@]}"
 do
   for FF in "${F[@]}"
