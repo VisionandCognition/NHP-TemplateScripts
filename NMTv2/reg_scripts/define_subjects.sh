@@ -1,6 +1,6 @@
 #!/bin/bash
 # T1w / T2w / MIRCen / current
-SUBTYPE=T1w
+SUBTYPE=MIRCen
 
 case $SUBTYPE in
   T1w)

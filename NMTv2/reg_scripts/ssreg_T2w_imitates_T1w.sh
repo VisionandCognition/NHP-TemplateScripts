@@ -7,7 +7,7 @@
 SUB=$1
 TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
 NMTVERSION=${3:-'NMT_v2.0'}
-NMTTYPE1=${4:-'NMT_v2.0_sym'}
+NMTTYPE1=${4:-'NMT_v2.0_asym'}
 # =========================
 
 BASEFLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}

@@ -12,16 +12,16 @@ script_dir=$(realpath $(dirname $0))
 #${script_dir}/Batch_reg_NMTv2_T2w_MIRCen.sh
 #wait
 
-#${script_dir}/Batch_reg_rois_parallel.sh
-#${script_dir}/Batch_reg_rois.sh
+${script_dir}/Batch_reg_rois_parallel.sh
+${script_dir}/Batch_reg_rois.sh
 #wait
 
-#${script_dir}/Batch_reg_Retinotopy.sh
-#${script_dir}/Batch_reg_Retinotopy-LGN.sh
+${script_dir}/Batch_reg_Retinotopy.sh
+${script_dir}/Batch_reg_Retinotopy-LGN.sh
 #wait
 
 ${script_dir}/Batch_reg_ONPRC18.sh
-wait
+#wait
 
 ${script_dir}/Batch_reg_precon_all_parallel.sh
 #${script_dir}/Batch_reg_precon_all.sh

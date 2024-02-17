@@ -56,7 +56,7 @@ do
                 -master ${SS} \
                 -1Dmatrix_apply ${AFF_T2S} \
                 -interp NN -final NN -overwrite
-            done
         done
     done
 done
+
