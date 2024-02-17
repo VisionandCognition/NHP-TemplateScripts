@@ -21,6 +21,11 @@ SS_NL_OUT=${SSFLD}/aligned_${SUB}/ONPRC18/nonlinear
 ONPRC_SS=${SSFLD}/aligned_${SUB}/ONPRC18
 ONPRC_SUPP=${BASEFLD}/${NMTTYPE1}/supplemental_ONPRC18
 
+# for some reason the NIN server doesn't allow this foldername > workaround
+if [ ! -d ${ONPRC_SUPP} ]; then
+  ONPRC_SUPP=${BASEFLD}/${NMTTYPE1}/supplemental_ONPRC
+fi
+
 # make folders
 mkdir -p ${SS_AFF_OUT}
 mkdir -p ${SS_NL_OUT}

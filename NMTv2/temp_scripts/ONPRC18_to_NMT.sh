@@ -12,8 +12,8 @@ NMTRheMap=${5:-'NMTv2.0-asym'}
 ONPRC_FLD=${TEMPLATEFLD}/ONPRC18_atlas_v1
 NMT_FLD=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}/${NMTTYPE2}
 RHEMAP_FLD=${TEMPLATEFLD}/RheMAP/warps/final
-OUT_FLD=${NMT_FLD}/supplemental_ONPRC18
-mkdir ${OUT_FLD}
+OUT_FLD=${NMT_FLD}/supplemental_ONPRC
+mkdir -p ${OUT_FLD}
 
 # RUN SPECIFIC WARPS ==========================
 REF=${NMT_FLD}/${NMTTYPE2}_SS.nii.gz
