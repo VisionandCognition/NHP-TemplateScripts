@@ -88,6 +88,6 @@ do
     for m in "${maps[@]}"
     do
         3dcalc -a ${RETINOTOPY_AFF_OUT}/prf/${s}/${m}.nii.gz -b ${RETINOTOPY_AFF_OUT}/prf/${s}/mask_r2th_5.nii.gz -expr "(a*b)+((b-1)*99)" \
-            -prefix ${RETINOTOPY_AFF_OUT}/prf/${s}/th5/${m}.nii.gz
+            -prefix ${RETINOTOPY_AFF_OUT}/prf/${s}/th5/${m}.nii.gz -overwrite
     done
 done
