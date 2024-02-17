@@ -38,10 +38,11 @@ done
 
 # PRF ---
 declare -a S=(m029 m030 m029m030)
-declare -a F=(ecc r2 sigma x y pol_deg mask_rth_5)
+declare -a F=(ecc r2 sigma x y pol_deg mask_r2th_5)
 mkdir -p ${NMT_DEST_FLD}/supplemental_RETINOTOPY/prf
 for SS in "${S[@]}"
 do
+  mkdir -p ${NMT_DEST_FLD}/supplemental_RETINOTOPY/prf/${SS}
   for FF in "${F[@]}"
   do
 	  INTERP=NearestNeighbor
@@ -60,12 +61,12 @@ done
 declare -a L=(aff nonlin nowarp)
 declare -a F=(CELLS ECC INCL LAYERS mask)
 declare -a h=(L R)
-mkdir ${NMT_DEST_FLD}/supplemental_RETINOTOPY/LGN
+mkdir -p ${NMT_DEST_FLD}/supplemental_RETINOTOPY/LGN
 for LL in "${L[@]}"
 do
   FLD=${NMT_DEST_FLD}/supplemental_RETINOTOPY/LGN/LGN-Retmap_in_NMTv2.0_${LL}
   SRCFLD=${NMT_SRC_FLD}/supplemental_RETINOTOPY/LGN/LGN-Retmap_in_NMTv2.0_${LL}
-  mkdir ${FLD}
+  mkdir -p ${FLD}
   for FF in "${F[@]}"
   do
 	  for H in "${h[@]}"
@@ -74,7 +75,7 @@ do
 	    IN=${SRCFLD}/${FF}_${H}.nii.gz
       OUT=${FLD}/${FF}_${H}.nii.gz
       antsApplyTransforms -i ${IN} \
-					-r ${REF} \
+					-r ${IN} \
 					-o ${OUT} \
 					-t ${TRANSFORM} \
 					-n ${INTERP} \
