@@ -15,7 +15,9 @@ After downloading the NMT we suggest saving it in the following file structure o
 Download this package of scripts and save it wherever you want. The scripts should be aware of their relative positions and function at any location as long as the package structure is intact. The bulk of the work is done by the `ssreg_*.sh` scripts (see below) but the `Batch` folder also contain scripts to configure multiple procedures for multiple individuals. 
 
 
-**Note on Parallel Processing**: The default is to run these scripts serially (i.e. one by one). If you want to do things in parallel, you will need to run multiple instances or come up with a script yourself. Do note that non-linear registration in particular can take quite some computational resources, so be careful when initiating several at once on a computer with limited resources.
+### Parallel Processing    
+The default is to run these scripts serially (i.e. one by one). If you want to do things in parallel, you have several options. First, you can simply run multiple instances at the same time without waiting for them to finish. 
+Second, you can explicitly run things in parallel from the batch script. There are example batch scripts that have such parallel processing implemented (they have *parallel* in the file name). Do note that non-linear registration in particular can take quite some computational resources, and the `3dQwarp` used by `@animal_warper` already implements parallel processing so be careful when initiating several instances of this at once, as this may actually slow things down. One instance of `@animal_warper` can take 12-16 cores, if you have more available, you can run several parallel instances, but we suggest not going higher then ncores/12.
 
 <br>
 
