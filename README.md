@@ -311,4 +311,32 @@ For later processing and/or visualisation, for instance with packages like [NHP-
 
 Here`regtype` defines whether we will only do affine registration (`affine`), affine+nonlinear (`nlin`), or both (`both`).
 
+<details>
+<summary>Example code running the precon_all script with our default positional arguments</summary>
+<pre>$ You will find the outputs in ../seg and ../surf subfolders, a data-structure that freesurfer uses  
+$ subject = 'Aapie'
+bash ssreg_precon_all.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym
+</pre>
+</details>
+
+<br>
+
 ![precon_all](images/precon_all.png)
+Visualizations of the surfaces and segmentations generated in [Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
+
+<br>
+<details>
+<summary>Example code to visualize segmentations and surfaces in freeview </summary>
+
+<pre>$ Move to the freesurfer folder of your subject and use the following commands:
+<br>
+$ To visualize the segmentations (white matter and pial):
+freeview -v ./mri/brain.mgz -f ./surf/rh.white ./surf/rh.pial ./surf/lh.white ./surf/lh.pial
+
+$ To visualize the inflated right hemisphere:
+freeview -f ./surf/rh.inflated:curvature_method=binary
+
+$ To visualize the left hemisphere as a sphere:
+freeview -f ./surf/lh.sphere:curvature_method=binary
+</pre>
+</details>
