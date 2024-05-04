@@ -31,6 +31,7 @@ TEMPLATE=${BASENMT}/${NMTTYPE2}/${NMTTYPE2}.nii.gz
 BMASK=${BASENMT}/${NMTTYPE2}/${NMTTYPE2}_brainmask.nii.gz
 
 D99=${BASENMT}/${NMTTYPE2}/D99_atlas_in_${NMTTYPE2}.nii.gz
+D99v2=${BASENMT}/${NMTTYPE2}/D99v2_atlas_in_${NMTTYPE2}.nii.gz
 CHARM=${BASENMT}/${NMTTYPE2}/CHARM_in_${NMTTYPE2}.nii.gz
 SARM=${BASENMT}/${NMTTYPE2}/SARM_in_${NMTTYPE2}.nii.gz
 
@@ -47,7 +48,7 @@ mkdir -p ${OUTBASE}/aw_log
       -input  ${SUBT1} \
       -base   ${TEMPLATE} \
       -skullstrip ${BMASK} \
-      -atlas ${D99} ${CHARM} ${SARM} \
+      -atlas ${D99} ${D99v2} ${CHARM} ${SARM} \
       -seg_followers ${SEG} ${GM} ${CEREBELLUM} ${LR} ${VENTRICLES} \
       -align_type ${ALIGN} \
       -ok_to_exist \
