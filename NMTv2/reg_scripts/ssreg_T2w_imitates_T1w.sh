@@ -124,6 +124,8 @@ mv ${SSFLD}/aligned_${SUB}/SARM_in_${NMTTYPE1}_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/SARM_in_${NMTTYPE1}_in_${SUB}_AFF.nii.gz
 mv ${SSFLD}/aligned_${SUB}/D99_atlas_in_${NMTTYPE1}_in_${SUB}.nii.gz \
 	${SSFLD}/aligned_${SUB}/D99_atlas_in_${NMTTYPE1}_in_${SUB}_AFF.nii.gz
+mv ${SSFLD}/aligned_${SUB}/D99v2_atlas_in_${NMTTYPE1}_in_${SUB}.nii.gz \
+	${SSFLD}/aligned_${SUB}/D99v2_atlas_in_${NMTTYPE1}_in_${SUB}_AFF.nii.gz
 # surfaces
 mv ${SSFLD}/aligned_${SUB}/surfaces \
 	${SSFLD}/aligned_${SUB}/surfaces_AFF
