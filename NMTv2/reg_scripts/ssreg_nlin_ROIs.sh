@@ -9,8 +9,8 @@ NMTTYPE2=${5:-'NMT_v2.0_asym'}
 SCRIPTFLD=$(realpath $(dirname $0))
 # =========================
 
-doCHARM=0
-doSARM=0
+doCHARM=1
+doSARM=1
 doD99=1
 
 CREATEMESH=1
