@@ -11,7 +11,7 @@ Use `ssreg_prep.sh` for this. Not that if you want to do both a T2w and T1w regi
 probably take additional steps to make sure the two native space are aligned before you continue to template registration. The script 
 takes one input `${SUBJECT` which should be the base of the individual scan's filename, e.g. `Chris` for `Chris.nii.gz`.    
 
-## Register Single Subject to NMT template and CHARM/SARM atlases (and vice versa)           
+## Register Single Subject to NMT template and CHARM/SARM/D99 atlases (and vice versa)           
 The script `ssreg_NMTv2.sh` takes two inputs `$1=$SUBJECT` again and `$2=COSTFUNCTION`. This allows you to apply the same 
 script to T1w and T2w images. Use `COST=lpa` for T1w and `COST=lpc` for T2w individual scans.     
 

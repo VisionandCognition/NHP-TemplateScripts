@@ -28,23 +28,24 @@ SS_AFF_OUT=${SSFLD}/aligned_${SUB}/affine
 SS_NL_OUT=${SSFLD}/aligned_${SUB}/nonlinear
 TT=${SSFLD}/aligned_${SUB}/${NMTTYPE2}.nii.gz
 
-D99v2=${BASEFLD}/${NMTTYPE2}/D99v2_atlas_in_NMT_v2.0_sym.nii.gz
+D99v2=${BASEFLD}/${NMTTYPE2}/D99v2_atlas_in_${NMTTYPE2}.nii.gz
 D99v2_LFLD=${BASEFLD}/tables_D99
 
+cp -R ${D99v2_LFLD} ${SSFLD}/aligned_${SUB}/
 
 # affine ------------------
 3dAllineate \
   -source ${D99v2} \
-  -prefix ${SS_AFF_OUT}/D99v2_atlas_in_NMT_v2.0_sym_aff2${SUB}.nii.gz \
+  -prefix ${SS_AFF_OUT}/D99v2_atlas_in_${NMTTYPE2}_aff2${SUB}.nii.gz \
   -master ${SS} \
   -1Dmatrix_apply ${AFF_T2S} \
-  -interp NN -final cubic -overwrite
+  -interp NN -final NN -overwrite
 
 
 # Nonlinear --------------------
 3dNwarpApply \
     -source ${D99v2} \
-    -prefix ${SS_NL_OUT}/D99v2_atlas_in_NMT_v2.0_sym_nl2${SUB}.nii.gz \
+    -prefix ${SS_NL_OUT}/D99v2_atlas_in_${NMTTYPE2}_nl2${SUB}.nii.gz \
     -master ${SS} \
     -nwarp  ${fw_T2S} \
     -interp NN -overwrite
@@ -52,12 +53,12 @@ D99v2_LFLD=${BASEFLD}/tables_D99
 @Align_Centers -overwrite \
           -no_cp \
           -base ${TT} \
-          -dset ${SS_NL_OUT}/D99v2_atlas_in_NMT_v2.0_sym_nl2${SUB}.nii.gz \
+          -dset ${SS_NL_OUT}/D99v2_atlas_in_${NMTTYPE2}_nl2${SUB}.nii.gz \
           -shift_xform_inv ${fwsh_T2S}
 
 3dNwarpApply \
     -source ${D99v2} \
-    -prefix ${SSFLD}/aligned_${SUB}/D99v2_atlas_in_NMT_v2.0_sym_in_${SUB}.nii.gz \
+    -prefix ${SSFLD}/aligned_${SUB}/D99v2_atlas_in_${NMTTYPE2}_in_${SUB}.nii.gz \
     -master ${SS} \
     -nwarp  ${fw_T2S} \
     -interp NN -overwrite
@@ -65,5 +66,5 @@ D99v2_LFLD=${BASEFLD}/tables_D99
 @Align_Centers -overwrite \
           -no_cp \
           -base ${TT} \
-          -dset ${SSFLD}/aligned_${SUB}/D99v2_atlas_in_NMT_v2.0_sym_in_${SUB}.nii.gz \
+          -dset ${SSFLD}/aligned_${SUB}/D99v2_atlas_in_${NMTTYPE2}_in_${SUB}.nii.gz \
           -shift_xform_inv ${fwsh_T2S}
