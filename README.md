@@ -186,7 +186,7 @@ But we'll provide an additional overview of the files in the folder below:
   - NMT_v2.0_sym.nii.gz <br>
 > template files into subject space (i.e. NMT or another template into subject space)
   - NMT_*_in_[subj].nii.gz <br>
-> atlas files (i.e. SARM/CHARM/D66 into subject space)
+> atlas files (i.e. SARM/CHARM/D99 into subject space)
   - D99_atlas_*_in_[subj].nii.gz <br>
 > original subject space files
   - [subj].nii.gz
@@ -207,9 +207,13 @@ But we'll provide an additional overview of the files in the folder below:
 
 <br>
 
+The script performs the registration of the template and individual, then treats atlas files as 'follower-volumes'. The NMTv2 comes with the CHARM, SARM, and D99 atlases when downloaded from the AFNI website. We have added an updated version of D99, called D99v2 ([see this paper](https://www.sciencedirect.com/science/article/pii/S1053811921010314?via%3Dihub)) that includes many subcortical areas that are not included in the original D99. We registered the D99v2 atlas to NMTv2 using the precalculated D99-to-NMTv2 transforms from [RheMAP](https://gin.g-node.org/ChrisKlink/RheMAP). You can set which atlases to include in `ssreg_NMTv2.sh`.
+
 ## Step 4: Generate additional ROI files and surfaces   
-The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and [SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of cortical and subcortical parcellations respectively are hierarchically organized, 
-meaning they provide parcellations at different spatial resolutions. Here, for each level, we split the parcellations in individual volumetric ROI files and generate surface mesh files of each ROI as well. There are versions for both the affine and nonlinearly registered atlases.
+The [CHARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_charm.html) and [SARM](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/nonhuman/macaque_tempatl/atlas_sarm.html) atlases of cortical and subcortical parcellations respectively are hierarchically organized, meaning they provide parcellations at different spatial resolutions. Here, for each level, we split the parcellations in individual volumetric ROI files and generate surface mesh files of each ROI as well. There are versions for both the affine and nonlinearly registered atlases.
+
+In an update we have added the ROI extraction for the D99v2 atlas as well. Users can toggle which atlases to extract ROIs from by setting `doCHARM=1`, `doSARM=1`, and `doD99=1` at the top of the `ssreg_aff_ROIs.sh` and `ssreg_nlin_ROIs.sh` scripts to include atlases. Set them to `0` to exclude.
+
 The generation of mesh files requires Python and the modules `nibabel`, `numpy`, `igl`, `skimage`, & `scipy`. 
 The script will check whether these are present and quit without making meshes when this is not the case.
 
@@ -234,7 +238,7 @@ Additional note: it's possible that generation of some *.ply files at higher pro
 <br> <br>
 
 ## Step 5: Warp previously recorded retinotopic maps
-For visual neuroscience, it is often useful to know what regions of space a voxel is likely to respond to. To that end we can warp previously recorded retinotopic maps to each individual. There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304). These files are not included in this repository but you can download them [here](https://www.dropbox.com/scl/fo/3iza7o488v64qrrhqe7na/h?rlkey=9novet60olui1kdylt9ogm7ew&dl=0). Place the folder `supplemental_RETINOTOPY` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders. Again both an affine and a nonlinear version exist.
+For visual neuroscience, it is often useful to know what regions of space a voxel is likely to respond to. To that end we can warp previously recorded retinotopic maps to each individual. There are two sources of retinotopic information. A phase-encoded map, courtesy of KU Leuven, and population receptive field maps from recordings in our own lab [(Klink et al. 2021)](https://doi.org/10.7554/eLife.67304). These files are not included in this repository, but you can download them [here for NMTv2_sym](https://www.dropbox.com/scl/fo/mrqj7j7xt26e3b78dt3yv/AH0Y1wdWjxI-2Pqp_V4R0v8?rlkey=zty45rm5coa70ld7qb2ucdwsd&dl=0) or [here for NMTv2_asym](https://www.dropbox.com/scl/fo/alj3hjetzcedl8gkiwa3d/AMkK8g3bOIC-XPCULRpHi9I?rlkey=l5764g8fh5i6wfs8vyu8g7d0s&dl=0). Place the folder `supplemental_RETINOTOPY` in the root folder of your NMT version where you also see the other `supplemental_XXXX` folders. Again both an affine and a nonlinear version exist.
 
 `ssreg_aff_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`     
 `ssreg_nlin_Retinotopy.sh subject [template folder path] [NMT version] [NMT type] [NMT subtype]`    
@@ -279,7 +283,7 @@ Visualization of the eccentricity map in the LGN in FSLeyes
 
 ## Step 7: Warp the ONPRC18 DTI template
 The [ONPRC18 template](https://www.nitrc.org/projects/onprc18_atlas) includes DTI information that
-can be warped to an individual. This is a little more involved than anatomical warps as tensor information is directional and needs to be corrected for spatial warps. For this to work, you will need the ONPRC18 files in NMTv2 space. They are not included in this repository but you can download them [here](https://www.dropbox.com/scl/fo/gedql1yoldgfbstjs9fxv/h?rlkey=3u21wzukc19pfdg17xl4vk76g&dl=0). Place the folder `supplemental_ONPRC18` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders.
+can be warped to an individual. This is a little more involved than anatomical warps as tensor information is directional and needs to be corrected for spatial warps. For this to work, you will need the ONPRC18 files in NMTv2 space. They are not included in this repository, but you can download them [here for NMTv2_sym](https://www.dropbox.com/scl/fo/mrqj7j7xt26e3b78dt3yv/AH0Y1wdWjxI-2Pqp_V4R0v8?rlkey=zty45rm5coa70ld7qb2ucdwsd&dl=0) or [here for NMTv2_asym](https://www.dropbox.com/scl/fo/alj3hjetzcedl8gkiwa3d/AMkK8g3bOIC-XPCULRpHi9I?rlkey=l5764g8fh5i6wfs8vyu8g7d0s&dl=0). Place the folder `supplemental_ONPRC18` in the root folder of your NMT version (in this case the NMT_v2.0_sym) where you also see the other `supplemental_XXXX` folders.
 
 <b>Please note</b>: these scripts require installation of [ANTs](https://andysbrainbook.readthedocs.io/en/latest/ANTs/ANTs_Overview.html) (Advanced Normalization Tools)
 <br> <br>
