@@ -12,7 +12,7 @@ NMTVERSION='NMT_v2.0'
 NMTTYPE1='NMT_v2.0_asym'
 NMTTYPE2='NMT_v2.0_asym'
 
-PARPROC=8
+PARPROC=4
 
 # Function to run the registration for a subject
 run_rois() {
