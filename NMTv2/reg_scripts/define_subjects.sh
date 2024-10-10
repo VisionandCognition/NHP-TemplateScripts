@@ -92,15 +92,31 @@ case $SUBTYPE in
 	  ;;
 	current)
 	  declare -a SUBS=(
-      subject
+      LXVI_T2w_nohp
+      LXVI_T2w_hp
+      LXVI_T1w_nohp
+      LXVI_T1w_hp
 	  )
+    ;;
+  current_t1)
+    declare -a SUBS=(
+      LXVI_T1w_nohp
+      LXVI_T1w_hp
+    )  
 	  ;;
+  current_t2)
+    declare -a SUBS=(
+      LXVI_T2w_nohp
+      LXVI_T2w_hp
+    )  
+    ;;  
 	*)
 	  echo No valid subject type selected
 	  ;;
 esac
 
+echo 'Subjects include:'
 for S in "${SUBS[@]}"
 do
-  echo Subjects include $S
+  echo $S
 done

@@ -3,14 +3,15 @@
 # set the location of the scripts folder
 script_dir=$(realpath $(dirname $0))
 ssreg_dir=$(dirname $script_dir)
-
+chmod +x ${ssreg_dir}/*.sh # make sure all scripts can be executed
 echo $ssreg_dir
 
 # create an array with subject names to loop over
-source ${ssreg_dir}/define_subjects.sh
+source ${ssreg_dir}/define_subjects.sh current_t1
 
 # cost function: lpa for T1w, lpc for T2w
 COST=lpa
+# alignment option rigid / rigid_equiv / affine / all
 ALIGN=all
 
 TEMPLATEFLD='/NHP_MRI/Template'

@@ -6,7 +6,7 @@ ssreg_dir=$(dirname $script_dir)
 chmod +x ${ssreg_dir}/*.sh # make sure all scripts can be executed
 
 # create an array with subject names to loop over
-source ${ssreg_dir}/define_subjects.sh 'all'
+source ${ssreg_dir}/define_subjects.sh current_t2
 
 TEMPLATEFLD='/NHP_MRI/Template'
 NMTVERSION='NMT_v2.0'

@@ -54,8 +54,9 @@ mkdir -p ${OUTBASE}/aw_log
       -ok_to_exist \
       -outdir ${OUTBASE}/aligned_${SUB} \
       -cost ${COST} \
-      -align_centers_meth cm \
-      -supersize \
+      -aff_move_opt big_move
+      #-align_centers_meth cm \
+      #-supersize \
       |& tee ${OUTBASE}/aw_log/o.aw_${SUB}.txt
 
 # copy the SARM/CHARM tables
