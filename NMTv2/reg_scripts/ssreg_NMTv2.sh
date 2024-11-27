@@ -9,7 +9,7 @@ SUB=${1}
 COST=${2}
 ALIGN=${3}
 
-TEMPLATEFLD=${4:-'/NHP_MRI/Template'}
+TEMPLATEFLD=${4:-'/NHP_MRI/TEMPLATES/Templates'}
 NMTVERSION=${5:-'NMT_v2.0'}
 NMTTYPE1=${6:-'NMT_v2.0_sym'}
 NMTTYPE2=${7:-'NMT_v2.0_sym'}

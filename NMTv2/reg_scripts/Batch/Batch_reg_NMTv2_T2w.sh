@@ -11,7 +11,7 @@ source ${ssreg_dir}/define_subjects.sh 'T2w'
 COST=lpc
 ALLIGN=all
 
-TEMPLATEFLD='/NHP_MRI/Template'
+TEMPLATEFLD='/NHP_MRI/TEMPLATES/Template'
 NMTVERSION='NMT_v2.0'
 NMTTYPE1='NMT_v2.0_asym'
 NMTTYPE2='NMT_v2.0_asym'

@@ -2,7 +2,7 @@
 # Apply transforms to ONPRC18
 # Requires ANTs
 
-TEMPLATEFLD=${1:-'/NHP_MRI/Template'}
+TEMPLATEFLD=${1:-'/NHP_MRI/TEMPLATES/Template'}
 NMTVERSION=${2:-'NMT_v2.0'}
 NMTTYPE1=${3:-'NMT_v2.0_asym'}
 NMTTYPE2=${4:-'NMT_v2.0_asym'}

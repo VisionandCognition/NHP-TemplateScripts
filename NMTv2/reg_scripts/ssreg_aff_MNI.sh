@@ -5,7 +5,7 @@
 # =========================
 SUB=$1
 COST=$2
-TEMPLATEFLD=${3:-'/NHP_MRI/Template'}
+TEMPLATEFLD=${3:-'/NHP_MRI/TEMPLATES/Templates'}
 NMTVERSION=${4:-'NMT_v2.0'}
 NMTTYPE1=${5:-'NMT_v2.0_sym'}
 NMTTYPE2=${6:-'NMT_v2.0_sym'}

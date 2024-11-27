@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLD=/NHP_MRI/Template
+FLD=/NHP_MRI/TEMPLATES/Template
 TARG=${FLD}/NMT_v2.0/NMT_v2.0_sym/NMT_v2.0_sym/NMT_v2.0_sym.nii.gz
 D99v2_atlas=${FLD}/D99_v2.0/D99_atlas_v2.0.nii.gz
 D99v2_in_TARG=${FLD}/NMT_v2.0/NMT_v2.0_sym/NMT_v2.0_sym/D99v2_atlas_in_NMT_v2.0_sym.nii.gz

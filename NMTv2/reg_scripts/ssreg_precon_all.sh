@@ -13,7 +13,7 @@ REGTYPE=$2
 # the ssreg_aff_ROIs.sh script first.
 # =========================
 
-TEMPLATEFLD=${3:-'/NHP_MRI/Template'}
+TEMPLATEFLD=${3:-'/NHP_MRI/TEMPLATES/Templates'}
 NMTVERSION=${4:-'NMT_v2.0'}
 NMTTYPE1=${5:-'NMT_v2.0_asym'}
 

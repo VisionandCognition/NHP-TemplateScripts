@@ -2,7 +2,7 @@
 
 # call with subject name as argument
 SUB=$1
-TEMPLATEFLD=${2:-'/NHP_MRI/Template'}
+TEMPLATEFLD=${2:-'/NHP_MRI/TEMPLATES/Templates'}
 NMTVERSION=${3:-'NMT_v2.0'}
 NMTTYPE1=${4:-'NMT_v2.0_sym'}
 NMTTYPE2=${5:-'NMT_v2.0_sym'}

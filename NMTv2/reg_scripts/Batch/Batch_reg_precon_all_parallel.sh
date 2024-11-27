@@ -15,7 +15,7 @@ source ${ssreg_dir}/define_subjects.sh
 # the ssreg_aff_ROIs.sh script first.
 REGTYPE=nlin # [nlin]/aff/both
 
-TEMPLATEFLD='/NHP_MRI/Template'
+TEMPLATEFLD='/NHP_MRI/TEMPLATES/Templates'
 NMTVERSION='NMT_v2.0'
 NMTTYPE1='NMT_v2.0_asym'
 
