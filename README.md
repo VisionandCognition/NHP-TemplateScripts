@@ -64,6 +64,7 @@ mri_convert -i Aapie.nii.gz -o Aapie_RAS.nii.gz --sphinx
 </details>
 
 <br>
+[20250101] Currently, I tend to put the single-subject data in ACPC orientation using Slicer before continuing with this pipeline. It puts the native space in somewhat of a standard orientation which increases compatibility with other software packages. Instructions on how to do this still need to be written.    
 
 After doing this create a `SingleSubjects` folder in the NMT folder you intend to use, e.g. `<where-you-want>/NMT_v2.0/NMT_v2.0_sym/SingleSubjects`. Within this folder, make an input folder 
 `<where-you-want>/NMT_v2.0/NMT_v2.0_sym/SingleSubjects/input_files` where you copy the roughly correctly oriented and cropped nifti file of your individual as `SubjectName.nii.gz`. The scripts will assume that the entire filename (without the `.nii.gz` extension) is the subject name and will treat it as such. Once this is all set up, you're all set to run the scripts below! 
