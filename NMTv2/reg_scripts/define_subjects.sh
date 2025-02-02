@@ -21,6 +21,7 @@ case $SUBTYPE in
       # Martin2021
       # Martin2023
       # Martin2023us
+      # Mina
       # MrNilson
       # Ozzy
       # Puck
@@ -31,7 +32,8 @@ case $SUBTYPE in
       # Diego2018
       # Pitt_20230912
       # Diego2024
-      Danny20231017
+      # Danny20231017
+      # Yoko
     )
       ;;
   T2w)
@@ -90,21 +92,21 @@ case $SUBTYPE in
       # Kid
       # 1MM015
       # CIA073
-      Diego2024
-      Diego2024_T2w
+      # Diego2024
+      # Diego2024_T2w
 	  )
 	  ;;
 	current)
 	  declare -a SUBS=(
       # Falk
-      Danny20231017
-      Danny20231017_T2w
+      # Danny20231017
+      # Danny20231017_T2w
 	  )
     ;;
   current_t1)
     declare -a SUBS=(
-      LXVI_T1w_nohp
-      LXVI_T1w_hp
+      Mina
+      Yoko
     )  
 	  ;;
   current_t2)
