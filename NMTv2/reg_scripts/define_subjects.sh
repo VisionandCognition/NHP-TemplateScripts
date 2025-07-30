@@ -98,9 +98,7 @@ case $SUBTYPE in
 	  ;;
 	current)
 	  declare -a SUBS=(
-      # Falk
-      # Danny20231017
-      # Danny20231017_T2w
+      Brutus
 	  )
     ;;
   current_t1)
