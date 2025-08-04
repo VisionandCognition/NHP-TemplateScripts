@@ -310,7 +310,7 @@ bash ssreg_nlin_ONPRC18.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.
 <br>
 
 ## Step 8: Create Freesurfer compatible surfaces
-For later processing and/or visualisation, for instance with packages like [NHP-Pycortex](https://github.com/VisionandCognition/NHP-pycortex) it can be useful to generate [Freesurfer](https://surfer.nmr.mgh.harvard.edu/) compatible surfaces and segmentations. This is not trivial for non-human brains. With a package like [NHP-Freesurfer](https://github.com/VisionandCognition/NHP-Freesurfer) you can do this but it requires a fair bit of manual editing. A fast alternative we have implemented here is to use the [precon_all](https://github.com/neurabenn/precon_all) package. It is fully automated and Freesurfer compatible, but results may vary. We created two pipelines one that does everything automatically [ssreg_precon_all.sh] and one that requires a couple more intermediate manual steps but generating nicer results. 
+For later processing and/or visualisation, for instance with packages like [NHP-Pycortex](https://github.com/VisionandCognition/NHP-pycortex) it can be useful to generate [Freesurfer](https://surfer.nmr.mgh.harvard.edu/) compatible surfaces and segmentations. This is not trivial for non-human brains. With a package like [NHP-Freesurfer](https://github.com/VisionandCognition/NHP-Freesurfer) you can do this but it requires a fair bit of manual editing. A fast alternative we have implemented here is to use the [precon_all](https://github.com/neurabenn/precon_all) package. It is fully automated and Freesurfer compatible, but results may vary. We created two pipelines one that does everything automatically `ssreg_precon_all.sh` and one that requires a couple more intermediate manual steps and running through both `ssreg_precon2.sh` and `ssreg_precon3.sh`.
 
 To use it the more **automatic** pipeline:
 
@@ -385,7 +385,7 @@ The precon scripts will pick up this manual mask and use it instead for the rema
 
 (6) Rerun the precon2 step, with the segmentation from your manual mask(s)
 <details>
-<summary>Example code running the precon_2 script with our default positional arguments</summary>
+<summary>Example code running the precon_2 script</summary>
 <pre>$ You will find the outputs in the ../seg and ../mri subfolders, a data-structure that freesurfer uses  
 $ subject = 'Aapie'
 bash ssreg_precon2.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym Yes
@@ -396,19 +396,16 @@ bash ssreg_precon2.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym Yes
 
 (7) Run the precon3 step which applies tesselation and inflates the brain
 <details>
-<summary>Example code running the precon_3 script with our default positional arguments</summary>
+<summary>Example code running the precon_3 script</summary>
 <pre>$ You will find the outputs in the ../seg and ../mri subfolders, a data-structure that freesurfer uses  
 $ subject = 'Aapie'
 bash ssreg_precon3.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym
 </pre>
 </details>
 
-
-
-![precon_all](images/precon_all.png)
-Visualizations of the surfaces and segmentations generated in [Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
-
 <br>
+
+(8) Visualize the inflated surfaces to check your outputs (this can be done after the automatic and manual pipelines)
 <details>
 <summary>Example code to visualize segmentations and surfaces in freeview </summary>
 
@@ -425,12 +422,77 @@ freeview -f ./surf/lh.sphere:curvature_method=binary
 </pre>
 </details>
 
-## WIP
-Check your mask
-  fsleyes Aapie.nii.gz Aapie_mask.nii.gz
-Manually edit, if there are issues with the brain extraction (temporal lobe cut off, occipital lobe includes dura, eyes partially included)
-Can do this by selecting Tools -> Edit Mode, Use 3D erase/brush, shift + mouse wheel to go through slices
-fslmaths Aapie.nii.gz -mas Aapie_mask_fixed.nii.gz Aapie_brain.nii.gz (skull strip based on manual edits)
-BrainEX option 'Yes', 'No'
+<br>
+
+![precon_all](images/precon_all.png)
+Visualizations of the surfaces and segmentations generated in [Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
+
+<br>
+
+## Step 9: Generate flatmaps through Freesurfer tools
+After generating the freesurfer compatible surfaces in step 8, it's possible to generate flatmaps based on these surfaces. We found that it requires a fair bit of polishing and
+that there's no one-size-fits-all approach. Here is an outline of our workflow:
+
+(1) First visualize the inflated surface that you would like to use for flatmap generation in freeview
+<details>
+<summary>Example code to visualize segmentations and surfaces in freeview </summary>
+<pre>
+$ To visualize the inflated right hemisphere:
+  
+freeview -f ./surf/rh.inflated:curvature_method=binary
+</pre>
+</details>
+
+<br>
+
+![Flatmap_Gen1](images/Flatmap_Gen1.png)
+The inflated flatmap with the cutting/editing tools in the left ribbon
+
+(2) Make five 'relax cuts' and a single 'closed cut', this can be done by using cutting options in Freeview
+You can click on the surface and generate a line of points that can subsequently be cut
+
+<br>
+
+![Flatmap_Gen2](images/Flatmap_Gen2.png)
+The inflated flatmap with the five relax cuts and a single closed cut
+
+(3) After applying the cuts, move the cursor to the patch that you would like to keep (the lateral brain, rather than the medial patch).
+You can now apply the 'fill uncut area' option to get rid of the smaller patches
+
+<br>
+
+![Flatmap_Gen3](images/Flatmap_Gen3.png)
+Visualization of the inflated flatmap with the medial patch removed
+
+(4) Save the patch in the ../surf folder as a *.3d file
+
+<br>
+
+![Flatmap_Gen4](images/Flatmap_Gen4.png)
+Saving the obtained patch as a *.3d file that will be used in the flattening step.
+
+<br>
+
+(5) Flatten the obtained patch by using the `mris_flatten` algorithm from freesurfer
+It will take a while to generate the full flatmap (30 minutes). We've noticed that misfolding can happen if the distance parameters are not 
+specified correctly. It's better to use relatively high values for the distances (20 20 for example). Misfolding can also happen because of holes
+or spikes in the segmentation surface, in which case it's better to return to Step 8 (Create Freesurfer compatible surfaces)
+
+<details>
+<summary>Example code to flatten the inflated hemisphere </summary>
+<pre>
+$ Apply flattening to the left hemisphere
+mris_flatten -w 0 -distances 20 20 lh.full.patch.3d lh.full.patch.flat
+
+  $ Apply flattening to the right hemisphere
+mris_flatten -w 0 -distances 20 20 rh.full.patch.3d rh.full.patch.flat
+</pre>
+</details>
+
+
+
+
+
+
 
 
