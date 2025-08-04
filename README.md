@@ -357,6 +357,32 @@ bash ssreg_precon2.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym Yes
 </pre>
 </details>
 
+<br>
+
+(4) The script generated segmentations in different folders in the aligned_Aapie/freesurfer directory.
+Each of these folders contains a ../seg, ../mri and ../surf subdirectory.
+It is wise to check the white matter segmentation, which you can manually alter if you see large deviations
+<details>
+<summary>FSLeyes to check the segmentation</summary>
+<pre>$ You will find the outputs in the ../mri subfolder
+fsleyes wm_orig.nii.gz T1.nii.gz
+</pre>
+</details>
+
+<br>
+
+![FSLeyes_temporallobe](images/FSLeyes_temporallobe.png)
+**FSLeyes with a mask of the segmentation (wm_orig.nii.gz) on top of the T1 image.** Change the opacity of the mask and use Tools > Edit Mode to make modifications.
+Once you're happy with this mask, save it as wm_hand_edit.nii.gz
+
+(5) Alter your segmentation if you think you can improve your image and save it in the same folder as wm_hand_edit.nii.gz.
+The precon scripts will pick up this manual mask and use it instead for the remainder of the workflow
+
+<br>
+
+(6)
+
+
 ![precon_all](images/precon_all.png)
 Visualizations of the surfaces and segmentations generated in [Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
 
