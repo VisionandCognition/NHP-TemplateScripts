@@ -344,7 +344,7 @@ or dura/bone tissue if it's included in the mask
 
 ![FSLeyes_temporallobe](images/FSLeyes_temporallobe.png)
 **FSLeyes with a mask on top NMT2_in_Aapie.** Change the opacity of the mask and use Tools > Edit Mode to make modifications.
-Once you're happy with this mask, save it as Aapie_mask_edit.nii.gz
+Once you're happy with this mask, save it as Aapie_mask_edit.nii.gz.
 
 <br>
 
@@ -371,16 +371,38 @@ fsleyes wm_orig.nii.gz T1.nii.gz
 
 <br>
 
-![FSLeyes_temporallobe](images/FSLeyes_temporallobe.png)
+![FSLeyes_segmentation](images/Segmentation_Check_FSLeyes.png)
 **FSLeyes with a mask of the segmentation (wm_orig.nii.gz) on top of the T1 image.** Change the opacity of the mask and use Tools > Edit Mode to make modifications.
-Once you're happy with this mask, save it as wm_hand_edit.nii.gz
+Once you're happy with this mask, save it as wm_hand_edit.nii.gz. In this example the segmentation erroneously included an artery as white matter.
+Other things to check are patchy parts of white matter in the occipital cortex.
+
+<br>
 
 (5) Alter your segmentation if you think you can improve your image and save it in the same folder as wm_hand_edit.nii.gz.
 The precon scripts will pick up this manual mask and use it instead for the remainder of the workflow
 
 <br>
 
-(6)
+(6) Rerun the precon2 step, with the segmentation from your manual mask(s)
+<details>
+<summary>Example code running the precon_2 script with our default positional arguments</summary>
+<pre>$ You will find the outputs in the ../seg and ../mri subfolders, a data-structure that freesurfer uses  
+$ subject = 'Aapie'
+bash ssreg_precon2.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym Yes
+</pre>
+</details>
+
+<br>
+
+(7) Run the precon3 step which applies tesselation and inflates the brain
+<details>
+<summary>Example code running the precon_3 script with our default positional arguments</summary>
+<pre>$ You will find the outputs in the ../seg and ../mri subfolders, a data-structure that freesurfer uses  
+$ subject = 'Aapie'
+bash ssreg_precon3.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym
+</pre>
+</details>
+
 
 
 ![precon_all](images/precon_all.png)
