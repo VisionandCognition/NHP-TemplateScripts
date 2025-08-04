@@ -310,7 +310,9 @@ bash ssreg_nlin_ONPRC18.sh Aapie /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym NMT_v2.
 <br>
 
 ## Step 8: Create Freesurfer compatible surfaces
-For later processing and/or visualisation, for instance with packages like [NHP-Pycortex](https://github.com/VisionandCognition/NHP-pycortex) it can be useful to generate [Freesurfer](https://surfer.nmr.mgh.harvard.edu/) compatible surfaces and segmentations. This is not trivial for non-human brains. With a package like [NHP-Freesurfer](https://github.com/VisionandCognition/NHP-Freesurfer) you can do this but it requires a fair bit of manual editing. A fast alternative we have implemented here is to use the [precon_all](https://github.com/neurabenn/precon_all) package. It is fully automated and Freesurfer compatible, but results may vary. To use it:
+For later processing and/or visualisation, for instance with packages like [NHP-Pycortex](https://github.com/VisionandCognition/NHP-pycortex) it can be useful to generate [Freesurfer](https://surfer.nmr.mgh.harvard.edu/) compatible surfaces and segmentations. This is not trivial for non-human brains. With a package like [NHP-Freesurfer](https://github.com/VisionandCognition/NHP-Freesurfer) you can do this but it requires a fair bit of manual editing. A fast alternative we have implemented here is to use the [precon_all](https://github.com/neurabenn/precon_all) package. It is fully automated and Freesurfer compatible, but results may vary. We created two pipelines one that does everything automatically [ssreg_precon_all.sh] and one that requires a couple more intermediate manual steps but generating nicer results. 
+
+To use it the more **automatic** pipeline:
 
 `ssreg_precon_all.sh subject regtype [template folder path] [NMT version] [NMT type]`
 
@@ -325,6 +327,35 @@ bash ssreg_precon_all.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym
 </details>
 
 <br>
+
+To use the more **manual** pipeline:
+<br>
+(1) First check the quality of your mask
+<details>
+<summary>FSLeyes to check the mask</summary>
+<pre>$ You will find your mask in the main aligned_Aapie folder
+$ subject = 'Aapie'
+fsleyes NMT2_in_Aapie.nii.gz Aapie.nii.gz Aapie_mask.nii.gz
+</pre>
+</details>
+
+(2) Edit your mask if necessary: we recommend doing so in FSLeyes, in particular around the occipital and temporal lobe (drop-out) and by cutting the eyes
+or dura/bone tissue if it's included in the mask
+
+![FSLeyes_temporallobe](images/FSLeyes_temporallobe.png)
+**FSLeyes with a mask on top NMT2_in_Aapie.** Change the opacity of the mask and use Tools > Edit Mode to make modifications.
+Once you're happy with this mask, save it as Aapie_mask_edit.nii.gz
+
+<br>
+
+(3) Run the first part of the precon scripts (precon 2), which performs denoising and segmentation
+<details>
+<summary>Example code running the precon_2 script with our default positional arguments</summary>
+<pre>$ You will find the outputs in the ../seg and ../mri subfolders, a data-structure that freesurfer uses  
+$ subject = 'Aapie', indicate 'Yes' to use the previously defined mask (no if you would like precon_all to do brain extraction)
+bash ssreg_precon2.sh Aapie both /NHP_MRI/Template NMT_v2.0 NMT_v2.0_sym Yes
+</pre>
+</details>
 
 ![precon_all](images/precon_all.png)
 Visualizations of the surfaces and segmentations generated in [Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall)
@@ -345,3 +376,13 @@ $ To visualize the left hemisphere as a sphere:
 freeview -f ./surf/lh.sphere:curvature_method=binary
 </pre>
 </details>
+
+## WIP
+Check your mask
+  fsleyes Aapie.nii.gz Aapie_mask.nii.gz
+Manually edit, if there are issues with the brain extraction (temporal lobe cut off, occipital lobe includes dura, eyes partially included)
+Can do this by selecting Tools -> Edit Mode, Use 3D erase/brush, shift + mouse wheel to go through slices
+fslmaths Aapie.nii.gz -mas Aapie_mask_fixed.nii.gz Aapie_brain.nii.gz (skull strip based on manual edits)
+BrainEX option 'Yes', 'No'
+
+
