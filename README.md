@@ -429,7 +429,7 @@ Visualizations of the surfaces and segmentations generated in [Freeview](https:/
 
 <br>
 
-## Step 9: Generate flatmaps through Freesurfer tools
+## Step 9: Generate Flatmaps through Freesurfer tools
 After generating the freesurfer compatible surfaces in step 8, it's possible to generate flatmaps based on these surfaces. We found that it requires a fair bit of polishing and
 that there's no one-size-fits-all approach. Here is an outline of our workflow:
 
@@ -479,12 +479,12 @@ specified correctly. It's better to use relatively high values for the distances
 or spikes in the segmentation surface, in which case it's better to return to Step 8 (Create Freesurfer compatible surfaces)
 
 <details>
-<summary>Example code to flatten the inflated hemisphere </summary>
+<summary>Example code to flatten the inflated hemispheres </summary>
 <pre>
 $ Apply flattening to the left hemisphere
 mris_flatten -w 0 -distances 20 20 lh.full.patch.3d lh.full.patch.flat
-
-  $ Apply flattening to the right hemisphere
+<br>
+$ Apply flattening to the right hemisphere
 mris_flatten -w 0 -distances 20 20 rh.full.patch.3d rh.full.patch.flat
 </pre>
 </details>
