@@ -12,8 +12,8 @@ source ${ssreg_dir}/define_subjects.sh ${subjects}
 
 TEMPLATEFLD='/NHP_MRI/TEMPLATES/Templates'
 NMTVERSION='NMT_v2.0'
-NMTTYPE1='NMT_v2.0_sym'
-NMTTYPE2='NMT_v2.0_sym'
+NMTTYPE1='NMT_v2.0_asym'
+NMTTYPE2='NMT_v2.0_asym'
 
 # loop over subjects
 for S in "${SUBS[@]}"

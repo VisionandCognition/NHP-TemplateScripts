@@ -11,8 +11,8 @@ ALIGN=${3}
 
 TEMPLATEFLD=${4:-'/NHP_MRI/TEMPLATES/Templates'}
 NMTVERSION=${5:-'NMT_v2.0'}
-NMTTYPE1=${6:-'NMT_v2.0_sym'}
-NMTTYPE2=${7:-'NMT_v2.0_sym'}
+NMTTYPE1=${6:-'NMT_v2.0_asym'}
+NMTTYPE2=${7:-'NMT_v2.0_asym'}
 
 # =========================
 BASENMT=${TEMPLATEFLD}/${NMTVERSION}/${NMTTYPE1}
@@ -54,9 +54,7 @@ mkdir -p ${OUTBASE}/aw_log
       -ok_to_exist \
       -outdir ${OUTBASE}/aligned_${SUB} \
       -cost ${COST} \
-      -aff_move_opt big_move
-      #-align_centers_meth cm \
-      #-supersize \
+      -aff_move_opt big_move \
       |& tee ${OUTBASE}/aw_log/o.aw_${SUB}.txt
 
 # copy the SARM/CHARM tables

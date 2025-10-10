@@ -14,9 +14,11 @@ case $SUBTYPE in
       # Eddy
       # Eddy2019
       # Figaro
+      # Galileo
       # Kwibus
       # Kwibus2015
       # Lick
+      # Louie
       # Martin
       # Martin2021
       # Martin2023
@@ -43,7 +45,9 @@ case $SUBTYPE in
 	    # Martin2023_T2wus
       # Diego2024_T2w
       # Diego2024_T2wus
-      Danny20231017_T2w
+      # Danny20231017_T2w
+      # Galileo_T2w
+      # Louie_T2w
 	    )
 	  ;;
 	MIRCen)
@@ -59,29 +63,36 @@ case $SUBTYPE in
 	  ;;
 	all)
 	  declare -a SUBS=(
-      # Aston
-      # Brutus
-      # Danny
-      # Danny2021
-      # Danny2022
-      # Dasheng
-      # Eddy
-      # Eddy2019
-      # Figaro
-      # Kwibus
-      # Kwibus2015
-      # Lick
-      # Martin
-      # Martin2021
-      # Martin2023
-      # Martin2023us
-      # MrNilson
-      # Ozzy
-      # Puck
-      # Spike
-      # Toucan
-      # Tsitian
-      # Watson
+      Brutus
+      Butch
+      Danny
+      Danny2021
+      Danny2022
+      Danny20231017
+      Danny20231017_T2w
+      Dasheng
+      Eddy
+      Eddy2019
+      Figaro
+      Figaro_T2w
+      Keane
+      Kid
+      Kwibus
+      Kwibus2015
+      Martin
+      Martin2021
+      Martin2023
+      Martin2023us
+      Martin2023_T2w
+      Martin2023_T2wus
+      MrNilson
+      Ozzy
+      Puck
+      Scholes
+      Spike
+      Toucan
+      Tsitian
+      Watson
       # Diego2018
       # Figaro_T2w
       # Martin2023_T2w
@@ -103,14 +114,14 @@ case $SUBTYPE in
     ;;
   current_t1)
     declare -a SUBS=(
-      Mina
-      Yoko
+      Louie
+      Galileo
     )  
 	  ;;
   current_t2)
     declare -a SUBS=(
-      LXVI_T2w_nohp
-      LXVI_T2w_hp
+      Louie_T2w
+      Galileo_T2w
     )  
     ;;  
 	*)
