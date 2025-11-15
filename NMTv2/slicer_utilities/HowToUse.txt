@@ -1,0 +1,26 @@
+# Converting atlas segmentations to sensible anatomical names
+
+When you load an atlas from our template alignment pipeline into slicer as a segmentation module, the segments have names that are generated based on their numerical value, e.g. Segment_1, Segment_2, etc. You can look for the interpretation of these numbers in the atlas table files (see folders tables_CHARM, tables_SARM, and tables_D99).
+
+Alternatively, you can use these scripts in the Slicer Python interpreter to convert the segment names into their corresponding description from the tables.
+
+How to use:
+
+- Load the atlas file (aligned to the single subject) into Slicer as a Segmentation.
+	- The CHARM and SARM atlasses are hierarchical so select the appropriate parcellation level, e.g. CHARM_{level}_in_{SUBJECT}.nii.gz (higher levels are finer parcellations)
+- Rename the segmentation as follows:
+	- D99v2 (for D99v2_atlas_in_NMT_v2.0_asym_in_{SUBJECT}.nii.gz) 
+	- CHARM_{level} (for CHARM_{level}_in_{SUBJECT}.nii.gz) 
+	- SARM_{level} (for SARM_{level}_in_{SUBJECT}.nii.gz) 
+- Load the corresponding table csv file from the tables folder into Slicer as a table (all levels of CHARM/SARM are in the same file) 
+	- D99v2_slicer.csv
+	- CHARM_slicer.csv
+	- SARM_slicer.csv
+- Run the code from the corresponding script in the Slicer Python console
+	- D99v2_segments-to-labels.py
+	- CHARM_segments-to-labels.py
+	- SARM_segments-to-labels.py
+- You can either copy the full script content into the console or (better) run:
+	- exec(open("{PATH-TO-SCRIPT}/D99v2_segments-to-labels.py").read()) 
+	- exec(open("{PATH-TO-SCRIPT}/CHARM_segments-to-labels.py").read()) 
+	- exec(open("{PATH-TO-SCRIPT}/SARM_segments-to-labels.py").read()) 
