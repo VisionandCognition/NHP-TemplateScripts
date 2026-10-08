@@ -24,3 +24,8 @@ How to use:
 	- exec(open("{PATH-TO-SCRIPT}/D99v2_segments-to-labels.py").read()) 
 	- exec(open("{PATH-TO-SCRIPT}/CHARM_segments-to-labels.py").read()) 
 	- exec(open("{PATH-TO-SCRIPT}/SARM_segments-to-labels.py").read()) 
+
+[CK]
+exec(open("/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/slicer_utilities/scripts/D99v2_segments-to-labels.py").read()) 
+exec(open("/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/slicer_utilities/scripts/CHARM_segments-to-labels.py").read()) 
+exec(open("/MRI_ANALYSIS/NHP-TemplateScripts/NMTv2/slicer_utilities/scripts/SARM_segments-to-labels.py").read()) 

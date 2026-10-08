@@ -69,12 +69,12 @@ cp -R ${BASENMT}/tables_* ${OUTBASE}/aligned_${SUB}/
 3dcalc \
    -a ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_segmentation_in_${SUB}.nii.gz \
    -expr 'within(a,1.9, 2.1)' \
-   -prefix ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_GM-subcort_in_${SUB}.nii.gz \
+   -prefix ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_GM-cort_in_${SUB}.nii.gz \
    -overwrite
 3dcalc \
    -a ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_segmentation_in_${SUB}.nii.gz \
    -expr 'within(a,2.9, 3.1)' \
-   -prefix ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_GM-cort_in_${SUB}.nii.gz \
+   -prefix ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_GM-subcort_in_${SUB}.nii.gz \
    -overwrite
 3dcalc \
    -a ${OUTBASE}/aligned_${SUB}/${NMTTYPE2}_segmentation_in_${SUB}.nii.gz \

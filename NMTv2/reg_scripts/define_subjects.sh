@@ -7,6 +7,7 @@ case $SUBTYPE in
     declare -a SUBS=(
       # Aston
       # Brutus
+      # Brutus2025
       # Danny
       # Danny2021
       # Danny2022
@@ -40,6 +41,7 @@ case $SUBTYPE in
       ;;
   T2w)
     declare -a SUBS=(
+      # Brutus2025_T2w
       # Figaro_T2w
       # Martin2023_T2w
 	    # Martin2023_T2wus
@@ -52,18 +54,25 @@ case $SUBTYPE in
 	  ;;
 	MIRCen)
 	  declare -a SUBS=(
-	    Scholes
-      Keane
-      Butch
-      Kid
-      1MM015
-      CIA073
-      Falck
+	    #Scholes
+      #Keane
+      #Butch
+      #Kid
+      #1MM015
+      #CIA073
+      #Falck
+      #K002
+      #DR145
+      R19023
+      R19025
+      DU617
 	  )
 	  ;;
 	all)
 	  declare -a SUBS=(
       Brutus
+      Brutus2025
+      Brutus2025_T2w
       Butch
       Danny
       Danny2021
@@ -109,19 +118,26 @@ case $SUBTYPE in
 	  ;;
 	current)
 	  declare -a SUBS=(
-      Brutus
+      Dasheng_20260611_T1w
+      Dasheng_20260611_T2w
+      BPRC_21009_T1w
+      BPRC_21009_T2w
+      BPRC_21011_T1w
+      BPRC_21011_T2w
 	  )
     ;;
   current_t1)
     declare -a SUBS=(
-      Louie
-      Galileo
+      Dasheng_20260611_T1w
+      BPRC_21009_T1w
+      BPRC_21011_T1w
     )  
 	  ;;
   current_t2)
     declare -a SUBS=(
-      Louie_T2w
-      Galileo_T2w
+      # Dasheng_20260611_T2w
+      # BPRC_21009_T2w
+      BPRC_21011_T2w
     )  
     ;;  
 	*)
